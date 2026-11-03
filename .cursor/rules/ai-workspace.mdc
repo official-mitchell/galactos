@@ -1,0 +1,12 @@
+---
+description: Always load the Galactos Linear execution plan and write the .ai changelog
+alwaysApply: true
+---
+
+# Galactos agent workspace
+
+At the start of a session, read `.ai/README.md`. It points at `.ai/linear-execution-plan.md` (order of Linear work) and `.ai/CHANGELOG.md`.
+
+- Honor `human-only`, `sequential-only`, `parallel-safe`, and `track:*` as defined in the execution plan.
+- Do not skip Phase 0 or §1.1 (MAX-993) before parallel worktrees.
+- After adding, changing, or removing files, append one dated bullet to `.ai/CHANGELOG.md` (newest date first, add-only).
