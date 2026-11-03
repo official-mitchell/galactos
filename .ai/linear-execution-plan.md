@@ -37,7 +37,7 @@ Worktree labels live on **parent section issues**. Child tickets usually inherit
                     └─► 1.4 Screenshot harness    MAX-996  parallel-safe (also needs 0.3)
 ```
 
-**Phase 0 gate** (milestone *Phase 0 — Pre-Flight*): D1–D11 answered or defaults accepted, hero plate requested, `npm run build` green.
+**Phase 0 gate** (milestone *Phase 0 — Pre-Flight*): D1–D11 answered or defaults accepted, `npm run build` green. Hero plate was cancelled by the owner on 2026-11-03 (checklist §0.2); it is not a gate.
 
 **Phase 1 gate** (milestone *Phase 1 — Repo and Agent Feedback Loop*): `npm run build` green, gates fail on seeded violations, `npm run shot -- --section all` produces a full non-blank set.
 
@@ -82,4 +82,5 @@ Milestones Phase 2–10 exist on the project (design system → motion → narra
 
 ## Changelog (this file)
 
+- 2026-11-03: Owner cancelled the hero-plate gate (MAX-990 / checklist §0.2). Phase 0 gate is now D1–D11 (or defaults) and a green `npm run build`.
 - 2026-11-03: Initial plan from Linear P-MAX-21 (labels, Phase 0→1.1 sequence, first parallel-safe trio).
