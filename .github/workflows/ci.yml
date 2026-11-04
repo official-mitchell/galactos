@@ -1,4 +1,4 @@
-# MAX-995 quality gates. e2e is a placeholder; MAX-996 owns that step.
+# MAX-995 quality gates. MAX-996 e2e is one headless screenshot (hero, 390×844, light), not the 11×4×2 matrix.
 name: ci
 
 on:
@@ -34,9 +34,12 @@ jobs:
         id: build
         run: npm run build
 
+      - name: install playwright chromium
+        run: npx playwright install --with-deps chromium
+
       - name: e2e
         id: e2e
-        run: echo "e2e reserved for MAX-996"
+        run: npm run test:e2e
 
       - name: summary
         if: always()

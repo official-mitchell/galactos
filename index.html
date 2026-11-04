@@ -1,7 +1,22 @@
 <!doctype html>
+<!-- 2026-11-03: MAX-996 applies ?mode= and ?motion= before paint. -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      (function () {
+        var q = new URLSearchParams(location.search);
+        var mode = q.get('mode');
+        var motion = q.get('motion');
+        if (mode === 'dark' || mode === 'light') {
+          document.documentElement.classList.toggle('dark', mode === 'dark');
+          try { localStorage.setItem('galactos-theme', mode); } catch (e) {}
+        }
+        if (motion === 'final' || motion === 'reduced' || motion === 'live') {
+          document.documentElement.setAttribute('data-motion', motion);
+        }
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Galactos</title>
     <!-- 2026-11-03: Plausible snippet from the site install. MAX-1048. -->

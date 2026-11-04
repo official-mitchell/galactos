@@ -1,6 +1,7 @@
 /* 2026-11-03: MAX-994 gates the Preview bar and Style Guide behind import.meta.env.DEV.
    Production keeps the stored-theme / prefers-color-scheme class effect and always shows the landing page.
-   2026-11-03: ported from the Figma Make scratch app. Sections imported by job name (MAX-993). */
+   2026-11-03: ported from the Figma Make scratch app. Sections imported by job name (MAX-993).
+   2026-11-03: MAX-996 honors ?mode= and hides the preview bar when ?shot=1. setMode events stay in dev. */
 import React, { useEffect, useState } from 'react';
 import { SiteHeader } from './components/shell/SiteHeader';
 import { Hero } from './components/sections/Hero';
@@ -19,7 +20,17 @@ import { StyleGuide } from './components/StyleGuide';
 
 type Page = 'landing' | 'styleguide';
 
+function readQueryMode(): 'dark' | 'light' | null {
+  try {
+    const mode = new URLSearchParams(window.location.search).get('mode');
+    if (mode === 'dark' || mode === 'light') return mode;
+  } catch {}
+  return null;
+}
+
 function getInitialDark(): boolean {
+  const flagged = typeof window !== 'undefined' ? readQueryMode() : null;
+  if (flagged) return flagged === 'dark';
   try {
     const stored = localStorage.getItem('galactos-theme');
     if (stored === 'dark') return true;
@@ -29,6 +40,15 @@ function getInitialDark(): boolean {
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   }
   return false;
+}
+
+function hidePreviewForShot(): boolean {
+  if (!import.meta.env.DEV || typeof window === 'undefined') return false;
+  try {
+    return new URLSearchParams(window.location.search).get('shot') === '1';
+  } catch {
+    return false;
+  }
 }
 
 function getInitialPage(): Page {
@@ -46,6 +66,7 @@ export default function App() {
   const [page, setPage] = useState<Page>(() =>
     typeof window !== 'undefined' ? getInitialPage() : 'landing'
   );
+  const hidePreviewBar = hidePreviewForShot();
 
   /* Apply dark class + persist */
   useEffect(() => {
@@ -59,6 +80,17 @@ export default function App() {
     if (!import.meta.env.DEV) return;
     history.replaceState(null, '', page === 'styleguide' ? '#styleguide' : '#');
   }, [page]);
+
+  /* Dev capture bridge can switch mode without remounting. */
+  useEffect(() => {
+    if (!import.meta.env.DEV) return;
+    const onMode = (event: Event) => {
+      const mode = (event as CustomEvent<string>).detail;
+      if (mode === 'dark' || mode === 'light') setIsDark(mode === 'dark');
+    };
+    window.addEventListener('galactos:set-mode', onMode);
+    return () => window.removeEventListener('galactos:set-mode', onMode);
+  }, []);
 
   /* System preference */
   useEffect(() => {
@@ -81,7 +113,7 @@ export default function App() {
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--surface-base)' }}>
 
       {/* ── Dev utility bar (stripped from the production bundle) ── */}
-      {import.meta.env.DEV && (
+      {import.meta.env.DEV && !hidePreviewBar && (
       <div
         style={{
           position: 'sticky',

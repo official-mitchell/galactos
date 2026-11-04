@@ -9,3 +9,9 @@ dist/
 *.tsbuildinfo
 *.log
 .DS_Store
+# MAX-996 generated captures. Keep .shots/README.md. Committed smoke baseline lives under tests/.
+.shots/**
+!.shots/README.md
+test-results/
+playwright-report/
+blob-report/

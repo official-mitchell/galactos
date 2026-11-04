@@ -17,6 +17,8 @@ Format:
 ---
 
 ## 2026-11-03
+- [cursor-grok] MAX-996 follow-up: `npm run shot -- --section all` wrote 88 non-blank PNGs. Checklist §1.4 item 12 is checked. Shots stay gitignored.
+- [cursor-grok] MAX-996: screenshot harness (`npm run shot`, `npm run compare`, dev `window.__galactos`, Playwright smoke at 390×844 light). CI e2e runs that one screenshot, not the 11×4×2 matrix. `.shots/` PNGs are gitignored; the first local shot copies `.shots/baseline/`. The committed `toHaveScreenshot` baseline was generated on macOS (`darwin`); Ubuntu CI will miss it until `npm run shot:update` is run on Linux.
 - [cursor-grok] MAX-995: added `lint:tokens` with a pre-token baseline, seed tests, `typecheck`, and a PR workflow (typecheck → lint:tokens → test:lint-tokens → build → e2e placeholder for MAX-996).
 - [cursor-grok] MAX-994: Preview bar and Style Guide render only when `import.meta.env.DEV`. Production keeps the theme class effect and always shows the landing page. Deleted unused `LandingPlaceholder.tsx`.
 - [cursor-grok] Opened Phase 1 worktrees A and B for MAX-994 and MAX-995. Ignored `.worktrees/`. MAX-996 stays until those two merge.

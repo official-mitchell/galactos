@@ -1,5 +1,6 @@
 <!-- 2026-11-03: MAX-995 checked off §1.3. typecheck, lint:tokens (baseline + seed), and ci.yml are in place. e2e stays a placeholder for MAX-996. -->
 <!-- 2026-11-03: MAX-994 checked off §1.2. Preview bar and Style Guide are dev-only; LandingPlaceholder removed. -->
+<!-- 2026-11-03: MAX-996 checked the harness items that are implemented. Item 12 (full 11×4×2 non-blank matrix) stays open until that command is run. CI smoke is one screenshot. -->
 <!-- 2026-11-03: Owner closed the Phase 1 gate. Hero = galactos-mock-hero.png. Reliability diagnostic = galactos-mock-reliability-diagnostic.png. Verified completion = galactos-mock-component-success.png. Reported versus verified = galactos-mock-done.png. Plus Dev Mode file iGhSTY4TzNtuGE3rDQNO3C node 1:3. -->
 <!-- 2026-11-03: §0.4 scratch app is instructions/context/Galactos • Figma Make - Landing Page/. Make layouts are not the visual target. Parity is mocks in instructions/design/mocks/ plus Dev Mode file iGhSTY4TzNtuGE3rDQNO3C node 1:3. Recorded on MAX-992 and MAX-993. -->
 <!-- 2026-11-03: §0.2 owner decisions — hero plate cancelled; favicon is the G tile (no ring + Cobalt dot); 48×48 icon skipped; OG source is assets/Galactos-OG.png; mocks live in instructions/design/mocks/. design/refs/ cancelled; R1–R5 stay in Figma (file key V2K9MFBI5DHBZPlnK0wag3) via the Figma MCP. -->
@@ -114,19 +115,19 @@ Produces: `typecheck`, `format`, `lint:tokens`, CI pipeline
 Requires: 1.1 complete, 0.3 complete
 Produces: `npm run shot` / `npm run compare`, `AGENTS.md` loop, deterministic captures
 
-- [ ] 1. `playwright.config.ts`: `webServer` starts `npm run dev`; projects 1440×900, 1280×720, 768×1024, 390×844; `colorScheme` light + dark
-- [ ] 2. Query flags: `?motion=final` (all timelines `progress(1)`, loops frozen), `?motion=reduced`, `?mode=dark|light`
-- [ ] 3. `window.__galactos = { ready, seek(sectionId, p), setMode(m) }` for dev only
-- [ ] 4. `scripts/shot.ts`: `npm run shot -- --section <id|all> --w 1440 --h 900 --mode light|dark|both --motion final|reduced|live`
-- [ ] 5. Wait gates before capture: `document.fonts.ready`, images decoded, `ScrollTrigger.refresh()`, network idle
-- [ ] 6. Output `.shots/<section>@<w>x<h>.<mode>.png` + `manifest.json` (git sha, viewport, console errors)
-- [ ] 7. `scripts/compare.ts`: `npm run compare -- --section s2` → side-by-side `design/mocks/s2.png | .shots/s2…png`
-- [ ] 8. `AGENTS.md` loop: edit → `npm run shot` for the touched section at 1440 + 390, both modes → Read the PNG → compare to mock → fix → repeat (max 5 passes, then report gaps)
-- [ ] 9. 🧪 `toHaveScreenshot` on final-state shots, `maxDiffPixelRatio` 0.01; baseline updates only via `npm run shot:update`
-- [ ] 10. 🧪 Any console error/warning during capture fails the run
-- [ ] 11. Capture Make baseline (pre-edit) to `.shots/baseline/` for before/after comparison
-- [ ] 12. 🔍 Run `npm run shot -- --section all` → 11 sections × 4 viewports × 2 modes produced, none blank
-- [ ] 13. 👁 `manifest.json` records timings and console output per capture
+- [x] 1. `playwright.config.ts`: `webServer` starts `npm run dev`; projects 1440×900, 1280×720, 768×1024, 390×844; `colorScheme` light + dark
+- [x] 2. Query flags: `?motion=final` (all timelines `progress(1)`, loops frozen), `?motion=reduced`, `?mode=dark|light`
+- [x] 3. `window.__galactos = { ready, seek(sectionId, p), setMode(m) }` for dev only
+- [x] 4. `scripts/shot.ts`: `npm run shot -- --section <id|all> --w 1440 --h 900 --mode light|dark|both --motion final|reduced|live`
+- [x] 5. Wait gates before capture: `document.fonts.ready`, images decoded, `ScrollTrigger.refresh()`, network idle
+- [x] 6. Output `.shots/<section>@<w>x<h>.<mode>.png` + `manifest.json` (git sha, viewport, console errors)
+- [x] 7. `scripts/compare.ts`: `npm run compare -- --section s2` → side-by-side `design/mocks/s2.png | .shots/s2…png`
+- [x] 8. `AGENTS.md` loop: edit → `npm run shot` for the touched section at 1440 + 390, both modes → Read the PNG → compare to mock → fix → repeat (max 5 passes, then report gaps)
+- [x] 9. 🧪 `toHaveScreenshot` on final-state shots, `maxDiffPixelRatio` 0.01; baseline updates only via `npm run shot:update`
+- [x] 10. 🧪 Any console error/warning during capture fails the run
+- [x] 11. Capture Make baseline (pre-edit) to `.shots/baseline/` for before/after comparison
+- [x] 12. 🔍 Run `npm run shot -- --section all` → 11 sections × 4 viewports × 2 modes produced, none blank. Ran 2026-11-03 in the MAX-996 worktree: 88 PNGs, none blank, manifest has no console errors. `.shots/` stays gitignored.
+- [x] 13. 👁 `manifest.json` records timings and console output per capture
 
 - [x] **Go when:** `npm run build` green, gates fail on seeded violations, `npm run shot -- --section all` produces a full non-blank set. Owner decision 2026-11-03: this gate is met. The visual target is the four mocks named in §1.1 item 7 plus Dev Mode node `1:3`, and `npm run build` is green. §1.2–§1.4 remain open tickets and are unblocked.
 
