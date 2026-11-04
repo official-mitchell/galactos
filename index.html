@@ -1,6 +1,7 @@
 <!doctype html>
-<!-- 2026-11-03: MAX-996 applies ?mode= and ?motion= before paint.
-     2026-11-03: MAX-997 preloads the variable Fraunces and Inter files. -->
+<!-- 2026-11-03: MAX-996 applies ?mode= and ?motion= before paint. ?mode= still wins.
+     2026-11-03: MAX-997 preloads the variable Fraunces and Inter files.
+     2026-11-03: MAX-1003 sets .dark from localStorage galactos-theme, else prefers-color-scheme, before first paint. Sets window.__galactosThemeSource to stored or system. -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -9,10 +10,25 @@
         var q = new URLSearchParams(location.search);
         var mode = q.get('mode');
         var motion = q.get('motion');
+        var source = 'system';
         if (mode === 'dark' || mode === 'light') {
-          document.documentElement.classList.toggle('dark', mode === 'dark');
           try { localStorage.setItem('galactos-theme', mode); } catch (e) {}
+          source = 'stored';
+        } else {
+          try {
+            var stored = localStorage.getItem('galactos-theme');
+            if (stored === 'dark' || stored === 'light') {
+              mode = stored;
+              source = 'stored';
+            }
+          } catch (e) {}
+          if (mode !== 'dark' && mode !== 'light') {
+            mode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            source = 'system';
+          }
         }
+        document.documentElement.classList.toggle('dark', mode === 'dark');
+        window.__galactosThemeSource = source;
         if (motion === 'final' || motion === 'reduced' || motion === 'live') {
           document.documentElement.setAttribute('data-motion', motion);
         }
