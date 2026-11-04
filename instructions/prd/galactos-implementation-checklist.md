@@ -1,3 +1,4 @@
+<!-- 2026-11-03: MAX-994 checked off §1.2. Preview bar and Style Guide are dev-only; LandingPlaceholder removed. -->
 <!-- 2026-11-03: Owner closed the Phase 1 gate. Hero = galactos-mock-hero.png. Reliability diagnostic = galactos-mock-reliability-diagnostic.png. Verified completion = galactos-mock-component-success.png. Reported versus verified = galactos-mock-done.png. Plus Dev Mode file iGhSTY4TzNtuGE3rDQNO3C node 1:3. -->
 <!-- 2026-11-03: §0.4 scratch app is instructions/context/Galactos • Figma Make - Landing Page/. Make layouts are not the visual target. Parity is mocks in instructions/design/mocks/ plus Dev Mode file iGhSTY4TzNtuGE3rDQNO3C node 1:3. Recorded on MAX-992 and MAX-993. -->
 <!-- 2026-11-03: §0.2 owner decisions — hero plate cancelled; favicon is the G tile (no ring + Cobalt dot); 48×48 icon skipped; OG source is assets/Galactos-OG.png; mocks live in instructions/design/mocks/. design/refs/ cancelled; R1–R5 stay in Figma (file key V2K9MFBI5DHBZPlnK0wag3) via the Figma MCP. -->
@@ -93,10 +94,10 @@ Produces: repo with target folder structure, parity with Make preview
 Requires: 1.1 complete
 Produces: production bundle with no dev UI
 
-- [ ] 1. Gate the App.tsx "Preview" bar and `StyleGuide` page behind `import.meta.env.DEV`
-- [ ] 2. 🔍 `grep -r LandingPlaceholder src` → no imports; delete file
-- [ ] 3. 🧪 Prod build contains no dev bar: `grep -c "Style Guide" dist/assets/*.js` → 0
-- [ ] 4. 👁 (no observability required)
+- [x] 1. Gate the App.tsx "Preview" bar and `StyleGuide` page behind `import.meta.env.DEV`
+- [x] 2. 🔍 `grep -r LandingPlaceholder src` → no imports; delete file
+- [x] 3. 🧪 Prod build contains no dev bar: `grep -c "Style Guide" dist/assets/*.js` → 0
+- [x] 4. 👁 (no observability required)
 
 ## 1.3 Quality Gates
 Requires: 1.1 complete
