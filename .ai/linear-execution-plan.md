@@ -82,5 +82,9 @@ Milestones Phase 2–10 exist on the project (design system → motion → narra
 
 ## Changelog (this file)
 
+- 2026-11-03: MAX-989 Done (D12 closed on the Fraunces wordmark default). MAX-1050 Done. MAX-990 stays open for MAX-1048 and MAX-1049. Hero plate and design/refs cancelled in Linear. Fonts marked done.
+- 2026-11-03: Linear updated. MAX-991 and MAX-992 Done. MAX-993 In Progress. Mock compare on MAX-993 is deferred, so MAX-994–996 stay blocked.
+- 2026-11-03: §1.1 port started at the repo root. The Make scratch folder was removed after the copy. §1.1 item 7 (1440 vs mocks) is still open, so Phase 1 is not unblocked.
+- 2026-11-03: Owner set the visual target (MAX-992, MAX-993). The Make folder under `instructions/context/` is the §0.4 scratch app only. Layout parity is the mocks plus Dev Mode file `iGhSTY4TzNtuGE3rDQNO3C` node `1:3`, not the Make preview.
 - 2026-11-03: Owner cancelled the hero-plate gate (MAX-990 / checklist §0.2). Phase 0 gate is now D1–D11 (or defaults) and a green `npm run build`.
 - 2026-11-03: Initial plan from Linear P-MAX-21 (labels, Phase 0→1.1 sequence, first parallel-safe trio).

@@ -1,0 +1,9 @@
+/* 2026-11-03: send_email goes to the verified personal destination. hello@galactos.io stays a forward only. */
+{
+	"name": "galactos-form",
+	"main": "src/index.js",
+	"compatibility_date": "2026-11-01",
+	"compatibility_flags": ["nodejs_compat"],
+	"send_email": [{ "name": "SEND_EMAIL", "destination_address": "mitchellopatowsky@gmail.com" }],
+	"vars": { "DESTINATION": "mitchellopatowsky@gmail.com" }
+}

@@ -1,3 +1,4 @@
+<!-- 2026-11-03: §0.4 scratch app is instructions/context/Galactos • Figma Make - Landing Page/. Make layouts are not the visual target. Parity is mocks in instructions/design/mocks/ plus Dev Mode file iGhSTY4TzNtuGE3rDQNO3C node 1:3. Recorded on MAX-992 and MAX-993. -->
 <!-- 2026-11-03: §0.2 owner decisions — hero plate cancelled; favicon is the G tile (no ring + Cobalt dot); 48×48 icon skipped; OG source is assets/Galactos-OG.png; mocks live in instructions/design/mocks/. design/refs/ cancelled; R1–R5 stay in Figma (file key V2K9MFBI5DHBZPlnK0wag3) via the Figma MCP. -->
 
 # Galactos Landing Page — Implementation Checklist
@@ -61,9 +62,9 @@ Produces: CLI tools installed
 Requires: 0.3 complete
 Produces: Make source in a scratch directory, verified build
 
-- [ ] 1. Export Make source to a scratch dir (Make code export, or Figma MCP resources `file://figma/make/source/<fileKey>/…`)
-- [ ] 2. run (in scratch): `npm i && npm run build` — must succeed
-- [ ] 3. 🔍 `npm run dev`; open `/` and `/#styleguide`; both render
+- [x] 1. Export Make source to a scratch dir (Make code export, or Figma MCP resources `file://figma/make/source/<fileKey>/…`). Already on disk 2026-11-03: `instructions/context/Galactos • Figma Make - Landing Page/`. Do not download again. This app is the build scaffold only. Visual target is the mocks plus Dev Mode file `iGhSTY4TzNtuGE3rDQNO3C` node `1:3` (see §1.1 note below).
+- [x] 2. run (in scratch): `npm i && npm run build` — must succeed. Green 2026-11-03 (`vite v8.3.5`, 32 modules). Vite warned that `configLoader: 'native'` will reject `__dirname` and the JSON import in `vite.config.ts` later. Build still succeeded.
+- [x] 3. 🔍 `npm run dev`; open `/` and `/#styleguide`; both render. Checked 2026-11-03 on `http://localhost:8443/`. `/` heading: “Your AI workflow can say "done" before the work is done.” `/#styleguide` heading: “Galactos Observatory Editorial”. Dev server was left running on port 8443.
 - [ ] 4. 👁 (no observability required)
 
 - [ ] **Go when:** decisions D1–D11 answered or defaults accepted, `npm run build` green. Hero plate is no longer part of this gate (cancelled 2026-11-03; see §0.2).
@@ -78,13 +79,13 @@ Produces: ported repo, isolated dev scaffolding, quality gates, screenshot harne
 Requires: 0.4 complete
 Produces: repo with target folder structure, parity with Make preview
 
-- [ ] 1. Copy from the 0.4 scratch export: `src/`, `index.html`, `vite.config.ts`, `tsconfig.json`, `package.json`, `guidelines/Guidelines.md`
-- [ ] 2. Move Guidelines.md → `docs/design-system.md` (edited in 3.7)
-- [ ] 3. Create `src/{components/{primitives,diagram,shell,sections},content,motion,styles,lib}`
-- [ ] 4. Rename sections by job: `Hero`, `FailureState`, `Mechanism`, `NewStandard`, `CrossDomain`, `Recognition`, `Intervention`, `Outputs`, `Method`, `Credibility`, `FinalCta`
-- [ ] 5. Create `src/content/sections.ts`: `{ number, id, act, label }` for all 11 sections (single source of anchor IDs; Make uses mixed IDs such as `section-divergence`, `section-cta`, `section-verification`)
-- [ ] 6. run: `npm ci && npm run build`
-- [ ] 7. 🔍 Compare build at 1440 light vs Make preview — layout parity
+- [x] 1. Copy from the 0.4 scratch export: `src/`, `index.html`, `vite.config.ts`, `tsconfig.json`, `package.json`, `guidelines/Guidelines.md`. Done 2026-11-03 at the repo root. Figma Make Vite plugins were not copied; the scratch folder was removed after the port.
+- [x] 2. Move Guidelines.md → `docs/design-system.md` (edited in 3.7)
+- [x] 3. Create `src/{components/{primitives,diagram,shell,sections},content,motion,styles,lib}`
+- [x] 4. Rename sections by job: `Hero`, `FailureState`, `Mechanism`, `NewStandard`, `CrossDomain`, `Recognition`, `Intervention`, `Outputs`, `Method`, `Credibility`, `FinalCta`
+- [x] 5. Create `src/content/sections.ts`: `{ number, id, act, label }` for all 11 sections (single source of anchor IDs; Make uses mixed IDs such as `section-divergence`, `section-cta`, `section-verification`). DOM ids are unchanged.
+- [x] 6. run: `npm ci && npm run build` — green 2026-11-03 at the repo root (Vite 8.3.5, 33 modules). Item 7 (1440 vs mocks) is still open.
+- [ ] 7. 🔍 Compare build at 1440 light vs the visual target. Owner decision 2026-11-03 (MAX-993): do not match the Make preview. Match `instructions/design/mocks/` and Dev Mode file `iGhSTY4TzNtuGE3rDQNO3C` node `1:3`. Keep the Vite shell from the §0.4 scratch export. The Make preview bar is capture chrome. `/#styleguide` stays.
 - [ ] 8. 👁 (no observability required)
 
 ## 1.2 Isolate Dev Scaffolding
@@ -807,3 +808,9 @@ Strength is the project doc's own rating. It calls only Verifiability "directly 
 | Reversibility (R04 §3 #3; R05 §3) | Hypothesis; the fear-of-failure mechanism is sound, the "200–400%" conversion claim is a marketer's unsupported figure | D11; 9.2 inline form with no modal or scheduler embed | No price, refund, guarantee, duration, or "read-only access" as an offer term until mechanics are decided |
 | Multi-Threaded Buyer (R04 §3 #4; R05 §4) | Hypothesis for this niche; Gartner buying-group figures reach the doc through secondary summaries | 8.2 item 4 optional `FOR:` reader tags | Name a function only if the specimen serves it |
 | Dependency, Security Readiness, Compounding Evidence (R04 §3 #5–7; R05 §5–7) | Hypotheses | Not applied on this page | D11 keeps the page from making data-handling or compliance claims, so no trust page is needed yet. Appendix A can seed a future public research page |
+
+---
+
+## Changelog
+
+- 2026-11-03: §1.1 items 1–6 done at the repo root. Scratch Make folder removed. Item 7 (match mocks, not the Make preview) is still open.
