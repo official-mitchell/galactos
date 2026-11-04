@@ -17,6 +17,7 @@ Format:
 ---
 
 ## 2026-11-03
+- [cursor-grok] MAX-1002: owner deferred the 1440 focal review to production. Sub-issues MAX-1106–1109 closed on the shipped generator, Motif, crosshairs, and Icon wrapper.
 - [cursor-grok] MAX-1002: seeded contour SVGs (`scripts/gen-contours.mjs`, seed 1002), `<Motif>` and `<Icon>` (lucide-react, stroke 1.5), `--motif-opacity: 0.08`, determinism test, prebuild check. §2.6 item 6 (motifs never focal at 1440) stays open.
 - [cursor-grok] MAX-997: token set in `src/styles/tokens.css`, self-hosted Fraunces/Inter, `npm run test:contrast`, CI summary row. Dark hex measurement (checklist §2.1 item 10) is still human-only.
 - [cursor-grok] MAX-996: removed the one-off Linux snapshot workflow from main after the Ubuntu PNG was committed.

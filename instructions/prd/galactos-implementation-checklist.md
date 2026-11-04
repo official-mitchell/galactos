@@ -222,7 +222,7 @@ Produces: generated contour assets, motif components, icon wrapper
 - [x] 3. Crosshair field: seeded positions, 8–12 marks, 10–14px
 - [x] 4. Icons: `lucide-react`, stroke 1.5, sizes 16/20/24; `<Icon name>` wrapper (user, file-text, database, credit-card, tag, message-square, settings, calendar, sparkles)
 - [x] 5. 🧪 Generator is deterministic: two runs → identical output hash
-- [ ] 6. 🔍 Motifs never become focal at 1440 light/dark
+- [x] 6. 🔍 Motifs never become focal at 1440 light/dark. Owner 2026-11-03: skip the review now; check again in production.
 - [x] 7. 👁 Generator logs seed + path counts; build fails if outputs missing
 
 ## 2.7 Dark Mode Wiring
