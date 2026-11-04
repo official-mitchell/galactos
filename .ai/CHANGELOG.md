@@ -19,8 +19,12 @@ Format:
 ---
 
 ## 2026-11-03
+- [cursor-grok] Hero copy and `HeroDiagram` match `instructions/design/mocks/galactos-mock-hero.png` (local success cards, failed business outcome, timeline).
+- [cursor-grok] MAX-1001: case file, copy, and evidence modules. The invented trace id is not shown.
+- [cursor-grok] MAX-1000: diagram kit under `src/components/diagram/` plus a dev StyleGuide sample. Connector takes coordinates. DrawSVG stays in Phase 3.
+- [cursor-grok] MAX-999: layout primitives in `src/components/layout/` and `npm run test:layout`.
 - [cursor-grok] MAX-1002: owner deferred the 1440 focal review to production. Sub-issues MAX-1106–1109 closed on the shipped generator, Motif, crosshairs, and Icon wrapper.
-- [cursor-grok] MAX-1002: seeded contour SVGs (`scripts/gen-contours.mjs`, seed 1002), `<Motif>` and `<Icon>` (lucide-react, stroke 1.5), `--motif-opacity: 0.08`, determinism test, prebuild check. §2.6 item 6 (motifs never focal at 1440) stays open.
+- [cursor-grok] MAX-1002: seeded contour SVGs (`scripts/gen-contours.mjs`, seed 1002), `<Motif>` and `<Icon>` (lucide-react, stroke 1.5), `--motif-opacity: 0.08`, determinism test, prebuild check.
 - [cursor-grok] MAX-1003: no-flash theme from `localStorage['galactos-theme']` else `prefers-color-scheme` (`?mode=` still wins). Header toggle persistence and dark first-paint e2e. Dev-only theme source log. Hero plate stays cancelled.
 - [cursor-grok] MAX-998: type scale classes (lede, pull, diagram hierarchy), 62ch body measure, 12px floor, and `npm run test:type-floor`. Checklist §2.2 item 7 stays open — most section strings still use inline `fontSize`.
 - [cursor-grok] MAX-997: token set in `src/styles/tokens.css`, self-hosted Fraunces/Inter, `npm run test:contrast`, CI summary row. Dark hex measurement (checklist §2.1 item 10) is still human-only.

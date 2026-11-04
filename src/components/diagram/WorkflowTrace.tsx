@@ -1,6 +1,8 @@
 /* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
-    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+   2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
+   2026-11-03: MAX-1001 uses the same trace id as the hero, in milliseconds. */
 import React, { useEffect, useRef, useState } from 'react';
+import { IllustrativeTag } from './IllustrativeTag';
 
 interface TraceNode {
   id: string;
@@ -172,7 +174,7 @@ function HorizontalTrace({ resolved }: { resolved: boolean[] }) {
           color: 'var(--text-muted)',
         }}
       >
-        Workflow trace · GAL-TRACE-20260102-0047
+        <IllustrativeTag /> Workflow trace
       </div>
 
       {/* Trace row */}

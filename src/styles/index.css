@@ -4,8 +4,11 @@
    2026-11-03: MAX-998 type scale (.text-lede, .text-pull, diagram hierarchy), 62ch body measure.
    Display titles stay at most three lines at 1440; that is a layout note, not a clamp.
    2026-11-03: MAX-1003 confirmed body uses --mode-transition (color only, 200ms). prefers-reduced-motion sets body transition to none. No extra motion added.
-   2026-11-03: MAX-1002 motif layer stays at --motif-opacity (8%), including .motif-grid. */
+   2026-11-03: MAX-1002 motif layer stays at --motif-opacity (8%), including .motif-grid.
+   2026-11-03: MAX-999 layout.css and MAX-1000 diagram.css. */
 @import './tokens.css';
+@import './layout.css';
+@import './diagram.css';
 @import 'tailwindcss';
 
 @theme inline {
@@ -477,6 +480,179 @@ body {
   border-color: var(--btn-primary-bg);
 }
 
+/* ── Hero diagram (mock: galactos-mock-hero.png) ── */
+.hero-diagram-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  position: relative;
+}
+
+.hero-bracket-success { grid-column: 1 / 5; }
+.hero-bracket-divergence { grid-column: 5; }
+
+.hero-bracket-label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.hero-bracket-bar {
+  margin: 6px 6px 4px;
+  height: 10px;
+  border-top: 2px solid var(--accent-success);
+  border-left: 2px solid var(--accent-success);
+  border-right: 2px solid var(--accent-success);
+  border-radius: 8px 8px 0 0;
+}
+
+.hero-bracket-divergence .hero-bracket-bar {
+  border-color: var(--accent-divergence);
+}
+
+.hero-card {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-default);
+  border-radius: 12px;
+  padding: 12px 10px 10px;
+  min-height: 176px;
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--text-primary) 4%, transparent);
+}
+
+.hero-card-divergence {
+  border-color: color-mix(in srgb, var(--accent-divergence) 55%, var(--border-default));
+}
+
+.hero-card-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+.hero-card-body,
+.hero-card-foot {
+  margin: 0;
+  white-space: pre-line;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.hero-card-body {
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+.hero-card-foot {
+  margin-top: 8px;
+  color: var(--text-muted);
+}
+
+.hero-card-highlight {
+  background: var(--tint-divergence);
+  color: var(--accent-divergence);
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 12px;
+  font-weight: 650;
+  margin-bottom: 8px;
+}
+
+.hero-card-pill {
+  display: inline-block;
+  background: var(--tint-success);
+  color: var(--accent-success);
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.hero-steps {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  position: relative;
+}
+
+.hero-step-line {
+  position: absolute;
+  top: 9px;
+  left: 10%;
+  width: 62%;
+  height: 2px;
+  background: var(--accent-success);
+}
+
+.hero-step-line::after {
+  content: '';
+  position: absolute;
+  left: 100%;
+  width: 28%;
+  top: 0;
+  border-top: 2px dashed color-mix(in srgb, var(--text-muted) 80%, transparent);
+}
+
+.hero-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.hero-step-mark {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent-success);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-step-mark.is-fail { background: var(--accent-divergence); }
+
+.hero-step-label {
+  font-size: 12px;
+  text-align: center;
+  color: var(--text-primary);
+  font-weight: 500;
+  max-width: 92px;
+  line-height: 1.25;
+}
+
+.hero-flags {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+  align-items: center;
+}
+
+.hero-flag {
+  background: var(--tint-divergence);
+  color: var(--accent-divergence);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
 /* ── Hero responsive ── */
 @media (max-width: 767px) {
   #section-hero .hero-grid {
@@ -486,6 +662,15 @@ body {
   #section-hero .hero-left {
     padding-bottom: 0 !important;
   }
+  .hero-diagram-grid,
+  .hero-steps {
+    grid-template-columns: 1fr;
+  }
+  .hero-bracket-success,
+  .hero-bracket-divergence {
+    grid-column: auto;
+  }
+  .hero-step-line { display: none; }
 }
 
 /* ── Trace SVG path animation ── */
