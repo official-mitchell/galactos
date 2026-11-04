@@ -19,6 +19,7 @@ Format:
 ---
 
 ## 2026-11-04
+- [cursor-grok] MAX-1004 and MAX-1005: GSAP 3.15.1 registered once, `src/motion/tokens.ts` beside the existing CSS mirrors, `no-js` swap, bundle gzip budget in the build and CI summary.
 - [cursor-grok] Phase 2 gate closed. Contrast exceptions recorded, connector can measure endpoints, style guide kit checked in dark. Inline `fontSize` and section rebuilds stay with Acts I–V. DrawSVG stays in Phase 3.
 
 ## 2026-11-03

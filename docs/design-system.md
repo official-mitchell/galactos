@@ -12,6 +12,7 @@ Two copies, one palette. Do not treat the Figma frame as a new system.
 | `src/styles/index.css` | What the dev server applies. Semantic colors are on `:root` and `.dark`. Type classes are `.text-display-xl` through `.text-meta`. |
 | Figma file `iGhSTY4TzNtuGE3rDQNO3C`, node `1:2506` | Style Guide frame. It is the Make `/#styleguide` page (Preview bar included). Swatch labels match the table below: Paper `#F8F6F3` = `surface/base` light, White `#FFFFFF` = `surface/raised` light, Deep Space `#0F1E2E` = `surface/emphasis`, Stone `#D6D1C9` = `border/default`. |
 | This file | Rules for using those tokens. Checklist §3.7 is where motion rules get amended. |
+| GSAP `3.15.1` (`gsap`, `@gsap/react`) | Registered once in `src/motion/register.ts` (ScrollTrigger, DrawSVGPlugin, MotionPathPlugin). License: [GSAP Standard License](https://gsap.com/standard-license/). |
 
 Self-hosted Fraunces and Inter files are in `assets/fonts/`. The stylesheet still loads both families with a Google Fonts `@import`. Replacing that import is checklist §2.1.8, not this port.
 
@@ -230,5 +231,6 @@ Precise, observant, restrained. Never alarmist about AI. No invented testimonial
 
 ## Changelog
 
+- 2026-11-04: MAX-1004 / MAX-1005. GSAP 3.15.1 is registered once. Motion durations and the three eases live in `src/motion/tokens.ts`. CSS mirrors stay in `src/styles/tokens.css`.
 - 2026-11-03: MAX-997. Semantic colors, spacing, z-index, tints, and motion mirrors live in `src/styles/tokens.css`. `index.css` imports that file. Fonts are the variable files in `assets/fonts/` (`font-display: swap`).
 - 2026-11-03: Noted the live stylesheet and Figma style-guide node `1:2506`. Palette is the Make style guide, not a separate Dev Mode token set.

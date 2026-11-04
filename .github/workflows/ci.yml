@@ -62,6 +62,10 @@ jobs:
             echo ""
             echo "## Production bundle sizes"
             echo ""
+            if [ -f dist/bundle-budget.md ]; then
+              cat dist/bundle-budget.md
+              echo ""
+            fi
             if [ -d dist/assets ]; then
               find dist/assets -type f | sort | while read -r file; do
                 bytes=$(wc -c < "$file" | tr -d '[:space:]')
