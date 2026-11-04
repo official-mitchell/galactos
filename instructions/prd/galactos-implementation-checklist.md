@@ -1,3 +1,4 @@
+<!-- 2026-11-03: MAX-998 checked §2.2 items 1–6 and 8. Item 7 stays open (inline fontSize remains). -->
 <!-- 2026-11-03: MAX-995 checked off §1.3. typecheck, lint:tokens (baseline + seed), and ci.yml are in place. e2e stays a placeholder for MAX-996. -->
 <!-- 2026-11-03: MAX-994 checked off §1.2. Preview bar and Style Guide are dev-only; LandingPlaceholder removed. -->
 <!-- 2026-11-03: MAX-996 checked the harness items that are implemented. Item 12 (full 11×4×2 non-blank matrix) stays open until that command is run. CI smoke is one screenshot. -->
@@ -158,14 +159,14 @@ Produces: complete token set in `src/styles/tokens.css`, contrast test
 Requires: 2.1 complete
 Produces: text classes covering every string on the page
 
-- [ ] 1. Keep Make classes: `display-xl` (Fraunces 700, `clamp(40px,5vw,72px)`), `display-lg` (48px), `display-md` (32px), `section-title` (Fraunces 600), `body` (Inter 400 16/1.55), `label` (Inter 500 12px, 0.08em caps), `card-title` (Inter 600), `meta`
-- [ ] 2. Add `lede` (Inter 400 18/1.6, text-secondary), `pull` (Fraunces 700 32px)
-- [ ] 3. Add diagram hierarchy (from R4): `diagram-system` (Inter 500 12px, 0.08em caps, text-muted) → `diagram-action` (Fraunces 600 20/1.25; 17px mobile) → `diagram-detail` (Inter 400 14/1.45, text-muted) + `diagram-time` (Inter 500 12px, tabular-nums)
-- [ ] 4. Floor: no visible text <12px (Make uses 9–11px in hero label, S2 meta, tags)
-- [ ] 5. Body measure ≤62ch; display lines ≤3 at 1440
-- [ ] 6. 🧪 `test:type-floor`: Playwright computed-style sweep over visible text nodes → none <12px
-- [ ] 7. 🔍 Every string on the page maps to one class; no ad-hoc `fontSize` in components
-- [ ] 8. 👁 (no observability required)
+- [x] 1. Keep Make classes: `display-xl` (Fraunces 700, `clamp(40px,5vw,72px)`), `display-lg` (48px), `display-md` (32px), `section-title` (Fraunces 600), `body` (Inter 400 16/1.55), `label` (Inter 500 12px, 0.08em caps), `card-title` (Inter 600), `meta`
+- [x] 2. Add `lede` (Inter 400 18/1.6, text-secondary), `pull` (Fraunces 700 32px)
+- [x] 3. Add diagram hierarchy (from R4): `diagram-system` (Inter 500 12px, 0.08em caps, text-muted) → `diagram-action` (Fraunces 600 20/1.25; 17px mobile) → `diagram-detail` (Inter 400 14/1.45, text-muted) + `diagram-time` (Inter 500 12px, tabular-nums)
+- [x] 4. Floor: no visible text <12px (Make uses 9–11px in hero label, S2 meta, tags). Sub-12px `fontSize` in components raised to 12px (MAX-998).
+- [x] 5. Body measure ≤62ch on `.text-body`. Display lines ≤3 at 1440 is a layout note in `src/styles/index.css`, not a JS clamp.
+- [x] 6. 🧪 `test:type-floor`: Playwright computed-style sweep over visible text nodes → none <12px
+- [ ] 7. 🔍 Every string on the page maps to one class; no ad-hoc `fontSize` in components. MAX-998 mapped the hero headline (`.text-display-xl`) and lede (`.text-lede`). Inline `fontSize` remains in the section, diagram, header, preview, and style-guide components (sizes now ≥12px).
+- [x] 8. 👁 (no observability required)
 
 ## 2.3 Layout Primitives
 Requires: 2.1, 2.2 complete

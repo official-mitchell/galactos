@@ -1,4 +1,5 @@
-/* 2026-11-03: MAX-994 gates the Preview bar and Style Guide behind import.meta.env.DEV.
+/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+    2026-11-03: MAX-994 gates the Preview bar and Style Guide behind import.meta.env.DEV.
    Production keeps the stored-theme / prefers-color-scheme class effect and always shows the landing page.
    2026-11-03: ported from the Figma Make scratch app. Sections imported by job name (MAX-993).
    2026-11-03: MAX-996 honors ?mode= and hides the preview bar when ?shot=1. setMode events stay in dev. */
@@ -134,7 +135,7 @@ export default function App() {
             style={{
               fontFamily: 'var(--font-body)',
               fontWeight: 500,
-              fontSize: 9,
+              fontSize: 12,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
               color: 'rgba(248,246,243,0.4)',
@@ -153,7 +154,7 @@ export default function App() {
               style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 500,
-                fontSize: 10,
+                fontSize: 12,
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
                 padding: '4px 12px',
@@ -183,7 +184,7 @@ export default function App() {
               gap: 6,
               fontFamily: 'var(--font-body)',
               fontWeight: 500,
-              fontSize: 10,
+              fontSize: 12,
               letterSpacing: '0.08em',
               textTransform: 'uppercase',
               padding: '4px 10px',
@@ -227,7 +228,7 @@ export default function App() {
             <span style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 15, color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
               Galactos
             </span>
-            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 10, color: 'var(--text-muted)', letterSpacing: '0.08em', textTransform: 'uppercase', marginLeft: 4 }}>
+            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12, color: 'var(--text-muted)', letterSpacing: '0.08em', textTransform: 'uppercase', marginLeft: 4 }}>
               · Observatory Editorial — Design System
             </span>
           </div>

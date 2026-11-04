@@ -1,4 +1,6 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
+   2026-11-03: MAX-998 mapped the headline to .text-display-xl and the lede to .text-lede.
+   Sub-12px labels raised to 12px. */
 import React from 'react';
 import { WorkflowTrace } from '../diagram/WorkflowTrace';
 
@@ -52,7 +54,7 @@ export function Hero() {
             style={{
               fontFamily: 'var(--font-body)',
               fontWeight: 500,
-              fontSize: 10,
+              fontSize: 12,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
               color: 'var(--text-muted)',
@@ -77,10 +79,8 @@ export function Hero() {
 
           {/* Headline */}
           <h1
+            className="text-display-xl"
             style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 700,
-              fontSize: 'clamp(40px, 5vw, 72px)',
               lineHeight: 1.04,
               letterSpacing: '-0.025em',
               color: 'var(--text-primary)',
@@ -93,12 +93,8 @@ export function Hero() {
 
           {/* Supporting paragraph */}
           <p
+            className="text-lede"
             style={{
-              fontFamily: 'var(--font-body)',
-              fontWeight: 400,
-              fontSize: 18,
-              lineHeight: 1.6,
-              color: 'var(--text-secondary)',
               marginBottom: 20,
               maxWidth: 480,
             }}
@@ -158,7 +154,7 @@ export function Hero() {
               style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 400,
-                fontSize: 11,
+                fontSize: 12,
                 color: 'var(--text-muted)',
                 letterSpacing: '0.04em',
               }}
@@ -172,7 +168,7 @@ export function Hero() {
                 gap: 5,
                 fontFamily: 'var(--font-body)',
                 fontWeight: 500,
-                fontSize: 10,
+                fontSize: 12,
                 color: 'var(--accent-divergence)',
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',

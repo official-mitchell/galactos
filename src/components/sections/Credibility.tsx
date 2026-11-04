@@ -1,4 +1,5 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
 
 const IMAGE_URL =
@@ -123,7 +124,7 @@ function MetadataList() {
             padding: '10px 0',
             fontFamily: 'var(--font-body)',
             fontWeight: 500,
-            fontSize: 9.5,
+            fontSize: 12,
             letterSpacing: '0.12em',
             textTransform: 'uppercase',
             color: 'var(--text-muted)',
@@ -175,7 +176,7 @@ export function Credibility() {
         {/* Section label */}
         <div style={{ marginBottom: 56 }}>
           <div style={{
-            fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 10,
+            fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12,
             letterSpacing: '0.12em', textTransform: 'uppercase',
             color: 'var(--text-muted)', marginBottom: 12,
           }}>

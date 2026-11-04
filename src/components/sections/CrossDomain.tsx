@@ -1,4 +1,5 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
 
 /* ── Data ── */
@@ -169,7 +170,7 @@ function SpecimenRow({
           style={{
             fontFamily: 'var(--font-body)',
             fontWeight: 500,
-            fontSize: 9,
+            fontSize: 12,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
             color: 'var(--text-muted)',
@@ -243,7 +244,7 @@ function SpecimenModule({
           style={{
             fontFamily: 'var(--font-body)',
             fontWeight: 500,
-            fontSize: 11,
+            fontSize: 12,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
             color: 'var(--text-primary)',
@@ -255,7 +256,7 @@ function SpecimenModule({
           style={{
             fontFamily: 'var(--font-body)',
             fontWeight: 400,
-            fontSize: 10,
+            fontSize: 12,
             letterSpacing: '0.06em',
             color: 'var(--text-muted)',
           }}
@@ -367,7 +368,7 @@ export function CrossDomain() {
             style={{
               fontFamily: 'var(--font-body)',
               fontWeight: 500,
-              fontSize: 10,
+              fontSize: 12,
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
               color: 'var(--text-muted)',
@@ -418,17 +419,17 @@ export function CrossDomain() {
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <div style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: 'var(--accent-success)', flexShrink: 0 }} />
-            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 9, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Reported</span>
+            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Reported</span>
           </div>
-          <span style={{ color: 'var(--border-strong)', fontSize: 10 }}>·</span>
+          <span style={{ color: 'var(--border-strong)', fontSize: 12 }}>·</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <div style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: 'var(--accent-divergence)', flexShrink: 0 }} />
-            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 9, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Actual (divergence)</span>
+            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Actual (divergence)</span>
           </div>
-          <span style={{ color: 'var(--border-strong)', fontSize: 10 }}>·</span>
+          <span style={{ color: 'var(--border-strong)', fontSize: 12 }}>·</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
             <div style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: 'var(--accent-info)', flexShrink: 0 }} />
-            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 9, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Verified (requirement)</span>
+            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Verified (requirement)</span>
           </div>
         </div>
       </div>

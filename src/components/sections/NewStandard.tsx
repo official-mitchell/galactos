@@ -1,4 +1,5 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
 
 /* ── Timing ── */
@@ -216,7 +217,7 @@ function NodeUnit({
         style={{
           fontFamily: 'var(--font-body)',
           fontWeight: 400,
-          fontSize: 9,
+          fontSize: 12,
           letterSpacing: '0.03em',
           color: 'var(--text-muted)',
           textAlign: 'center',
@@ -306,7 +307,7 @@ function RightTrace({
           style={{
             fontFamily: 'var(--font-body)',
             fontWeight: 400,
-            fontSize: 9,
+            fontSize: 12,
             color: 'var(--text-muted)',
             textAlign: 'center',
             lineHeight: 1.3,
@@ -663,7 +664,7 @@ export function NewStandard() {
             style={{
               fontFamily: 'var(--font-body)',
               fontWeight: 500,
-              fontSize: 10,
+              fontSize: 12,
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
               color: 'var(--text-muted)',

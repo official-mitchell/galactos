@@ -1,6 +1,8 @@
 /* 2026-11-03: moved from the Make scratch src/index.css.
    2026-11-03: MAX-996 freezes CSS animation when ?motion=final or ?motion=reduced. No motion library.
-   2026-11-03: MAX-997 moved the token set to tokens.css and dropped the Google Fonts import. */
+   2026-11-03: MAX-997 moved the token set to tokens.css and dropped the Google Fonts import.
+   2026-11-03: MAX-998 type scale (.text-lede, .text-pull, diagram hierarchy), 62ch body measure.
+   Display titles stay at most three lines at 1440; that is a layout note, not a clamp. */
 @import './tokens.css';
 @import 'tailwindcss';
 
@@ -79,11 +81,11 @@ body {
   border-radius: 3px;
 }
 
-/* ── Typography utilities ── */
+/* ── Typography utilities (.text-* prefix kept) ── */
 .text-display-xl {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 72px;
+  font-size: clamp(40px, 5vw, 72px);
   line-height: 1.05;
   letter-spacing: -0.02em;
 }
@@ -112,6 +114,20 @@ body {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.55;
+  max-width: 62ch;
+}
+.text-lede {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.text-pull {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.25;
 }
 .text-label {
   font-family: var(--font-body);
@@ -133,11 +149,36 @@ body {
   letter-spacing: 0.04em;
   color: var(--text-muted);
 }
+.text-diagram-system {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.text-diagram-action {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.25;
+}
+.text-diagram-detail {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+.text-diagram-time {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
 
 @media (max-width: 768px) {
-  .text-display-xl { font-size: 40px; }
-  .text-display-lg { font-size: 32px; }
-  .text-display-md { font-size: 24px; }
+  .text-diagram-action { font-size: 17px; }
 }
 
 /* ── Layout ── */

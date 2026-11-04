@@ -1,4 +1,5 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
 
 /* ── Always-dark surface tokens ── */
@@ -88,9 +89,9 @@ function DiagramSVG({
 
       {/* ── Metadata labels ── */}
       <g style={{ opacity: boxDrawn ? 1 : 0, transition: `opacity ${dur(300)} ease ${dur(400)}` }}>
-        <text x="44" y="29" fill={P42} fontSize="7.5" fontFamily="Inter, sans-serif"
+        <text x="44" y="29" fill={P42} fontSize="12" fontFamily="Inter, sans-serif"
           fontWeight="500" letterSpacing="0.12em">SCOPE: ONE WORKFLOW</text>
-        <text x="352" y="326" fill={P42} fontSize="7.5" fontFamily="Inter, sans-serif"
+        <text x="352" y="326" fill={P42} fontSize="12" fontFamily="Inter, sans-serif"
           fontWeight="500" letterSpacing="0.12em">MODE: DIAGNOSTIC</text>
       </g>
 
@@ -120,11 +121,11 @@ function DiagramSVG({
 
       {/* ── Path labels ── */}
       <g style={{ opacity: pathVisible ? 1 : 0, transition: `opacity ${dur(300)} ease ${dur(200)}` }}>
-        <text x={NX[0]} y={NY + 21} textAnchor="middle" fill={P42} fontSize="7.5"
+        <text x={NX[0]} y={NY + 21} textAnchor="middle" fill={P42} fontSize="12"
           fontFamily="Inter, sans-serif" fontWeight="500" letterSpacing="0.1em">TRIGGER</text>
-        <text x={NX[4]} y={NY + 21} textAnchor="middle" fill={P42} fontSize="7.5"
+        <text x={NX[4]} y={NY + 21} textAnchor="middle" fill={P42} fontSize="12"
           fontFamily="Inter, sans-serif" fontWeight="500" letterSpacing="0.1em">AUTHORITATIVE</text>
-        <text x={NX[4]} y={NY + 31} textAnchor="middle" fill={P42} fontSize="7.5"
+        <text x={NX[4]} y={NY + 31} textAnchor="middle" fill={P42} fontSize="12"
           fontFamily="Inter, sans-serif" fontWeight="500" letterSpacing="0.1em">COMPLETION</text>
       </g>
 
@@ -234,7 +235,7 @@ export function Intervention() {
             <div style={{
               fontFamily: 'var(--font-body)',
               fontWeight: 500,
-              fontSize: 10,
+              fontSize: 12,
               letterSpacing: '0.16em',
               textTransform: 'uppercase',
               color: P28,
@@ -312,7 +313,7 @@ export function Intervention() {
               <p style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 500,
-                fontSize: 10,
+                fontSize: 12,
                 letterSpacing: '0.06em',
                 lineHeight: 1.6,
                 color: P28,
@@ -331,7 +332,7 @@ export function Intervention() {
             <div style={{
               fontFamily: 'var(--font-body)',
               fontWeight: 500,
-              fontSize: 9,
+              fontSize: 12,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
               color: P28,
@@ -370,7 +371,7 @@ export function Intervention() {
                   <span style={{
                     fontFamily: 'var(--font-body)',
                     fontWeight: 500,
-                    fontSize: 9,
+                    fontSize: 12,
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
                     color: P28,

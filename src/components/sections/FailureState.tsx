@@ -1,4 +1,5 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
 
 /* ── Timing ── */
@@ -102,7 +103,7 @@ function Tag({ children }: { children: React.ReactNode }) {
         display: 'inline-block',
         fontFamily: 'var(--font-body)',
         fontWeight: 500,
-        fontSize: 9,
+        fontSize: 12,
         letterSpacing: '0.08em',
         textTransform: 'uppercase',
         color: 'var(--text-muted)',
@@ -181,7 +182,7 @@ function BracketLabel({
         style={{
           fontFamily: 'var(--font-body)',
           fontWeight: 500,
-          fontSize: 9,
+          fontSize: 12,
           letterSpacing: '0.1em',
           textTransform: 'uppercase',
           color: orange ? 'var(--accent-divergence)' : 'var(--text-muted)',
@@ -222,7 +223,7 @@ function HorizontalTrace({
                 style={{
                   fontFamily: 'var(--font-body)',
                   fontWeight: 500,
-                  fontSize: 9,
+                  fontSize: 12,
                   letterSpacing: '0.1em',
                   textTransform: 'uppercase',
                   color: 'var(--text-muted)',
@@ -301,7 +302,7 @@ function HorizontalTrace({
               style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 500,
-                fontSize: 9,
+                fontSize: 12,
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
                 color: 'var(--accent-divergence)',
@@ -343,7 +344,7 @@ function HorizontalTrace({
               style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 400,
-                fontSize: 11,
+                fontSize: 12,
                 color: 'var(--text-muted)',
                 letterSpacing: '0.01em',
               }}
@@ -415,7 +416,7 @@ function VerticalTrace({
                   style={{
                     fontFamily: 'var(--font-body)',
                     fontWeight: 500,
-                    fontSize: 9,
+                    fontSize: 12,
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
                     color: 'var(--text-muted)',
@@ -459,7 +460,7 @@ function VerticalTrace({
               style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 500,
-                fontSize: 9,
+                fontSize: 12,
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
                 color: 'var(--accent-divergence)',
@@ -558,7 +559,7 @@ export function FailureState() {
             style={{
               fontFamily: 'var(--font-body)',
               fontWeight: 500,
-              fontSize: 10,
+              fontSize: 12,
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
               color: 'var(--text-muted)',
@@ -594,7 +595,7 @@ export function FailureState() {
                 display: 'flex',
                 gap: 8,
                 fontFamily: 'var(--font-body)',
-                fontSize: 11,
+                fontSize: 12,
                 letterSpacing: '0.05em',
               }}
             >

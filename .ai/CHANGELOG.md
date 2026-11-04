@@ -1,4 +1,5 @@
 <!-- Created 2026-11-03: add-only dated log of agent revisions. Newest date first.
+     2026-11-03: MAX-998 type-scale bullet.
      2026-11-03: MAX-994 dev-only preview bar and style guide.
      2026-11-03: noted MAX-991 tooling check (Node 22, Playwright 1.64.1, Chromium).
      2026-11-03: noted MAX-990 asset decisions (hero plate cancelled, G favicon, OG, mocks). -->
@@ -17,6 +18,7 @@ Format:
 ---
 
 ## 2026-11-03
+- [cursor-grok] MAX-998: type scale classes (lede, pull, diagram hierarchy), 62ch body measure, 12px floor, and `npm run test:type-floor`. Checklist §2.2 item 7 stays open — most section strings still use inline `fontSize`.
 - [cursor-grok] MAX-997: token set in `src/styles/tokens.css`, self-hosted Fraunces/Inter, `npm run test:contrast`, CI summary row. Dark hex measurement (checklist §2.1 item 10) is still human-only.
 - [cursor-grok] MAX-996: removed the one-off Linux snapshot workflow from main after the Ubuntu PNG was committed.
 - [cursor-grok] MAX-996 follow-up: `npm run shot -- --section all` wrote 88 non-blank PNGs. Checklist §1.4 item 12 is checked. Shots stay gitignored.

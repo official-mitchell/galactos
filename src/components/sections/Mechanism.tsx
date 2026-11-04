@@ -1,4 +1,5 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
 
 /* ── Timing constants ── */
@@ -41,7 +42,7 @@ function Tile({ label, success, visible }: { label: string; success: boolean; vi
         style={{
           fontFamily: 'var(--font-body)',
           fontWeight: 500,
-          fontSize: 8,
+          fontSize: 12,
           letterSpacing: '0.1em',
           textTransform: 'uppercase',
           color: 'var(--text-muted)',
@@ -95,7 +96,7 @@ function Tile({ label, success, visible }: { label: string; success: boolean; vi
               style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 500,
-                fontSize: 8,
+                fontSize: 12,
                 letterSpacing: '0.06em',
                 color: 'var(--text-muted)',
               }}
@@ -108,7 +109,7 @@ function Tile({ label, success, visible }: { label: string; success: boolean; vi
             style={{
               fontFamily: 'var(--font-body)',
               fontWeight: 500,
-              fontSize: 8,
+              fontSize: 12,
               letterSpacing: '0.06em',
               color: 'var(--text-muted)',
             }}
@@ -151,7 +152,7 @@ function ObligationNode({ visible }: { visible: boolean }) {
           style={{
             fontFamily: 'var(--font-body)',
             fontWeight: 500,
-            fontSize: 7,
+            fontSize: 12,
             letterSpacing: '0.05em',
             color: 'var(--text-muted)',
             textAlign: 'center',
@@ -165,7 +166,7 @@ function ObligationNode({ visible }: { visible: boolean }) {
         style={{
           fontFamily: 'var(--font-body)',
           fontWeight: 500,
-          fontSize: 9,
+          fontSize: 12,
           letterSpacing: '0.06em',
           textTransform: 'uppercase',
           color: 'var(--text-muted)',
@@ -349,7 +350,7 @@ function MobileDiagram({ tileVisible, pathAnimating }: { tileVisible: boolean[];
               style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 500,
-                fontSize: 10,
+                fontSize: 12,
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
                 color: 'var(--text-secondary)',
@@ -363,7 +364,7 @@ function MobileDiagram({ tileVisible, pathAnimating }: { tileVisible: boolean[];
                 style={{
                   fontFamily: 'var(--font-body)',
                   fontWeight: 500,
-                  fontSize: 9,
+                  fontSize: 12,
                   letterSpacing: '0.06em',
                   color: 'var(--text-muted)',
                   display: 'flex',
@@ -428,7 +429,7 @@ function MobileDiagram({ tileVisible, pathAnimating }: { tileVisible: boolean[];
               style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 500,
-                fontSize: 10,
+                fontSize: 12,
                 letterSpacing: '0.06em',
                 textTransform: 'uppercase',
                 color: 'var(--text-muted)',
@@ -496,7 +497,7 @@ export function Mechanism() {
             style={{
               fontFamily: 'var(--font-body)',
               fontWeight: 500,
-              fontSize: 10,
+              fontSize: 12,
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
               color: 'var(--text-muted)',
@@ -607,7 +608,7 @@ export function Mechanism() {
                     style={{
                       fontFamily: 'var(--font-body)',
                       fontWeight: 500,
-                      fontSize: 10,
+                      fontSize: 12,
                       letterSpacing: '0.1em',
                       textTransform: 'uppercase',
                       color: 'var(--text-muted)',
@@ -636,7 +637,7 @@ export function Mechanism() {
                   style={{
                     fontFamily: 'var(--font-body)',
                     fontWeight: 500,
-                    fontSize: 9,
+                    fontSize: 12,
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
                     color: 'var(--text-muted)',
@@ -649,7 +650,7 @@ export function Mechanism() {
                   style={{
                     fontFamily: 'var(--font-body)',
                     fontWeight: 500,
-                    fontSize: 9,
+                    fontSize: 12,
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
                     color: 'var(--text-muted)',
@@ -694,7 +695,7 @@ export function Mechanism() {
                 style={{
                   fontFamily: 'var(--font-body)',
                   fontWeight: 400,
-                  fontSize: 11,
+                  fontSize: 12,
                   color: 'var(--text-muted)',
                   lineHeight: 1.5,
                   letterSpacing: '0.01em',

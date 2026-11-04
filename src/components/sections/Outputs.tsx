@@ -1,4 +1,5 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
 
 /* ─────────────────────────────────────────────────────
@@ -10,7 +11,7 @@ function TracePreview({ hovered }: { hovered: boolean }) {
       <svg viewBox="0 0 228 96" width="100%" style={{ display: 'block', overflow: 'visible' }} aria-hidden="true">
         {/* Timestamps */}
         {[{ x: 26, t: 'T+0ms' }, { x: 99, t: 'T+142ms' }, { x: 172, t: 'T+388ms' }].map(({ x, t }) => (
-          <text key={x} x={x} y={13} fontSize="6" fontFamily="Inter, sans-serif" fontWeight="500"
+          <text key={x} x={x} y={13} fontSize="12" fontFamily="Inter, sans-serif" fontWeight="500"
             letterSpacing="0.09em" fill="var(--text-muted)" textAnchor="middle">{t}</text>
         ))}
         {/* Arrows */}
@@ -36,11 +37,11 @@ function TracePreview({ hovered }: { hovered: boolean }) {
         <circle cx="172" cy="82" r="7" stroke="var(--accent-divergence)" strokeWidth="1" fill="var(--surface-raised)" />
         <circle cx="172" cy="82" r="2.2" fill="var(--accent-divergence)" opacity="0.55" />
         {/* Labels */}
-        <text x="26" y="59" fontSize="6" fill="var(--text-muted)" fontFamily="Inter, sans-serif" textAnchor="middle">Intent</text>
-        <text x="99" y="59" fontSize="6" fill="var(--text-muted)" fontFamily="Inter, sans-serif" textAnchor="middle">Success</text>
-        <text x="172" y="59" fontSize="6" fill="var(--text-muted)" fontFamily="Inter, sans-serif" textAnchor="middle">Success</text>
+        <text x="26" y="59" fontSize="12" fill="var(--text-muted)" fontFamily="Inter, sans-serif" textAnchor="middle">Intent</text>
+        <text x="99" y="59" fontSize="12" fill="var(--text-muted)" fontFamily="Inter, sans-serif" textAnchor="middle">Success</text>
+        <text x="172" y="59" fontSize="12" fill="var(--text-muted)" fontFamily="Inter, sans-serif" textAnchor="middle">Success</text>
         {/* Hover-reveal: anomaly label */}
-        <text x="184" y="85" fontSize="6" fontFamily="Inter, sans-serif" fill="var(--accent-divergence)" letterSpacing="0.05em"
+        <text x="184" y="85" fontSize="12" fontFamily="Inter, sans-serif" fill="var(--accent-divergence)" letterSpacing="0.05em"
           style={{ opacity: hovered ? 1 : 0, transition: 'opacity 220ms ease' }}>
           state mismatch
         </text>
@@ -67,7 +68,7 @@ function DefectTablePreview({ hovered }: { hovered: boolean }) {
         padding: '4px 14px 6px', borderBottom: '1px solid var(--border-default)',
       }}>
         {['ID', 'Divergence', 'Evidence', 'Sev'].map(h => (
-          <span key={h} style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 8,
+          <span key={h} style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12,
             letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>{h}</span>
         ))}
       </div>
@@ -81,16 +82,16 @@ function DefectTablePreview({ hovered }: { hovered: boolean }) {
           opacity: i === 2 ? (hovered ? 1 : 0) : 1,
           transition: 'opacity 220ms ease',
         }}>
-          <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 9,
+          <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12,
             color: 'var(--text-muted)', letterSpacing: '0.04em', alignSelf: 'center' }}>{row.id}</span>
-          <span style={{ fontFamily: 'var(--font-body)', fontSize: 10, lineHeight: 1.38,
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, lineHeight: 1.38,
             color: 'var(--text-secondary)' }}>{row.divergence}</span>
-          <span style={{ fontFamily: 'var(--font-body)', fontSize: 10, lineHeight: 1.38,
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, lineHeight: 1.38,
             color: 'var(--text-muted)' }}>{row.evidence}</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
             {row.hi && <div style={{ width: 5, height: 5, borderRadius: '50%',
               backgroundColor: 'var(--accent-divergence)', flexShrink: 0 }} />}
-            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 8,
+            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12,
               letterSpacing: '0.06em', color: row.hi ? 'var(--accent-divergence)' : 'var(--text-muted)' }}>{row.sev}</span>
           </div>
         </div>
@@ -123,14 +124,14 @@ function ContractPreview({ hovered }: { hovered: boolean }) {
     <div style={{ padding: '12px 14px 0' }}>
       {CONTRACT_FIELDS.map((f, i) => (
         <div key={f.heading} style={{ marginBottom: i < CONTRACT_FIELDS.length - 1 ? 12 : 0 }}>
-          <div style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 8,
+          <div style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12,
             letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 4 }}>
             {f.heading}
           </div>
           {f.lines.map(l => (
             <div key={l} style={{ display: 'flex', gap: 6, marginBottom: 2 }}>
-              <span style={{ color: 'var(--border-strong)', fontFamily: 'var(--font-body)', fontSize: 10 }}>—</span>
-              <span style={{ fontFamily: 'var(--font-body)', fontSize: 10, lineHeight: 1.4, color: 'var(--text-secondary)' }}>{l}</span>
+              <span style={{ color: 'var(--border-strong)', fontFamily: 'var(--font-body)', fontSize: 12 }}>—</span>
+              <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, lineHeight: 1.4, color: 'var(--text-secondary)' }}>{l}</span>
             </div>
           ))}
         </div>
@@ -141,14 +142,14 @@ function ContractPreview({ hovered }: { hovered: boolean }) {
         opacity: hovered ? 1 : 0,
         transition: 'opacity 220ms ease',
       }}>
-        <div style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 8,
+        <div style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12,
           letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 4 }}>
           {CONTRACT_EXTRA.heading}
         </div>
         {CONTRACT_EXTRA.lines.map(l => (
           <div key={l} style={{ display: 'flex', gap: 6 }}>
-            <span style={{ color: 'var(--border-strong)', fontFamily: 'var(--font-body)', fontSize: 10 }}>—</span>
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: 10, lineHeight: 1.4, color: 'var(--text-secondary)' }}>{l}</span>
+            <span style={{ color: 'var(--border-strong)', fontFamily: 'var(--font-body)', fontSize: 12 }}>—</span>
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, lineHeight: 1.4, color: 'var(--text-secondary)' }}>{l}</span>
           </div>
         ))}
       </div>
@@ -183,14 +184,14 @@ function RepairPreview({ hovered }: { hovered: boolean }) {
       {REPAIR_ITEMS.map((item, i) => (
         <div key={item.priority} style={{ marginBottom: 14 }}>
           <div style={{ display: 'flex', gap: 8, alignItems: 'baseline', marginBottom: 4 }}>
-            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 9,
+            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 12,
               letterSpacing: '0.06em', color: 'var(--text-primary)', flexShrink: 0 }}>{item.priority}</span>
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: 11, lineHeight: 1.4,
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, lineHeight: 1.4,
               color: 'var(--text-secondary)' }}>{item.action}</span>
           </div>
           <div style={{ paddingLeft: 22, display: 'flex', gap: 5, alignItems: 'baseline' }}>
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: 9, color: 'var(--border-strong)', flexShrink: 0 }}>↳</span>
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: 9.5, lineHeight: 1.45,
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'var(--border-strong)', flexShrink: 0 }}>↳</span>
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, lineHeight: 1.45,
               color: 'var(--text-muted)', fontStyle: 'italic' }}>Test: {item.test}</span>
           </div>
         </div>
@@ -198,14 +199,14 @@ function RepairPreview({ hovered }: { hovered: boolean }) {
       {/* Hover-reveal */}
       <div style={{ opacity: hovered ? 1 : 0, transition: 'opacity 220ms ease' }}>
         <div style={{ display: 'flex', gap: 8, alignItems: 'baseline', marginBottom: 4 }}>
-          <span style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 9,
+          <span style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 12,
             letterSpacing: '0.06em', color: 'var(--text-primary)', flexShrink: 0 }}>{REPAIR_EXTRA.priority}</span>
-          <span style={{ fontFamily: 'var(--font-body)', fontSize: 11, lineHeight: 1.4,
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, lineHeight: 1.4,
             color: 'var(--text-secondary)' }}>{REPAIR_EXTRA.action}</span>
         </div>
         <div style={{ paddingLeft: 22, display: 'flex', gap: 5, alignItems: 'baseline' }}>
-          <span style={{ fontFamily: 'var(--font-body)', fontSize: 9, color: 'var(--border-strong)', flexShrink: 0 }}>↳</span>
-          <span style={{ fontFamily: 'var(--font-body)', fontSize: 9.5, lineHeight: 1.45,
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'var(--border-strong)', flexShrink: 0 }}>↳</span>
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, lineHeight: 1.45,
             color: 'var(--text-muted)', fontStyle: 'italic' }}>Test: {REPAIR_EXTRA.test}</span>
         </div>
       </div>
@@ -313,7 +314,7 @@ function SpecimenCard({
           <span style={{
             fontFamily: 'var(--font-body)',
             fontWeight: 500,
-            fontSize: 10,
+            fontSize: 12,
             letterSpacing: '0.14em',
             textTransform: 'uppercase',
             color: 'var(--text-muted)',
@@ -323,7 +324,7 @@ function SpecimenCard({
           <span style={{
             fontFamily: 'var(--font-body)',
             fontWeight: 500,
-            fontSize: 8,
+            fontSize: 12,
             letterSpacing: '0.08em',
             color: 'var(--border-strong)',
           }}>
@@ -370,7 +371,7 @@ function SpecimenCard({
             zIndex: 2,
             fontFamily: 'var(--font-body)',
             fontWeight: 500,
-            fontSize: 7.5,
+            fontSize: 12,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
             color: 'var(--border-strong)',
@@ -449,7 +450,7 @@ export function Outputs() {
           <div style={{
             fontFamily: 'var(--font-body)',
             fontWeight: 500,
-            fontSize: 10,
+            fontSize: 12,
             letterSpacing: '0.12em',
             textTransform: 'uppercase',
             color: 'var(--text-muted)',

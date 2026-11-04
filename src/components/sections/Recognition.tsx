@@ -1,4 +1,5 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
 
 /* ── Signal data ── */
@@ -215,7 +216,7 @@ function SignalRow({
               style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 500,
-                fontSize: 10,
+                fontSize: 12,
                 letterSpacing: '0.06em',
                 color: 'var(--accent-divergence)',
                 textTransform: 'uppercase',
@@ -255,7 +256,7 @@ export function Recognition() {
               style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 500,
-                fontSize: 10,
+                fontSize: 12,
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 color: 'var(--text-muted)',
@@ -304,7 +305,7 @@ export function Recognition() {
                 borderTop: '1px solid var(--border-default)',
                 fontFamily: 'var(--font-body)',
                 fontWeight: 500,
-                fontSize: 10,
+                fontSize: 12,
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
                 color: 'var(--text-muted)',

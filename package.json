@@ -12,6 +12,7 @@
     "lint:tokens": "node scripts/lint-tokens.mjs",
     "test:lint-tokens": "node --test scripts/lint-tokens-seed.test.mjs",
     "test:contrast": "node scripts/test-contrast.mjs",
+    "test:type-floor": "playwright test tests/type-floor.spec.ts --project=390x844-light --project=1440x900-light",
     "shot": "node scripts/shot.mjs",
     "shot:update": "playwright test --update-snapshots --project=390x844-light",
     "compare": "node scripts/compare.mjs",

@@ -1,4 +1,5 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
 
 /* ── Stage data ── */
@@ -55,7 +56,7 @@ function LogsEvidence({ full }: { full: boolean }) {
     <div style={{ marginTop: 10 }}>
       {['→ webhook.received  [T+0ms]', '→ model.inference   [T+142ms]', '→ state.update      [pending…]'].map(l => (
         <div key={l} style={{
-          fontFamily: 'monospace', fontSize: 9, lineHeight: 1.8, letterSpacing: '0.02em',
+          fontFamily: 'monospace', fontSize: 12, lineHeight: 1.8, letterSpacing: '0.02em',
           color: full ? 'var(--text-secondary)' : 'var(--text-muted)',
           transition: 'color 200ms ease',
         }}>{l}</div>
@@ -72,7 +73,7 @@ function CobaltEvidence({ full }: { full: boolean }) {
         <circle cx="6.5" cy="6.5" r="5.5" fill="var(--accent-info)" />
         <circle cx="6.5" cy="6.5" r="2" fill="rgba(10,21,32,0.65)" />
       </svg>
-      <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 9,
+      <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12,
         letterSpacing: '0.09em', textTransform: 'uppercase', color: 'var(--accent-info)' }}>
         system state
       </span>
@@ -102,7 +103,7 @@ function TestEvidence({ full }: { full: boolean }) {
     <div style={{ marginTop: 10 }}>
       {['assert(subscription.status)', 'assert(auditLog.contains(id))'].map(l => (
         <div key={l} style={{
-          fontFamily: 'monospace', fontSize: 9, lineHeight: 1.8, letterSpacing: '0.02em',
+          fontFamily: 'monospace', fontSize: 12, lineHeight: 1.8, letterSpacing: '0.02em',
           color: full ? 'var(--text-secondary)' : 'var(--text-muted)',
           transition: 'color 200ms ease',
         }}>{l}</div>
@@ -142,7 +143,7 @@ function StageColumn({ stage, resolved, index }: { stage: Stage; resolved: boole
     >
       {/* Stage number */}
       <div style={{
-        fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 9,
+        fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12,
         letterSpacing: '0.14em', color: 'var(--text-muted)',
         marginBottom: 5, height: 14, display: 'flex', alignItems: 'center',
       }}>
@@ -173,7 +174,7 @@ function StageColumn({ stage, resolved, index }: { stage: Stage; resolved: boole
 
       {/* Description */}
       <p style={{
-        fontFamily: 'var(--font-body)', fontWeight: 400, fontSize: 11,
+        fontFamily: 'var(--font-body)', fontWeight: 400, fontSize: 12,
         lineHeight: 1.5, textAlign: 'center', margin: 0,
         color: 'var(--text-secondary)',
         opacity: ws.descO,
@@ -273,7 +274,7 @@ function MobileStageItem({
         onMouseLeave={() => setHovered(false)}
         style={{ flex: 1, paddingBottom: isLast ? 0 : 28 }}
       >
-        <div style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 9,
+        <div style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12,
           letterSpacing: '0.14em', color: 'var(--text-muted)', marginBottom: 4 }}>
           {stage.num}
         </div>
@@ -346,7 +347,7 @@ export function Method() {
         {/* Section label */}
         <div style={{ marginBottom: 48 }}>
           <div style={{
-            fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 10,
+            fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12,
             letterSpacing: '0.12em', textTransform: 'uppercase',
             color: 'var(--text-muted)', marginBottom: 12,
           }}>

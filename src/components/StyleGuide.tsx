@@ -1,4 +1,5 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React from 'react';
 import {
   NodeIntent, NodeSuccess, NodeExpected, NodeEvidence, NodeAnomaly, NodeMissing,
@@ -31,8 +32,8 @@ function Swatch({ hex, name, token, dark }: { hex: string; name: string; token: 
       />
       <div>
         <div className="text-card-title" style={{ fontSize: 13, color: 'var(--text-primary)' }}>{name}</div>
-        <div className="text-meta" style={{ fontSize: 11 }}>{hex}</div>
-        <div className="text-meta" style={{ fontSize: 10, letterSpacing: '0.06em' }}>{token}</div>
+        <div className="text-meta" style={{ fontSize: 12 }}>{hex}</div>
+        <div className="text-meta" style={{ fontSize: 12, letterSpacing: '0.06em' }}>{token}</div>
       </div>
     </div>
   );
@@ -163,7 +164,7 @@ export function StyleGuide() {
               {[4, 8, 16, 24, 32, 48].map(n => (
                 <div key={n} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
                   <div style={{ width: n, height: n, backgroundColor: 'var(--accent-info)', opacity: 0.4, borderRadius: 2 }} />
-                  <div className="text-meta" style={{ fontSize: 10 }}>{n}px</div>
+                  <div className="text-meta" style={{ fontSize: 12 }}>{n}px</div>
                 </div>
               ))}
               <div className="text-meta" style={{ marginLeft: 8 }}>+ 96–160px macro</div>
@@ -183,7 +184,7 @@ export function StyleGuide() {
                       backgroundColor: 'var(--surface-raised)',
                     }}
                   />
-                  <div className="text-meta" style={{ fontSize: 11 }}>{label}</div>
+                  <div className="text-meta" style={{ fontSize: 12 }}>{label}</div>
                 </div>
               ))}
             </div>
@@ -206,7 +207,7 @@ export function StyleGuide() {
                       border: '1px solid var(--border-default)',
                     }}
                   />
-                  <div className="text-meta" style={{ fontSize: 11 }}>{label}</div>
+                  <div className="text-meta" style={{ fontSize: 12 }}>{label}</div>
                 </div>
               ))}
             </div>
@@ -231,7 +232,7 @@ export function StyleGuide() {
                 <Node size={28} />
                 <div style={{ textAlign: 'center' }}>
                   <div className="text-card-title" style={{ fontSize: 12, color: 'var(--text-primary)' }}>{label}</div>
-                  <div className="text-meta" style={{ fontSize: 10 }}>{description}</div>
+                  <div className="text-meta" style={{ fontSize: 12 }}>{description}</div>
                 </div>
               </div>
             ))}
@@ -241,15 +242,15 @@ export function StyleGuide() {
           <div style={{ display: 'flex', gap: 48, alignItems: 'center', flexWrap: 'wrap' }}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
               <FlowArrow length={64} variant="solid" />
-              <div className="text-meta" style={{ fontSize: 11 }}>Intended flow</div>
+              <div className="text-meta" style={{ fontSize: 12 }}>Intended flow</div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
               <FlowArrow length={64} variant="dashed" />
-              <div className="text-meta" style={{ fontSize: 11 }}>Missing handoff</div>
+              <div className="text-meta" style={{ fontSize: 12 }}>Missing handoff</div>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
               <DivergencePath length={80} />
-              <div className="text-meta" style={{ fontSize: 11 }}>Divergence path</div>
+              <div className="text-meta" style={{ fontSize: 12 }}>Divergence path</div>
             </div>
           </div>
 
@@ -258,20 +259,20 @@ export function StyleGuide() {
             <div className="text-label" style={{ color: 'var(--text-muted)', marginBottom: 24 }}>EXAMPLE FLOW — REPORT STATUS vs ACTUAL STATE</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
               <NodeIntent size={24} />
-              <div className="text-meta" style={{ fontSize: 11 }}>Workflow starts</div>
+              <div className="text-meta" style={{ fontSize: 12 }}>Workflow starts</div>
               <FlowArrow length={48} />
               <NodeSuccess size={24} />
-              <div className="text-meta" style={{ fontSize: 11 }}>Model reports "done"</div>
+              <div className="text-meta" style={{ fontSize: 12 }}>Model reports "done"</div>
               <DivergencePath length={64} />
               <NodeAnomaly size={24} />
-              <div className="text-meta" style={{ fontSize: 11, color: 'var(--accent-divergence)' }}>Outcome unresolved</div>
+              <div className="text-meta" style={{ fontSize: 12, color: 'var(--accent-divergence)' }}>Outcome unresolved</div>
               <FlowArrow length={48} variant="dashed" />
               <NodeMissing size={24} />
-              <div className="text-meta" style={{ fontSize: 11 }}>Missing verification</div>
+              <div className="text-meta" style={{ fontSize: 12 }}>Missing verification</div>
             </div>
             <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
               <NodeEvidence size={16} />
-              <div className="text-meta" style={{ fontSize: 11 }}>External evidence source (Cobalt)</div>
+              <div className="text-meta" style={{ fontSize: 12 }}>External evidence source (Cobalt)</div>
             </div>
           </div>
         </div>
@@ -282,15 +283,15 @@ export function StyleGuide() {
         <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-start' }}>
             <button className="btn-primary">Primary action</button>
-            <div className="text-meta" style={{ fontSize: 11 }}>Primary — Deep Space fill, Paper text</div>
+            <div className="text-meta" style={{ fontSize: 12 }}>Primary — Deep Space fill, Paper text</div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-start' }}>
             <button className="btn-secondary">Secondary action</button>
-            <div className="text-meta" style={{ fontSize: 11 }}>Secondary — 1px outline</div>
+            <div className="text-meta" style={{ fontSize: 12 }}>Secondary — 1px outline</div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-start' }}>
             <button className="btn-tertiary">Learn more →</button>
-            <div className="text-meta" style={{ fontSize: 11 }}>Tertiary — underline draws on hover</div>
+            <div className="text-meta" style={{ fontSize: 12 }}>Tertiary — underline draws on hover</div>
           </div>
         </div>
       </Section>
@@ -340,7 +341,7 @@ export function StyleGuide() {
               >
                 <div style={{ position: 'absolute', inset: 0, opacity: 0.18, ...style }} />
               </div>
-              <div className="text-meta" style={{ fontSize: 11 }}>{label}</div>
+              <div className="text-meta" style={{ fontSize: 12 }}>{label}</div>
             </div>
           ))}
         </div>

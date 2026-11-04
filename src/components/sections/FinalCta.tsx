@@ -1,4 +1,5 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useState } from 'react';
 
 /* ── Always-dark tokens ── */
@@ -81,7 +82,7 @@ function Field({
     <div style={{ marginBottom: 14 }}>
       <label htmlFor={id} style={{
         display: 'block', fontFamily: 'var(--font-body)', fontWeight: 500,
-        fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase',
+        fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase',
         color: P55, marginBottom: 6,
       }}>
         {label}
@@ -102,7 +103,7 @@ function Field({
         />
       )}
       {error && (
-        <div style={{ marginTop: 5, fontFamily: 'var(--font-body)', fontSize: 11,
+        <div style={{ marginTop: 5, fontFamily: 'var(--font-body)', fontSize: 12,
           color: 'var(--accent-divergence)', letterSpacing: '0.03em' }}>
           {error}
         </div>
@@ -220,7 +221,7 @@ export function FinalCta() {
               <div style={{
                 marginTop: 14,
                 fontFamily: 'var(--font-body)', fontWeight: 500,
-                fontSize: 10, letterSpacing: '0.12em',
+                fontSize: 12, letterSpacing: '0.12em',
                 textTransform: 'uppercase', color: P30,
               }}>
                 One workflow is enough.
@@ -287,7 +288,7 @@ export function FinalCta() {
                         onClick={() => setFormOpen(false)}
                         style={{
                           fontFamily: 'var(--font-body)', fontWeight: 400,
-                          fontSize: 11, letterSpacing: '0.06em',
+                          fontSize: 12, letterSpacing: '0.06em',
                           color: P30, backgroundColor: 'transparent',
                           border: 'none', cursor: 'pointer', padding: 0,
                           textDecoration: 'underline',
@@ -371,7 +372,7 @@ export function SiteFooter() {
               </span>
             </div>
             <div style={{
-              fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 9,
+              fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12,
               letterSpacing: '0.14em', textTransform: 'uppercase', color: P30,
             }}>
               AI Workflow Reliability
@@ -395,7 +396,7 @@ export function SiteFooter() {
               {['Privacy', 'Terms'].map(label => (
                 <a key={label} href="#" style={{
                   fontFamily: 'var(--font-body)', fontWeight: 400,
-                  fontSize: 11, letterSpacing: '0.06em', color: P30,
+                  fontSize: 12, letterSpacing: '0.06em', color: P30,
                   textDecoration: 'none', transition: 'color 140ms ease',
                 }}
                   onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = P55; }}
@@ -419,7 +420,7 @@ export function SiteFooter() {
         }}>
           <div style={{
             fontFamily: 'var(--font-body)', fontWeight: 400,
-            fontSize: 11, color: P30, letterSpacing: '0.03em',
+            fontSize: 12, color: P30, letterSpacing: '0.03em',
           }}>
             © {new Date().getFullYear()} Galactos. All rights reserved.
           </div>

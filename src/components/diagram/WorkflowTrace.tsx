@@ -1,4 +1,5 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
 
 interface TraceNode {
@@ -165,7 +166,7 @@ function HorizontalTrace({ resolved }: { resolved: boolean[] }) {
           left: 0,
           fontFamily: 'var(--font-body)',
           fontWeight: 500,
-          fontSize: 10,
+          fontSize: 12,
           letterSpacing: '0.1em',
           textTransform: 'uppercase',
           color: 'var(--text-muted)',
@@ -204,7 +205,7 @@ function HorizontalTrace({ resolved }: { resolved: boolean[] }) {
                   style={{
                     fontFamily: 'var(--font-body)',
                     fontWeight: 500,
-                    fontSize: 11,
+                    fontSize: 12,
                     color: 'var(--text-primary)',
                     lineHeight: 1.3,
                     transition: 'opacity 300ms ease',
@@ -217,7 +218,7 @@ function HorizontalTrace({ resolved }: { resolved: boolean[] }) {
                   style={{
                     fontFamily: 'var(--font-body)',
                     fontWeight: 400,
-                    fontSize: 10,
+                    fontSize: 12,
                     color: 'var(--text-muted)',
                     letterSpacing: '0.05em',
                     marginTop: 2,
@@ -281,7 +282,7 @@ function HorizontalTrace({ resolved }: { resolved: boolean[] }) {
           style={{
             fontFamily: 'var(--font-body)',
             fontWeight: 500,
-            fontSize: 9,
+            fontSize: 12,
             color: 'var(--text-muted)',
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
@@ -360,7 +361,7 @@ function VerticalTrace({ resolved }: { resolved: boolean[] }) {
               <div
                 style={{
                   fontFamily: 'var(--font-body)',
-                  fontSize: 11,
+                  fontSize: 12,
                   color: 'var(--text-muted)',
                   letterSpacing: '0.04em',
                   transition: 'opacity 300ms ease',
@@ -393,7 +394,7 @@ function VerticalTrace({ resolved }: { resolved: boolean[] }) {
           marginLeft: 10,
           fontFamily: 'var(--font-body)',
           fontWeight: 500,
-          fontSize: 9,
+          fontSize: 12,
           color: 'var(--text-muted)',
           letterSpacing: '0.1em',
           textTransform: 'uppercase',

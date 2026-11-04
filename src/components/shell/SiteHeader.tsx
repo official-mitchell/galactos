@@ -1,4 +1,5 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
 import { ModeToggle } from './ModeToggle';
 
@@ -100,7 +101,7 @@ export function SiteHeader({ isDark, onToggleMode }: SiteHeaderProps) {
               style={{
                 fontFamily: 'var(--font-body)',
                 fontWeight: 500,
-                fontSize: 9,
+                fontSize: 12,
                 color: 'var(--text-muted)',
                 letterSpacing: '0.1em',
                 textTransform: 'uppercase',
