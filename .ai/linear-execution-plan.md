@@ -1,5 +1,6 @@
 <!-- Created 2026-11-03: Linear-backed execution order for Galactos (P-MAX-21).
-     2026-11-03: Owner closed the Phase 1 gate. Visual target is the four mocks named below plus Dev Mode file iGhSTY4TzNtuGE3rDQNO3C node 1:3. MAX-994–996 are unblocked. -->
+     2026-11-03: Owner closed the Phase 1 gate. Visual target is the four mocks named below plus Dev Mode file iGhSTY4TzNtuGE3rDQNO3C node 1:3. MAX-994–996 are unblocked.
+     2026-11-03: Added the parallel execution waves (Phase 1 infra through Phase 10) under "Parallel execution". -->
 
 # Galactos Linear execution plan
 
@@ -80,9 +81,77 @@ Human verification for 0.3: `node -v` ≥ 22; Playwright installed. For 0.4: `np
 | [MAX-995](https://linear.app/maximus-automaton/issue/MAX-995) | §1.3 Quality Gates | `parallel-safe` |
 | [MAX-996](https://linear.app/maximus-automaton/issue/MAX-996) | §1.4 Screenshot Harness | `parallel-safe` |
 
-## Later phases (do not start)
+## Later phases
 
-Milestones Phase 2–10 exist on the project (design system → motion → narrative acts → launch hardening). Parent section issues MAX-997 through MAX-1033 carry `sequential-only`, `parallel-safe`, or `needs-integration-pass`. Re-read Linear before leaving Phase 1; this plan is add-only until someone updates it for accuracy.
+Milestones Phase 2–10 exist on the project (design system → motion → narrative acts → launch hardening). Parent section issues MAX-997 through MAX-1033 carry `sequential-only`, `parallel-safe`, or `needs-integration-pass`. The wave order is in [Parallel execution](#parallel-execution). Re-read Linear before starting a wave; `Requires:` on the issue body still wins.
+
+## Parallel execution
+
+Added 2026-11-03. Phase 0 and MAX-993 are done. One parent issue per worktree. Children stay inside the parent’s worktree. Same `track:*` may share a worktree only when every issue on it is `parallel-safe`.
+
+### Now — Phase 1 infra
+
+Merge MAX-994 and MAX-995 before MAX-996. All three touch `package.json`. §2.1 cannot start until `lint:tokens` from MAX-995 exists.
+
+| Worktree | Issue | Owns |
+| --- | --- | --- |
+| A | [MAX-994](https://linear.app/maximus-automaton/issue/MAX-994) §1.2 Isolate dev scaffolding | Preview bar and style guide behind `import.meta.env.DEV` |
+| B | [MAX-995](https://linear.app/maximus-automaton/issue/MAX-995) §1.3 Quality gates | `typecheck`, `lint:tokens`, CI |
+| C, after A and B merge | [MAX-996](https://linear.app/maximus-automaton/issue/MAX-996) §1.4 Screenshot harness | `npm run shot`, `npm run compare` |
+
+### Phase 2 — shared core
+
+One `track:shared-core` worktree for the sequential chain. Extra worktrees only after tokens land.
+
+1. [MAX-997](https://linear.app/maximus-automaton/issue/MAX-997) §2.1 Tokens
+2. In parallel after 997: [MAX-998](https://linear.app/maximus-automaton/issue/MAX-998) §2.2 Type scale, [MAX-1002](https://linear.app/maximus-automaton/issue/MAX-1002) §2.6 Motifs and icons, [MAX-1003](https://linear.app/maximus-automaton/issue/MAX-1003) §2.7 Dark mode
+3. Then one worktree, in order: [MAX-999](https://linear.app/maximus-automaton/issue/MAX-999) §2.3 Layout primitives → [MAX-1000](https://linear.app/maximus-automaton/issue/MAX-1000) §2.4 Diagram kit → [MAX-1001](https://linear.app/maximus-automaton/issue/MAX-1001) §2.5 Case-file content
+
+Phase 3 waits until 2.1 through 2.7 are done.
+
+### Phase 3 — motion
+
+Same `track:shared-core` rule.
+
+1. [MAX-1004](https://linear.app/maximus-automaton/issue/MAX-1004) §3.1 Install → [MAX-1005](https://linear.app/maximus-automaton/issue/MAX-1005) §3.2 Motion tokens → [MAX-1006](https://linear.app/maximus-automaton/issue/MAX-1006) §3.3 Primitives
+2. In parallel after 1006: [MAX-1007](https://linear.app/maximus-automaton/issue/MAX-1007) §3.4 Reduced motion, [MAX-1008](https://linear.app/maximus-automaton/issue/MAX-1008) §3.5 Hover/focus/touch, [MAX-1009](https://linear.app/maximus-automaton/issue/MAX-1009) §3.6 Performance rules
+3. [MAX-1010](https://linear.app/maximus-automaton/issue/MAX-1010) §3.7 Amend guidelines after 1005, 1007, and 1008
+
+### Phase 4 — shell
+
+After Phase 3. These four can run together:
+
+- [MAX-1011](https://linear.app/maximus-automaton/issue/MAX-1011) §4.1 Story sequence (`track:shared-core`)
+- [MAX-1012](https://linear.app/maximus-automaton/issue/MAX-1012) §4.2 Scroll spine (`track:frontend`)
+- [MAX-1013](https://linear.app/maximus-automaton/issue/MAX-1013) §4.3 Header (`track:frontend`)
+- [MAX-1015](https://linear.app/maximus-automaton/issue/MAX-1015) §4.5 Evidence (`track:shared-core`)
+
+Then [MAX-1014](https://linear.app/maximus-automaton/issue/MAX-1014) §4.4 Seams after 1011 and 1012. Then [MAX-1016](https://linear.app/maximus-automaton/issue/MAX-1016) §4.6 Section intake after 1013.
+
+### Acts I–V
+
+`sequential-only` and `track:frontend`. One worktree. Do not fan these out.
+
+[MAX-1017](https://linear.app/maximus-automaton/issue/MAX-1017) Hero → [MAX-1018](https://linear.app/maximus-automaton/issue/MAX-1018) Failure state → [MAX-1019](https://linear.app/maximus-automaton/issue/MAX-1019) Mechanism → [MAX-1020](https://linear.app/maximus-automaton/issue/MAX-1020) New standard → [MAX-1021](https://linear.app/maximus-automaton/issue/MAX-1021) Cross-domain → [MAX-1022](https://linear.app/maximus-automaton/issue/MAX-1022) Recognition → [MAX-1023](https://linear.app/maximus-automaton/issue/MAX-1023) Intervention → [MAX-1024](https://linear.app/maximus-automaton/issue/MAX-1024) Outputs → [MAX-1025](https://linear.app/maximus-automaton/issue/MAX-1025) Method → [MAX-1026](https://linear.app/maximus-automaton/issue/MAX-1026) Credibility → [MAX-1027](https://linear.app/maximus-automaton/issue/MAX-1027) Final CTA → [MAX-1028](https://linear.app/maximus-automaton/issue/MAX-1028) Footer.
+
+Mocks already named:
+
+- Hero uses `instructions/design/mocks/galactos-mock-hero.png` (MAX-1017).
+- Reported versus verified uses `instructions/design/mocks/galactos-mock-done.png`.
+- Verified completion uses `instructions/design/mocks/galactos-mock-component-success.png`.
+- Reliability diagnostic uses `instructions/design/mocks/galactos-mock-reliability-diagnostic.png` (MAX-1023).
+
+Hero is `needs-integration-pass`: build it in that same frontend worktree, then reconcile with the header and spine before the failure state.
+
+### Phase 10
+
+After Act V.
+
+1. [MAX-1029](https://linear.app/maximus-automaton/issue/MAX-1029) §10.1 Prerender and SEO, alone.
+2. Then three worktrees: [MAX-1030](https://linear.app/maximus-automaton/issue/MAX-1030) accessibility (`track:frontend`), [MAX-1031](https://linear.app/maximus-automaton/issue/MAX-1031) performance (`track:infra`), [MAX-1032](https://linear.app/maximus-automaton/issue/MAX-1032) analytics (`track:infra`).
+3. [MAX-1033](https://linear.app/maximus-automaton/issue/MAX-1033) Deploy last. It is `needs-integration-pass` and waits on 10.1–10.4.
+
+The first pair to start is MAX-994 and MAX-995.
 
 ## Agent operating rules
 
@@ -94,6 +163,7 @@ Milestones Phase 2–10 exist on the project (design system → motion → narra
 
 ## Changelog (this file)
 
+- 2026-11-03: Added the parallel execution waves from MAX-994 through Phase 10. First pair to start is MAX-994 and MAX-995.
 - 2026-11-03: Owner closed the Phase 1 gate. Named mocks: hero, reliability diagnostic, verified completion, reported versus verified. MAX-994–996 unblocked. Build was already green.
 - 2026-11-03: MAX-989 Done (D12 closed on the Fraunces wordmark default). MAX-1050 Done. MAX-990 stays open for MAX-1048 and MAX-1049. Hero plate and design/refs cancelled in Linear. Fonts marked done.
 - 2026-11-03: Linear updated. MAX-991 and MAX-992 Done. MAX-993 In Progress. Mock compare on MAX-993 is deferred, so MAX-994–996 stay blocked.

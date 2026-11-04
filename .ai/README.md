@@ -1,4 +1,5 @@
-<!-- Created 2026-11-03: agent index pointing at the Linear execution plan and changelog. -->
+<!-- Created 2026-11-03: agent index pointing at the Linear execution plan and changelog.
+     2026-11-03: Pointed agents at the Parallel execution section of the Linear plan. -->
 
 # Galactos agent index
 
@@ -6,7 +7,7 @@ Read this first in every session. Then follow the documents it names.
 
 ## Required reading
 
-1. **[linear-execution-plan.md](./linear-execution-plan.md)** — current Linear project, phase gates, labels, and the order of work. Do not skip gates. Do not start `parallel-safe` worktrees until the plan says they are unblocked.
+1. **[linear-execution-plan.md](./linear-execution-plan.md)** — current Linear project, phase gates, labels, and the order of work. The [Parallel execution](./linear-execution-plan.md#parallel-execution) section is the wave order from MAX-994 through Phase 10. Do not skip gates. Do not start `parallel-safe` worktrees until the plan says they are unblocked.
 2. **[CHANGELOG.md](./CHANGELOG.md)** — dated log of agent revisions. After you add, change, or remove files, append a dated summary line there (newest date at the top).
 
 ## Linear

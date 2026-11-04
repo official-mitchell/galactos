@@ -16,7 +16,9 @@ Format:
 ---
 
 ## 2026-11-03
+- [cursor-grok] Opened Phase 1 worktrees A and B for MAX-994 and MAX-995. Ignored `.worktrees/`. MAX-996 stays until those two merge.
 
+- [cursor-grok] Added the parallel execution waves (MAX-994 through Phase 10) to `.ai/linear-execution-plan.md`.
 - [cursor-grok] Owner closed the Phase 1 gate (MAX-993). Plan and checklist now name the four section mocks and unblock MAX-994–996.
 - [cursor-grok] MAX-1049: added `.env.example` and local `.env.local` for the Vite site vars. `.env` stays gitignored.
 - [cursor-grok] MAX-1048 marked Done: form endpoint confirmed, Plausible snippet in `index.html`, public address `hello@galactos.io`. MAX-990 stays open for MAX-1049.
