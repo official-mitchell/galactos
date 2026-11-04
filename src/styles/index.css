@@ -1,4 +1,5 @@
-/* 2026-11-03: moved from the Make scratch src/index.css. Tokens stay here until §2.1. */
+/* 2026-11-03: moved from the Make scratch src/index.css. Tokens stay here until §2.1.
+   2026-11-03: MAX-996 freezes CSS animation when ?motion=final or ?motion=reduced. No motion library. */
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import 'tailwindcss';
@@ -480,4 +481,16 @@ body {
   stroke-dashoffset: 1;
   animation: traceDraw 500ms ease forwards;
   pathLength: 1;
+}
+
+/* MAX-996: final and reduced captures settle CSS motion. ScrollTrigger is not installed. */
+html[data-motion='final'] *,
+html[data-motion='reduced'] * {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+html[data-motion='final'] .trace-line {
+  stroke-dashoffset: 0;
 }

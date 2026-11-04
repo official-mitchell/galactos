@@ -10,7 +10,11 @@
     "format": "oxfmt",
     "typecheck": "tsc --noEmit",
     "lint:tokens": "node scripts/lint-tokens.mjs",
-    "test:lint-tokens": "node --test scripts/lint-tokens-seed.test.mjs"
+    "test:lint-tokens": "node --test scripts/lint-tokens-seed.test.mjs",
+    "shot": "node scripts/shot.mjs",
+    "shot:update": "playwright test --update-snapshots --project=390x844-light",
+    "compare": "node scripts/compare.mjs",
+    "test:e2e": "playwright test --project=390x844-light"
   },
   "dependencies": {
     "react": "^19.0.0",
@@ -22,7 +26,9 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^6.0.0",
+    "@playwright/test": "1.64.1",
     "oxfmt": "^0.2.0",
+    "pngjs": "^7.0.0",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.7.0",
     "vite": "^8.0.5"
