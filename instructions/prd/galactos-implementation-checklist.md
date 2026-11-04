@@ -1,4 +1,5 @@
 <!-- 2026-11-03: MAX-998 checked §2.2 items 1–6 and 8. Item 7 stays open (inline fontSize remains). -->
+<!-- 2026-11-03: MAX-1003 checked §2.7 items 1–6. Hero plate item cancelled. Phase 2 go-when stays open. -->
 <!-- 2026-11-03: MAX-995 checked off §1.3. typecheck, lint:tokens (baseline + seed), and ci.yml are in place. e2e stays a placeholder for MAX-996. -->
 <!-- 2026-11-03: MAX-994 checked off §1.2. Preview bar and Style Guide are dev-only; LandingPlaceholder removed. -->
 <!-- 2026-11-03: MAX-996 checked the harness items that are implemented. Item 12 (full 11×4×2 non-blank matrix) stays open until that command is run. CI smoke is one screenshot. -->
@@ -230,12 +231,12 @@ Produces: generated contour assets, motif components, icon wrapper
 Requires: 2.1 complete
 Produces: no-flash theme switching
 
-- [ ] 1. Inline script in `index.html` sets `.dark` from `localStorage['galactos-theme']` else `prefers-color-scheme`, before first paint
-- [ ] 2. Hero plate: two `<img>` variants toggled by `.dark`; preload only the active variant
-- [ ] 3. 200ms color crossfade only; none under reduced motion
-- [ ] 4. 🧪 e2e: toggle persists across reload
-- [ ] 5. 🧪 e2e: first paint with `colorScheme: 'dark'` has dark base background (no flash)
-- [ ] 6. 👁 Dev log of theme source (`stored|system`)
+- [x] 1. Inline script in `index.html` sets `.dark` from `localStorage['galactos-theme']` else `prefers-color-scheme`, before first paint. `?mode=` still wins (MAX-996).
+- [x] 2. Hero plate: cancelled by the owner (no two-image plate). No images added.
+- [x] 3. 200ms color crossfade only; none under reduced motion. `body` uses `--mode-transition`. `prefers-reduced-motion` sets `body` transition to none.
+- [x] 4. 🧪 e2e: toggle persists across reload (`tests/theme.spec.ts`, header `ModeToggle`, 390×844 light project, passed)
+- [x] 5. 🧪 e2e: first paint with `colorScheme: 'dark'` has dark base background `#0A1520` (no light-base flash) (`tests/theme.spec.ts`, passed)
+- [x] 6. 👁 Dev log of theme source (`stored|system`) in `src/main.tsx` when `import.meta.env.DEV`
 
 - [ ] **Go when:** `test:contrast` and `test:type-floor` pass, `lint:tokens` clean, `/#styleguide` renders every primitive in both modes, `caseFile` is the only home for case data
 

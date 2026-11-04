@@ -2,7 +2,8 @@
    2026-11-03: MAX-996 freezes CSS animation when ?motion=final or ?motion=reduced. No motion library.
    2026-11-03: MAX-997 moved the token set to tokens.css and dropped the Google Fonts import.
    2026-11-03: MAX-998 type scale (.text-lede, .text-pull, diagram hierarchy), 62ch body measure.
-   Display titles stay at most three lines at 1440; that is a layout note, not a clamp. */
+   Display titles stay at most three lines at 1440; that is a layout note, not a clamp.
+   2026-11-03: MAX-1003 confirmed body uses --mode-transition (color only, 200ms). prefers-reduced-motion sets body transition to none. No extra motion added. */
 @import './tokens.css';
 @import 'tailwindcss';
 
