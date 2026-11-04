@@ -219,13 +219,13 @@ Produces: one source of truth for case data, copy, evidence
 Requires: 2.1 complete
 Produces: generated contour assets, motif components, icon wrapper
 
-- [ ] 1. `scripts/gen-contours.ts`: seeded noise → contour paths (e.g. `d3-contour`) → `public/motifs/contours-{a,b,c}.svg` (stroke `currentColor`, 0.75px, no fill). Used on hero edges (R1), S10, S11
-- [ ] 2. `<Motif kind="grid|contour|crosshair|arc">`: opacity from tokens, 6–10% (light and dark)
-- [ ] 3. Crosshair field: seeded positions, 8–12 marks, 10–14px
-- [ ] 4. Icons: `lucide-react`, stroke 1.5, sizes 16/20/24; `<Icon name>` wrapper (user, file-text, database, credit-card, tag, message-square, settings, calendar, sparkles)
-- [ ] 5. 🧪 Generator is deterministic: two runs → identical output hash
-- [ ] 6. 🔍 Motifs never become focal at 1440 light/dark
-- [ ] 7. 👁 Generator logs seed + path counts; build fails if outputs missing
+- [x] 1. `scripts/gen-contours.ts`: seeded noise → contour paths (e.g. `d3-contour`) → `public/motifs/contours-{a,b,c}.svg` (stroke `currentColor`, 0.75px, no fill). Used on hero edges (R1), S10, S11. Shipped as `scripts/gen-contours.mjs` (plain Node, no d3).
+- [x] 2. `<Motif kind="grid|contour|crosshair|arc">`: opacity from tokens, 6–10% (light and dark)
+- [x] 3. Crosshair field: seeded positions, 8–12 marks, 10–14px
+- [x] 4. Icons: `lucide-react`, stroke 1.5, sizes 16/20/24; `<Icon name>` wrapper (user, file-text, database, credit-card, tag, message-square, settings, calendar, sparkles)
+- [x] 5. 🧪 Generator is deterministic: two runs → identical output hash
+- [x] 6. 🔍 Motifs never become focal at 1440 light/dark. Owner 2026-11-03: skip the review now; check again in production.
+- [x] 7. 👁 Generator logs seed + path counts; build fails if outputs missing
 
 ## 2.7 Dark Mode Wiring
 Requires: 2.1 complete
