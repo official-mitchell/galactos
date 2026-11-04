@@ -1,3 +1,4 @@
+<!-- 2026-11-03: Owner closed the Phase 1 gate. Hero = galactos-mock-hero.png. Reliability diagnostic = galactos-mock-reliability-diagnostic.png. Verified completion = galactos-mock-component-success.png. Reported versus verified = galactos-mock-done.png. Plus Dev Mode file iGhSTY4TzNtuGE3rDQNO3C node 1:3. -->
 <!-- 2026-11-03: §0.4 scratch app is instructions/context/Galactos • Figma Make - Landing Page/. Make layouts are not the visual target. Parity is mocks in instructions/design/mocks/ plus Dev Mode file iGhSTY4TzNtuGE3rDQNO3C node 1:3. Recorded on MAX-992 and MAX-993. -->
 <!-- 2026-11-03: §0.2 owner decisions — hero plate cancelled; favicon is the G tile (no ring + Cobalt dot); 48×48 icon skipped; OG source is assets/Galactos-OG.png; mocks live in instructions/design/mocks/. design/refs/ cancelled; R1–R5 stay in Figma (file key V2K9MFBI5DHBZPlnK0wag3) via the Figma MCP. -->
 
@@ -46,7 +47,7 @@ Owner decisions 2026-11-03 (MAX-990):
 - [x] 2. ~~Save refs to `design/refs/` (R1–R4, Appendix B).~~ Cancelled 2026-11-03. References stay in Figma (`V2K9MFBI5DHBZPlnK0wag3`) and are read through the Figma MCP. Section mocks delivered 2026-11-03 under `instructions/design/mocks/` (not `design/mocks/`): `galactos-mock-hero.png`, `galactos-mock-component-success.png`, `galactos-mock-reliability-diagnostic.png`, `galactos-mock-done.png`. Further section mocks still go in that folder as `<section>.png` when they arrive.
 - [x] 3. Fonts: Fraunces (variable, opsz axis if the package ships it) + Inter (variable), self-hosted. Downloaded 2026-11-03 into `assets/fonts/`: Inter 4.1 `InterVariable.woff2` and `InterVariable-Italic.woff2`; Fraunces 1.000 `Fraunces[SOFT,WONK,opsz,wght].woff2` and italic (opsz axis is in the file). Licenses: `Inter-LICENSE.txt`, `Fraunces-OFL.txt`. Wiring into CSS is §2.2.
 - [ ] 4. Accounts: hosting, domain, form endpoint, analytics, real contact email (Make uses placeholder `hello@galactos.example`).
-- [ ] 5. Env vars in `.env.local` + `.env.example`: `VITE_SITE_URL`, `VITE_FORM_ENDPOINT`, `VITE_ANALYTICS_KEY`, `PLAYWRIGHT_BASE_URL`, `FIGMA_FILE_KEY=V2K9MFBI5DHBZPlnK0wag3`
+- [x] 5. Env vars in `.env.local` + `.env.example`: `VITE_SITE_URL`, `VITE_FORM_ENDPOINT`, `VITE_ANALYTICS_KEY`, `PLAYWRIGHT_BASE_URL`, `FIGMA_FILE_KEY=V2K9MFBI5DHBZPlnK0wag3`. Added 2026-11-03. `VITE_ANALYTICS_KEY` is empty because Plausible is the script in `index.html`. The page does not read `VITE_FORM_ENDPOINT` until MAX-1027.
 - [ ] 6. 🔍 Confirm Make source readable: Figma MCP `get_design_context` on the file key returns the source tree (verified 2026-10-02).
 - [x] 7. 🔍 OG image source is `assets/Galactos-OG.png` (1733×908). Favicon source is the G tile listed above, not ring + Cobalt dot. Shipped OG tag in §10.1 is still 1200×630.
 
@@ -84,8 +85,8 @@ Produces: repo with target folder structure, parity with Make preview
 - [x] 3. Create `src/{components/{primitives,diagram,shell,sections},content,motion,styles,lib}`
 - [x] 4. Rename sections by job: `Hero`, `FailureState`, `Mechanism`, `NewStandard`, `CrossDomain`, `Recognition`, `Intervention`, `Outputs`, `Method`, `Credibility`, `FinalCta`
 - [x] 5. Create `src/content/sections.ts`: `{ number, id, act, label }` for all 11 sections (single source of anchor IDs; Make uses mixed IDs such as `section-divergence`, `section-cta`, `section-verification`). DOM ids are unchanged.
-- [x] 6. run: `npm ci && npm run build` — green 2026-11-03 at the repo root (Vite 8.3.5, 33 modules). Item 7 (1440 vs mocks) is still open.
-- [ ] 7. 🔍 Compare build at 1440 light vs the visual target. Owner decision 2026-11-03 (MAX-993): do not match the Make preview. Match `instructions/design/mocks/` and Dev Mode file `iGhSTY4TzNtuGE3rDQNO3C` node `1:3`. Keep the Vite shell from the §0.4 scratch export. The Make preview bar is capture chrome. `/#styleguide` stays.
+- [x] 6. run: `npm ci && npm run build` — green 2026-11-03 at the repo root (Vite 8.3.5, 33 modules).
+- [x] 7. 🔍 Compare build at 1440 light vs the visual target. Owner decision 2026-11-03 (MAX-993): do not match the Make preview. Match `instructions/design/mocks/` and Dev Mode file `iGhSTY4TzNtuGE3rDQNO3C` node `1:3`. Keep the Vite shell from the §0.4 scratch export. The Make preview bar is capture chrome. `/#styleguide` stays. Gate accepted 2026-11-03 with these section mocks: Hero `galactos-mock-hero.png`; reliability diagnostic `galactos-mock-reliability-diagnostic.png`; verified completion `galactos-mock-component-success.png`; reported versus verified `galactos-mock-done.png`.
 - [ ] 8. 👁 (no observability required)
 
 ## 1.2 Isolate Dev Scaffolding
@@ -125,7 +126,7 @@ Produces: `npm run shot` / `npm run compare`, `AGENTS.md` loop, deterministic ca
 - [ ] 12. 🔍 Run `npm run shot -- --section all` → 11 sections × 4 viewports × 2 modes produced, none blank
 - [ ] 13. 👁 `manifest.json` records timings and console output per capture
 
-- [ ] **Go when:** `npm run build` green, gates fail on seeded violations, `npm run shot -- --section all` produces a full non-blank set
+- [x] **Go when:** `npm run build` green, gates fail on seeded violations, `npm run shot -- --section all` produces a full non-blank set. Owner decision 2026-11-03: this gate is met. The visual target is the four mocks named in §1.1 item 7 plus Dev Mode node `1:3`, and `npm run build` is green. §1.2–§1.4 remain open tickets and are unblocked.
 
 ---
 
@@ -813,4 +814,5 @@ Strength is the project doc's own rating. It calls only Verifiability "directly 
 
 ## Changelog
 
+- 2026-11-03: Owner closed the Phase 1 gate and §1.1 item 7. Named mocks for hero, reliability diagnostic, verified completion, and reported versus verified.
 - 2026-11-03: §1.1 items 1–6 done at the repo root. Scratch Make folder removed. Item 7 (match mocks, not the Make preview) is still open.

@@ -1,10 +1,11 @@
-<!-- Created 2026-11-03: Linear-backed execution order for Galactos (P-MAX-21). -->
+<!-- Created 2026-11-03: Linear-backed execution order for Galactos (P-MAX-21).
+     2026-11-03: Owner closed the Phase 1 gate. Visual target is the four mocks named below plus Dev Mode file iGhSTY4TzNtuGE3rDQNO3C node 1:3. MAX-994–996 are unblocked. -->
 
 # Galactos Linear execution plan
 
 Source of truth for *what* to do: Linear project [Galactos](https://linear.app/maximus-automaton/project/galactos-6d8a77546ba7/overview) (`P-MAX-21`). This file is the *order* agents must follow.
 
-Project status as of 2026-11-03: **Backlog**. No issues started. Do not invent a parallel track around the gates below.
+Project status as of 2026-11-03: **Phase 1 gate met** by owner decision. Phase 0 is Done. MAX-993 (§1.1) visual compare is accepted. MAX-994, MAX-995, and MAX-996 are unblocked. Do not invent a parallel track around the gates below.
 
 ## Labels that control worktrees
 
@@ -41,7 +42,18 @@ Worktree labels live on **parent section issues**. Child tickets usually inherit
 
 **Phase 1 gate** (milestone *Phase 1 — Repo and Agent Feedback Loop*): `npm run build` green, gates fail on seeded violations, `npm run shot -- --section all` produces a full non-blank set.
 
-Later `parallel-safe` tickets (type scale, motifs, header, …) wait until **Phase 1 is done**, then until Phase 2 sequential core (`§2.1` tokens and related `sequential-only` parents) is in place. Do not jump to Act I–V section work.
+**Owner decision 2026-11-03:** this gate is met. The visual target is on disk and in Figma, so §1.1 item 7 is accepted and MAX-994–996 are no longer blocked on a missing compare. `npm run build` is green (Vite 8.3.5). Section layout follows these mocks:
+
+| Section | Mock |
+| --- | --- |
+| Hero | `instructions/design/mocks/galactos-mock-hero.png` |
+| Reliability diagnostic | `instructions/design/mocks/galactos-mock-reliability-diagnostic.png` |
+| Verified completion | `instructions/design/mocks/galactos-mock-component-success.png` |
+| Reported versus verified | `instructions/design/mocks/galactos-mock-done.png` |
+
+Plus Dev Mode file `iGhSTY4TzNtuGE3rDQNO3C` node `1:3`. Do not match the Make preview. §1.2–§1.4 stay open as their own tickets; they are eligible to start.
+
+Later `parallel-safe` tickets (type scale, motifs, header, …) wait until Phase 2 sequential core (`§2.1` tokens and related `sequential-only` parents) is in place. Do not jump to Act I–V section work.
 
 ## Phase 0 — Pre-Flight (current)
 
@@ -59,11 +71,11 @@ Human verification for 0.3: `node -v` ≥ 22; Playwright installed. For 0.4: `np
 
 ## Phase 1 — first parallel-safe window
 
-Only after **MAX-993 (§1.1 Port Make Source)** is complete.
+**MAX-993 (§1.1 Port Make Source)** is accepted (2026-11-03). The window is open.
 
 | ID | Title | After 1.1 |
 | --- | --- | --- |
-| [MAX-993](https://linear.app/maximus-automaton/issue/MAX-993) | §1.1 Port Make Source | sequential-only; 1440 light vs Make parity |
+| [MAX-993](https://linear.app/maximus-automaton/issue/MAX-993) | §1.1 Port Make Source | sequential-only; visual target is the four mocks plus Dev Mode node `1:3` |
 | [MAX-994](https://linear.app/maximus-automaton/issue/MAX-994) | §1.2 Isolate Dev Scaffolding | `parallel-safe` |
 | [MAX-995](https://linear.app/maximus-automaton/issue/MAX-995) | §1.3 Quality Gates | `parallel-safe` |
 | [MAX-996](https://linear.app/maximus-automaton/issue/MAX-996) | §1.4 Screenshot Harness | `parallel-safe` |
@@ -82,6 +94,7 @@ Milestones Phase 2–10 exist on the project (design system → motion → narra
 
 ## Changelog (this file)
 
+- 2026-11-03: Owner closed the Phase 1 gate. Named mocks: hero, reliability diagnostic, verified completion, reported versus verified. MAX-994–996 unblocked. Build was already green.
 - 2026-11-03: MAX-989 Done (D12 closed on the Fraunces wordmark default). MAX-1050 Done. MAX-990 stays open for MAX-1048 and MAX-1049. Hero plate and design/refs cancelled in Linear. Fonts marked done.
 - 2026-11-03: Linear updated. MAX-991 and MAX-992 Done. MAX-993 In Progress. Mock compare on MAX-993 is deferred, so MAX-994–996 stay blocked.
 - 2026-11-03: §1.1 port started at the repo root. The Make scratch folder was removed after the copy. §1.1 item 7 (1440 vs mocks) is still open, so Phase 1 is not unblocked.

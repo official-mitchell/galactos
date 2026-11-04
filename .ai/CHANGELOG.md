@@ -17,6 +17,8 @@ Format:
 
 ## 2026-11-03
 
+- [cursor-grok] Owner closed the Phase 1 gate (MAX-993). Plan and checklist now name the four section mocks and unblock MAX-994–996.
+- [cursor-grok] MAX-1049: added `.env.example` and local `.env.local` for the Vite site vars. `.env` stays gitignored.
 - [cursor-grok] MAX-1048 marked Done: form endpoint confirmed, Plausible snippet in `index.html`, public address `hello@galactos.io`. MAX-990 stays open for MAX-1049.
 - [cursor-grok] MAX-1048: owner confirmed the form test email arrived.
 - [cursor-grok] MAX-1048: form Worker now sends to the verified personal destination. Test POST returned `{"ok":true}`.
