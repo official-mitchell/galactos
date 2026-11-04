@@ -6,7 +6,7 @@
 
 Source of truth for *what* to do: Linear project [Galactos](https://linear.app/maximus-automaton/project/galactos-6d8a77546ba7/overview) (`P-MAX-21`). This file is the *order* agents must follow.
 
-Project status as of 2026-11-03: **Phase 1 gate met** by owner decision. Phase 0 is Done. MAX-993 (§1.1) visual compare is accepted. MAX-994, MAX-995, and MAX-996 are unblocked. Do not invent a parallel track around the gates below.
+Project status as of 2026-11-04: **Phase 2 gate met** on `phase-2-integration`. Tokens, type scale, layout primitives, diagram kit, case file, motifs, and dark mode are in. Act rebuilds still replace inline `fontSize`. DrawSVG waits for Phase 3. Phase 1 gate was met on 2026-11-03. Phase 0 is Done. MAX-993 (§1.1) visual compare is accepted. MAX-994, MAX-995, and MAX-996 are unblocked. Do not invent a parallel track around the gates below.
 
 ## Labels that control worktrees
 

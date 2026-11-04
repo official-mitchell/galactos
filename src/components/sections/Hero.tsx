@@ -18,7 +18,7 @@ export function Hero() {
         display: 'flex',
         alignItems: 'center',
         overflow: 'visible',
-        paddingTop: 36,
+        paddingTop: 96,
         paddingBottom: 64,
       }}
     >
@@ -26,7 +26,7 @@ export function Hero() {
         className="container-editorial hero-grid"
         style={{
           display: 'grid',
-          gridTemplateColumns: 'minmax(280px, 0.82fr) minmax(0, 1.35fr)',
+          gridTemplateColumns: 'minmax(320px, 0.95fr) minmax(0, 1.2fr)',
           gap: '32px 40px',
           alignItems: 'center',
           width: '100%',
@@ -36,12 +36,12 @@ export function Hero() {
           <h1
             className="text-display-xl"
             style={{
-              fontSize: 'clamp(36px, 3.5vw, 52px)',
+              fontSize: 'clamp(34px, 3.1vw, 46px)',
               lineHeight: 1.08,
               letterSpacing: '-0.03em',
               color: 'var(--text-primary)',
               marginBottom: 22,
-              maxWidth: 460,
+              maxWidth: 440,
             }}
           >
             Your AI workflow can say ‘done’ before the real work is done.

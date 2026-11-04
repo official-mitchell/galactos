@@ -18,4 +18,10 @@ test('style guide renders every node kind and state', async ({ page }, testInfo)
   }
 
   await expect(page.locator('[data-node-kind="pending"][data-node-state="resolved"]')).toHaveCount(0)
+
+  await page.goto('/?mode=dark#styleguide')
+  await page.waitForFunction(() => document.documentElement.classList.contains('dark'))
+  for (const kind of kinds) {
+    await expect(page.locator(`[data-node-kind="${kind}"]`).first()).toBeVisible()
+  }
 })

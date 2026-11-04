@@ -15,7 +15,7 @@
 
 .layout-section--emphasis {
   background: var(--surface-emphasis);
-  color: var(--text-primary);
+  color: var(--on-accent);
 }
 
 .layout-container {

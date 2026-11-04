@@ -56,7 +56,7 @@ function Mark({ tone }: { tone: 'success' | 'divergence' }) {
         height: 18,
         borderRadius: '50%',
         background: ok ? 'var(--accent-success)' : 'var(--accent-divergence)',
-        color: '#fff',
+        color: 'var(--on-accent)',
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
