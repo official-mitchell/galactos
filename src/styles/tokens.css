@@ -1,0 +1,107 @@
+/* 2026-11-03: MAX-997 §2.1. Semantic colors, spacing, z-index, motion mirrors, chip tints, self-hosted fonts.
+   Dark hexes are the derived set from the design system. Item 10 still wants a human measurement. */
+
+@font-face {
+  font-family: Fraunces;
+  src: url("../../assets/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Fraunces;
+  src: url("../../assets/fonts/Fraunces-Italic[SOFT,WONK,opsz,wght].woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url("../../assets/fonts/InterVariable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Inter;
+  src: url("../../assets/fonts/InterVariable-Italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  --surface-base: #F8F6F3;
+  --surface-raised: #FFFFFF;
+  --surface-emphasis: #0F1E2E;
+  --border-default: #D6D1C9;
+  --border-strong: #D6D1C9;
+  --text-primary: #0F1E2E;
+  --text-secondary: #374151;
+  --text-muted: rgba(55, 65, 81, 0.8);
+  --accent-info: #3882F6;
+  --accent-info-text: #3882F6;
+  --accent-divergence: #F97316;
+  --accent-success: #22C55E;
+
+  --node-intent: var(--text-primary);
+  --node-outline: var(--text-primary);
+  --btn-primary-bg: var(--text-primary);
+  --btn-primary-fg: var(--surface-base);
+  --focus-ring: var(--accent-info);
+  --on-accent: #F8F6F3;
+
+  --tint-success: color-mix(in srgb, var(--accent-success) 12%, var(--surface-base));
+  --tint-divergence: color-mix(in srgb, var(--accent-divergence) 12%, var(--surface-base));
+  --tint-info: color-mix(in srgb, var(--accent-info) 12%, var(--surface-base));
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-section: clamp(96px, 11vw, 160px);
+  --space-section-sm: 64px;
+
+  --z-spine: 10;
+  --z-header: 100;
+  --z-menu: 200;
+  --z-dev: 300;
+
+  --dur-xs: 0.15s;
+  --dur-sm: 0.25s;
+  --dur-md: 0.4s;
+  --dur-lg: 0.6s;
+  --dur-xl: 0.9s;
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-in-out: cubic-bezier(0.42, 0, 0.58, 1);
+  --ease-none: linear;
+
+  --mode-transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.dark {
+  --surface-base: #0A1520;
+  --surface-raised: #0F1E2E;
+  --surface-emphasis: #162A3F;
+  --border-default: #243649;
+  --border-strong: #35495E;
+  --text-primary: #F8F6F3;
+  --text-secondary: #D6D1C9;
+  --text-muted: #9AA3AE;
+  --accent-info: #3882F6;
+  --accent-info-text: #6FA6F8;
+  --accent-divergence: #F97316;
+  --accent-success: #22C55E;
+
+  --node-intent: var(--text-primary);
+  --node-outline: var(--text-secondary);
+  --btn-primary-bg: var(--text-primary);
+  --btn-primary-fg: var(--surface-raised);
+  --focus-ring: var(--accent-info-text);
+  --on-accent: #0A1520;
+}

@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit",
     "lint:tokens": "node scripts/lint-tokens.mjs",
     "test:lint-tokens": "node --test scripts/lint-tokens-seed.test.mjs",
+    "test:contrast": "node scripts/test-contrast.mjs",
     "shot": "node scripts/shot.mjs",
     "shot:update": "playwright test --update-snapshots --project=390x844-light",
     "compare": "node scripts/compare.mjs",

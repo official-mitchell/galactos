@@ -141,18 +141,18 @@ Produces: tokens, type scale, layout primitives, diagram kit, case-file data, mo
 Requires: 1.3 `lint:tokens` live
 Produces: complete token set in `src/styles/tokens.css`, contrast test
 
-- [ ] 1. Keep semantic color tokens from Make `index.css` (`--surface-*`, `--border-*`, `--text-*`, `--accent-*`)
-- [ ] 2. Replace hard-coded hex in `.dark` rules (`.node-intent`, `.node-expected`, `.btn-primary`, `.btn-secondary`, `.page-tab.active`, focus ring) with tokens: `--node-intent`, `--node-outline`, `--btn-primary-bg`, `--btn-primary-fg`, `--focus-ring`, `--on-accent`
-- [ ] 3. Add chip/zone tints: `--tint-success`, `--tint-divergence`, `--tint-info` (≤12% accent over surface). Labels on tints use `--text-primary`
-- [ ] 4. Add spacing tokens `--space-1…6` = 4, 8, 16, 24, 32, 48; `--space-section: clamp(96px, 11vw, 160px)`; `--space-section-sm: 64px`
-- [ ] 5. Add z-index scale: `--z-spine 10`, `--z-header 100`, `--z-menu 200`, `--z-dev 300`
-- [ ] 6. Add CSS mirrors of motion tokens (3.2): `--dur-*`, `--ease-*`
-- [ ] 7. Fix `.trace-line`: `pathLength` is an SVG attribute, not a CSS property; set `pathLength="1"` on the SVG elements
-- [ ] 8. Replace Google Fonts `@import` with self-hosted variable fonts, `font-display: swap`, preload Fraunces 700 + Inter 400
-- [ ] 9. 🧪 `npm run test:contrast`: text-primary/secondary/muted on base/raised/emphasis ≥4.5:1; accents on surfaces ≥3:1 (graphics); both modes
+- [x] 1. Keep semantic color tokens from Make `index.css` (`--surface-*`, `--border-*`, `--text-*`, `--accent-*`)
+- [x] 2. Replace hard-coded hex in `.dark` rules (`.node-intent`, `.node-expected`, `.btn-primary`, `.btn-secondary`, `.page-tab.active`, focus ring) with tokens: `--node-intent`, `--node-outline`, `--btn-primary-bg`, `--btn-primary-fg`, `--focus-ring`, `--on-accent`
+- [x] 3. Add chip/zone tints: `--tint-success`, `--tint-divergence`, `--tint-info` (≤12% accent over surface). Labels on tints use `--text-primary`
+- [x] 4. Add spacing tokens `--space-1…6` = 4, 8, 16, 24, 32, 48; `--space-section: clamp(96px, 11vw, 160px)`; `--space-section-sm: 64px`
+- [x] 5. Add z-index scale: `--z-spine 10`, `--z-header 100`, `--z-menu 200`, `--z-dev 300`
+- [x] 6. Add CSS mirrors of motion tokens (3.2): `--dur-*`, `--ease-*`
+- [x] 7. Fix `.trace-line`: `pathLength` is an SVG attribute, not a CSS property; set `pathLength="1"` on the SVG elements
+- [x] 8. Replace Google Fonts `@import` with self-hosted variable fonts, `font-display: swap`, preload Fraunces 700 + Inter 400
+- [ ] 9. 🧪 `npm run test:contrast`: text-primary/secondary/muted on base/raised/emphasis ≥4.5:1; accents on surfaces ≥3:1 (graphics); both modes. Script is in CI. Known misses stay open: light text tokens on emphasis (same hex as the band), and orange/green on Paper and White (D5, under 3:1).
 - [ ] 10. 🔍 Measure the dark values (`#0A1520 #162A3F #243649 #35495E #9AA3AE #6FA6F8`); they were derived, not measured
-- [ ] 11. 🔍 `lint:tokens` clean
-- [ ] 12. 👁 Contrast results written to CI summary
+- [x] 11. 🔍 `lint:tokens` clean
+- [x] 12. 👁 Contrast results written to CI summary
 
 ## 2.2 Type Scale
 Requires: 2.1 complete

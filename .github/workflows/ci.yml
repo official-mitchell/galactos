@@ -26,6 +26,10 @@ jobs:
         id: lint-tokens
         run: npm run lint:tokens
 
+      - name: test:contrast
+        id: contrast
+        run: npm run test:contrast
+
       - name: test:lint-tokens
         id: test-lint-tokens
         run: npm run test:lint-tokens
@@ -51,6 +55,7 @@ jobs:
             echo "| --- | --- |"
             echo "| typecheck | ${{ steps.typecheck.outcome }} |"
             echo "| lint:tokens | ${{ steps.lint-tokens.outcome }} |"
+            echo "| test:contrast | ${{ steps.contrast.outcome }} |"
             echo "| test:lint-tokens | ${{ steps.test-lint-tokens.outcome }} |"
             echo "| build | ${{ steps.build.outcome }} |"
             echo "| e2e | ${{ steps.e2e.outcome }} |"

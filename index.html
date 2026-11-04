@@ -1,5 +1,6 @@
 <!doctype html>
-<!-- 2026-11-03: MAX-996 applies ?mode= and ?motion= before paint. -->
+<!-- 2026-11-03: MAX-996 applies ?mode= and ?motion= before paint.
+     2026-11-03: MAX-997 preloads the variable Fraunces and Inter files. -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -18,6 +19,8 @@
       })();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="./assets/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="./assets/fonts/InterVariable.woff2" />
     <title>Galactos</title>
     <!-- 2026-11-03: Plausible snippet from the site install. MAX-1048. -->
     <script async src="https://plausible.io/js/pa-xvK14GZHzykMbB_2ixEOP.js"></script>

@@ -230,4 +230,5 @@ Precise, observant, restrained. Never alarmist about AI. No invented testimonial
 
 ## Changelog
 
+- 2026-11-03: MAX-997. Semantic colors, spacing, z-index, tints, and motion mirrors live in `src/styles/tokens.css`. `index.css` imports that file. Fonts are the variable files in `assets/fonts/` (`font-display: swap`).
 - 2026-11-03: Noted the live stylesheet and Figma style-guide node `1:2506`. Palette is the Make style guide, not a separate Dev Mode token set.

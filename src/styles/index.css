@@ -1,7 +1,7 @@
-/* 2026-11-03: moved from the Make scratch src/index.css. Tokens stay here until §2.1.
-   2026-11-03: MAX-996 freezes CSS animation when ?motion=final or ?motion=reduced. No motion library. */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* 2026-11-03: moved from the Make scratch src/index.css.
+   2026-11-03: MAX-996 freezes CSS animation when ?motion=final or ?motion=reduced. No motion library.
+   2026-11-03: MAX-997 moved the token set to tokens.css and dropped the Google Fonts import. */
+@import './tokens.css';
 @import 'tailwindcss';
 
 @theme inline {
@@ -27,40 +27,6 @@
 
   --shadow-sm: 0 1px 2px rgba(15, 30, 46, 0.06);
   --shadow-md: 0 8px 24px rgba(15, 30, 46, 0.08);
-}
-
-/* ── Light mode tokens ── */
-:root {
-  --surface-base: #F8F6F3;
-  --surface-raised: #FFFFFF;
-  --surface-emphasis: #0F1E2E;
-  --border-default: #D6D1C9;
-  --border-strong: #D6D1C9;
-  --text-primary: #0F1E2E;
-  --text-secondary: #374151;
-  --text-muted: rgba(55, 65, 81, 0.8);
-  --accent-info: #3882F6;
-  --accent-info-text: #3882F6;
-  --accent-divergence: #F97316;
-  --accent-success: #22C55E;
-
-  --mode-transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
-}
-
-/* ── Dark mode tokens ── */
-.dark {
-  --surface-base: #0A1520;
-  --surface-raised: #0F1E2E;
-  --surface-emphasis: #162A3F;
-  --border-default: #243649;
-  --border-strong: #35495E;
-  --text-primary: #F8F6F3;
-  --text-secondary: #D6D1C9;
-  --text-muted: #9AA3AE;
-  --accent-info: #3882F6;
-  --accent-info-text: #6FA6F8;
-  --accent-divergence: #F97316;
-  --accent-success: #22C55E;
 }
 
 /* ── Base ── */
@@ -97,12 +63,8 @@ body {
 
 /* ── Focus styles ── */
 :focus-visible {
-  outline: 2px solid var(--accent-info);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
-}
-
-.dark :focus-visible {
-  outline-color: #6FA6F8;
 }
 
 /* ── Scrollbar ── */
@@ -214,7 +176,7 @@ body {
 }
 
 .dark .node-intent {
-  background-color: #F8F6F3;
+  background-color: var(--node-intent);
 }
 
 .node-success {
@@ -238,7 +200,7 @@ body {
 }
 
 .dark .node-expected {
-  border-color: #D6D1C9;
+  border-color: var(--node-outline);
 }
 
 .node-evidence {
@@ -277,8 +239,8 @@ body {
   justify-content: center;
   gap: 8px;
   padding: 12px 24px;
-  background-color: var(--text-primary);
-  color: var(--surface-base);
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
   font-family: var(--font-body);
   font-weight: 500;
   font-size: 14px;
@@ -292,8 +254,8 @@ body {
 }
 
 .dark .btn-primary {
-  background-color: #F8F6F3;
-  color: #0F1E2E;
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
 }
 
 .btn-primary:hover {
@@ -321,8 +283,8 @@ body {
 }
 
 .dark .btn-secondary {
-  border-color: #D6D1C9;
-  color: #F8F6F3;
+  border-color: var(--node-outline);
+  color: var(--text-primary);
 }
 
 .btn-secondary:hover {
@@ -454,9 +416,9 @@ body {
 }
 
 .dark .page-tab.active {
-  background-color: #F8F6F3;
-  color: #0F1E2E;
-  border-color: #F8F6F3;
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  border-color: var(--btn-primary-bg);
 }
 
 /* ── Hero responsive ── */
@@ -479,8 +441,7 @@ body {
 .trace-line {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: traceDraw 500ms ease forwards;
-  pathLength: 1;
+  animation: traceDraw var(--dur-lg) var(--ease-out) forwards;
 }
 
 /* MAX-996: final and reduced captures settle CSS motion. ScrollTrigger is not installed. */
