@@ -17,6 +17,7 @@ Format:
 ---
 
 ## 2026-11-03
+- [cursor-grok] MAX-995: added `lint:tokens` with a pre-token baseline, seed tests, `typecheck`, and a PR workflow (typecheck → lint:tokens → test:lint-tokens → build → e2e placeholder for MAX-996).
 - [cursor-grok] MAX-994: Preview bar and Style Guide render only when `import.meta.env.DEV`. Production keeps the theme class effect and always shows the landing page. Deleted unused `LandingPlaceholder.tsx`.
 - [cursor-grok] Opened Phase 1 worktrees A and B for MAX-994 and MAX-995. Ignored `.worktrees/`. MAX-996 stays until those two merge.
 - [cursor-grok] Added the parallel execution waves (MAX-994 through Phase 10) to `.ai/linear-execution-plan.md`.

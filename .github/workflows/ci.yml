@@ -1,0 +1,65 @@
+# MAX-995 quality gates. e2e is a placeholder; MAX-996 owns that step.
+name: ci
+
+on:
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: install
+        run: npm ci
+
+      - name: typecheck
+        id: typecheck
+        run: npm run typecheck
+
+      - name: lint:tokens
+        id: lint-tokens
+        run: npm run lint:tokens
+
+      - name: test:lint-tokens
+        id: test-lint-tokens
+        run: npm run test:lint-tokens
+
+      - name: build
+        id: build
+        run: npm run build
+
+      - name: e2e
+        id: e2e
+        run: echo "e2e reserved for MAX-996"
+
+      - name: summary
+        if: always()
+        run: |
+          {
+            echo "## Quality gates"
+            echo ""
+            echo "| Gate | Result |"
+            echo "| --- | --- |"
+            echo "| typecheck | ${{ steps.typecheck.outcome }} |"
+            echo "| lint:tokens | ${{ steps.lint-tokens.outcome }} |"
+            echo "| test:lint-tokens | ${{ steps.test-lint-tokens.outcome }} |"
+            echo "| build | ${{ steps.build.outcome }} |"
+            echo "| e2e | ${{ steps.e2e.outcome }} |"
+            echo ""
+            echo "## Production bundle sizes"
+            echo ""
+            if [ -d dist/assets ]; then
+              find dist/assets -type f | sort | while read -r file; do
+                bytes=$(wc -c < "$file" | tr -d '[:space:]')
+                echo "- \`$file\`: ${bytes} bytes"
+              done
+            else
+              echo "dist/assets was not produced."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
