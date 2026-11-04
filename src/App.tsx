@@ -1,4 +1,6 @@
-/* 2026-11-03: ported from the Figma Make scratch app. Sections imported by job name (MAX-993). */
+/* 2026-11-03: MAX-994 gates the Preview bar and Style Guide behind import.meta.env.DEV.
+   Production keeps the stored-theme / prefers-color-scheme class effect and always shows the landing page.
+   2026-11-03: ported from the Figma Make scratch app. Sections imported by job name (MAX-993). */
 import React, { useEffect, useState } from 'react';
 import { SiteHeader } from './components/shell/SiteHeader';
 import { Hero } from './components/sections/Hero';
@@ -30,6 +32,7 @@ function getInitialDark(): boolean {
 }
 
 function getInitialPage(): Page {
+  if (!import.meta.env.DEV) return 'landing';
   try {
     if (window.location.hash === '#styleguide') return 'styleguide';
   } catch {}
@@ -51,8 +54,9 @@ export default function App() {
     try { localStorage.setItem('galactos-theme', isDark ? 'dark' : 'light'); } catch {}
   }, [isDark]);
 
-  /* Sync hash */
+  /* Sync hash (dev style guide only; production stays on the landing page) */
   useEffect(() => {
+    if (!import.meta.env.DEV) return;
     history.replaceState(null, '', page === 'styleguide' ? '#styleguide' : '#');
   }, [page]);
 
@@ -76,7 +80,8 @@ export default function App() {
   return (
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--surface-base)' }}>
 
-      {/* ── Dev utility bar (does not appear in production) ── */}
+      {/* ── Dev utility bar (stripped from the production bundle) ── */}
+      {import.meta.env.DEV && (
       <div
         style={{
           position: 'sticky',
@@ -166,9 +171,10 @@ export default function App() {
           </button>
         </div>
       </div>
+      )}
 
       {/* ── Main content ── */}
-      {page === 'styleguide' ? (
+      {import.meta.env.DEV && page === 'styleguide' ? (
         /* Style guide gets its own minimal chrome */
         <div>
           <div

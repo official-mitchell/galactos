@@ -1,4 +1,5 @@
 <!-- Created 2026-11-03: add-only dated log of agent revisions. Newest date first.
+     2026-11-03: MAX-994 dev-only preview bar and style guide.
      2026-11-03: noted MAX-991 tooling check (Node 22, Playwright 1.64.1, Chromium).
      2026-11-03: noted MAX-990 asset decisions (hero plate cancelled, G favicon, OG, mocks). -->
 
@@ -17,6 +18,7 @@ Format:
 
 ## 2026-11-03
 
+- [cursor-grok] MAX-994: Preview bar and Style Guide render only when `import.meta.env.DEV`. Production keeps the theme class effect and always shows the landing page. Deleted unused `LandingPlaceholder.tsx`.
 - [cursor-grok] Owner closed the Phase 1 gate (MAX-993). Plan and checklist now name the four section mocks and unblock MAX-994–996.
 - [cursor-grok] MAX-1049: added `.env.example` and local `.env.local` for the Vite site vars. `.env` stays gitignored.
 - [cursor-grok] MAX-1048 marked Done: form endpoint confirmed, Plausible snippet in `index.html`, public address `hello@galactos.io`. MAX-990 stays open for MAX-1049.
