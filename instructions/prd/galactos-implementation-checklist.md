@@ -168,48 +168,51 @@ Produces: text classes covering every string on the page
 - [ ] 8. 👁 (no observability required)
 
 ## 2.3 Layout Primitives
+<!-- 2026-11-03: MAX-999 checked items 1–7. Item 8 stays open until each page section is rebuilt. -->
 Requires: 2.1, 2.2 complete
 Produces: `<Section>`, `<Container>`, `<SectionHeader>`, `<Split>`, `<Rule>`
 
-- [ ] 1. `<Section id act number variant="base|emphasis">`: vertical padding `--space-section`, background by variant, `scroll-margin-top` = header height, `data-act`
-- [ ] 2. `<Container>`: 1200px max, 24px gutters, 12-col grid
-- [ ] 3. `<SectionHeader eyebrow title lede>`; eyebrow format `NN / LABEL` with Stone rule (e.g. `03 / LOCAL SUCCESS ≠ TERMINAL SUCCESS`)
-- [ ] 4. `<Split ratio="45/55|40/60|50/50" stickyLeft>`; collapses to one column at 768
-- [ ] 5. `<Rule>` (1px border-default)
-- [ ] 6. Rule: inline `style={{}}` only for measured/dynamic values; layout and type come from primitives
-- [ ] 7. 🧪 Playwright: each `<Section>` has a unique id matching `sections.ts`
+- [x] 1. `<Section id act number variant="base|emphasis">`: vertical padding `--space-section`, background by variant, `scroll-margin-top` = header height, `data-act`
+- [x] 2. `<Container>`: 1200px max, 24px gutters, 12-col grid
+- [x] 3. `<SectionHeader eyebrow title lede>`; eyebrow format `NN / LABEL` with Stone rule (e.g. `03 / LOCAL SUCCESS ≠ TERMINAL SUCCESS`)
+- [x] 4. `<Split ratio="45/55|40/60|50/50" stickyLeft>`; collapses to one column at 768
+- [x] 5. `<Rule>` (1px border-default)
+- [x] 6. Rule: inline `style={{}}` only for measured/dynamic values; layout and type come from primitives
+- [x] 7. 🧪 Playwright: each `<Section>` has a unique id matching `sections.ts`
 - [ ] 8. 🔍 `grep -c "style={{" src/components/sections/*` trends down per section as each is rebuilt
 - [ ] 9. 👁 (no observability required)
 
 ## 2.4 Diagram Kit
+<!-- 2026-11-03: MAX-1000. Connector is a coordinate SVG (no DrawSVG). Item 3 and the screenshot half of item 12 stay open. -->
 Requires: 2.1–2.3 complete
 Produces: shared parts for every custom diagram
 
-- [ ] 1. `<Node kind size state>`: kinds `intent|success|expected|evidence|anomaly|missing|pending`; sizes sm 16 / md 24 / lg 32 (Make mixes 20/24/28); states `outline|resolved`
-- [ ] 2. `pending` node = outline + reticle (dashed ring at r+10, four tick marks) per R1
+- [x] 1. `<Node kind size state>`: kinds `intent|success|expected|evidence|anomaly|missing|pending`; sizes sm 16 / md 24 / lg 32 (Make mixes 20/24/28); states `outline|resolved`
+- [x] 2. `pending` node = outline + reticle (dashed ring at r+10, four tick marks) per R1
 - [ ] 3. `<Connector kind="solid|dashed|divergence|elbow" from to>`: endpoints measured from node refs via `ResizeObserver`; arrowhead marker; draw via DrawSVG
-- [ ] 4. `<TraceStep density="compact|full">`: icon chip, system label, action, detail, time, `<StatusPill>`, leader line to node. `compact` follows R3, `full` follows R4
-- [ ] 5. `<StatusPill state="completed|ok|closed|not-completed|divergence">`: icon + caps label, 4px radius (no pills), tint background, label in text-primary
-- [ ] 6. `<EvidenceRail items>` (TRACE-ID, CASE-ID, STARTED, OBSERVER) — pure props; data wired from `caseFile` in 2.5
-- [ ] 7. `<StateBar>` (R4): split zone, success tint | divergence tint, 1px divider
-- [ ] 8. `<Bracket label side tone>`, `<Annotation tone>` (orange = border + dot; text text-primary)
-- [ ] 9. `<IllustrativeTag>` required on any diagram carrying example data
-- [ ] 10. `<DiagramFrame title desc>` → `<figure>` with `aria-label`, `<figcaption>`, visually-hidden ordered text sequence; decorative SVG `aria-hidden`
-- [ ] 11. Every part takes `orientation="horizontal|vertical"`
+- [x] 4. `<TraceStep density="compact|full">`: icon chip, system label, action, detail, time, `<StatusPill>`, leader line to node. `compact` follows R3, `full` follows R4
+- [x] 5. `<StatusPill state="completed|ok|closed|not-completed|divergence">`: icon + caps label, 4px radius (no pills), tint background, label in text-primary
+- [x] 6. `<EvidenceRail items>` (TRACE-ID, CASE-ID, STARTED, OBSERVER) — pure props; data wired from `caseFile` in 2.5
+- [x] 7. `<StateBar>` (R4): split zone, success tint | divergence tint, 1px divider
+- [x] 8. `<Bracket label side tone>`, `<Annotation tone>` (orange = border + dot; text text-primary)
+- [x] 9. `<IllustrativeTag>` required on any diagram carrying example data
+- [x] 10. `<DiagramFrame title desc>` → `<figure>` with `aria-label`, `<figcaption>`, visually-hidden ordered text sequence; decorative SVG `aria-hidden`
+- [x] 11. Every part takes `orientation="horizontal|vertical"`
 - [ ] 12. 🧪 `/#styleguide` renders every Node kind × state × mode; screenshot baseline
-- [ ] 13. 🔍 Each part has a StyleGuide entry with props
-- [ ] 14. 🔍 No orange/green text anywhere in kit (D5)
+- [x] 13. 🔍 Each part has a StyleGuide entry with props
+- [x] 14. 🔍 No orange/green text anywhere in kit (D5)
 - [ ] 15. 👁 (no observability required)
 
 ## 2.5 Case-File Content Model
+<!-- 2026-11-03: MAX-1001. copy.ts holds only strings that moved. Item 6 stays open while sections still inline most diagrams. -->
 Requires: 2.4 complete
 Produces: one source of truth for case data, copy, evidence
 
-- [ ] 1. `src/content/caseFile.ts`: `trace {id, caseId, started, observer}`, `steps[] {id, system, action, detail, tMs, tag, status}`, amount, renewal date
-- [ ] 2. Resolve ref conflicts: trace ID (`GAL-TRACE-20260102-0047` vs `GAL-20260102-0047`), time units (hero image uses ms, S2 refs use s)
-- [ ] 3. Hero trace = same case as S2 (same ID, same units)
-- [ ] 4. `src/content/copy.ts`: all strings keyed by section id; `src/content/evidence.ts`: citations (4.5)
-- [ ] 5. 🧪 `grep -rn "GAL-" src/components` → 0 (data lives in content only)
+- [x] 1. `src/content/caseFile.ts`: `trace {id, caseId, started, observer}`, `steps[] {id, system, action, detail, tMs, tag, status}`, amount, renewal date
+- [x] 2. Resolve ref conflicts: trace ID (`GAL-TRACE-20260102-0047` vs `GAL-20260102-0047`), time units (hero image uses ms, S2 refs use s)
+- [x] 3. Hero trace = same case as S2 (same ID, same units)
+- [x] 4. `src/content/copy.ts`: all strings keyed by section id; `src/content/evidence.ts`: citations (4.5)
+- [x] 5. 🧪 `grep -rn "GAL-" src/components` → 0 (data lives in content only)
 - [ ] 6. 🔍 Every case-data diagram shows `<IllustrativeTag>`
 - [ ] 7. 👁 (no observability required)
 

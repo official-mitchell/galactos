@@ -1,6 +1,10 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
+   2026-11-03: MAX-1001 trace id and agent label read from caseFile and copy. */
 import React from 'react';
 import { WorkflowTrace } from '../diagram/WorkflowTrace';
+import { IllustrativeTag } from '../diagram/IllustrativeTag';
+import { caseFile } from '../../content/caseFile';
+import { copy } from '../../content/copy';
 
 function scrollTo(id: string) {
   const el = document.querySelector(id);
@@ -163,7 +167,7 @@ export function Hero() {
                 letterSpacing: '0.04em',
               }}
             >
-              TRACE-GAL-20260102-0047 &nbsp;·&nbsp; AGENT: workflow-router-v3
+              <IllustrativeTag /> TRACE-{caseFile.trace.id} &nbsp;·&nbsp; AGENT: {copy['section-hero'].agent}
             </div>
             <div
               style={{

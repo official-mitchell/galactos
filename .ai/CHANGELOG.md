@@ -17,6 +17,9 @@ Format:
 ---
 
 ## 2026-11-03
+- [cursor-grok] MAX-1001: `caseFile.ts` is the only GAL- trace (`GAL-20260102-0047`, milliseconds). `copy.ts` and `evidence.ts` hold the strings that moved. `npm run test:case-ids`. Page sections still inline most copy, so the “every diagram shows the tag” review stays open.
+- [cursor-grok] MAX-1000: diagram kit under `src/components/diagram/` (Node through DiagramFrame) plus a dev StyleGuide sample. Connector takes coordinates and does not use GSAP. Screenshot baseline and ResizeObserver/DrawSVG stay open.
+- [cursor-grok] MAX-999: layout primitives in `src/components/layout/` and `npm run test:layout`. Page sections are not rebuilt onto them. Checklist §2.3 item 8 stays open.
 - [cursor-grok] MAX-997: token set in `src/styles/tokens.css`, self-hosted Fraunces/Inter, `npm run test:contrast`, CI summary row. Dark hex measurement (checklist §2.1 item 10) is still human-only.
 - [cursor-grok] MAX-996: removed the one-off Linux snapshot workflow from main after the Ubuntu PNG was committed.
 - [cursor-grok] MAX-996 follow-up: `npm run shot -- --section all` wrote 88 non-blank PNGs. Checklist §1.4 item 12 is checked. Shots stay gitignored.

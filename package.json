@@ -15,7 +15,10 @@
     "shot": "node scripts/shot.mjs",
     "shot:update": "playwright test --update-snapshots --project=390x844-light",
     "compare": "node scripts/compare.mjs",
-    "test:e2e": "playwright test --project=390x844-light"
+    "test:e2e": "playwright test --project=390x844-light",
+    "test:layout": "playwright test tests/layout-primitives.spec.ts --project=390x844-light",
+    "test:diagram": "playwright test tests/diagram-kit.spec.ts --project=390x844-light",
+    "test:case-ids": "node scripts/test-case-ids.mjs"
   },
   "dependencies": {
     "react": "^19.0.0",

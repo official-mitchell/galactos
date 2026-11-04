@@ -1,9 +1,23 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
+   2026-11-03: MAX-999 layout fixture and MAX-1000 diagram kit samples. Case ids come from caseFile. */
 import React from 'react';
 import {
   NodeIntent, NodeSuccess, NodeExpected, NodeEvidence, NodeAnomaly, NodeMissing,
   FlowArrow, DivergencePath
 } from './diagram/DiagramNodes';
+import { Annotation } from './diagram/Annotation';
+import { Bracket } from './diagram/Bracket';
+import { Connector } from './diagram/Connector';
+import { DiagramFrame } from './diagram/DiagramFrame';
+import { EvidenceRail } from './diagram/EvidenceRail';
+import { IllustrativeTag } from './diagram/IllustrativeTag';
+import { Node, type NodeKind, type NodeState } from './diagram/Node';
+import { StateBar } from './diagram/StateBar';
+import { StatusPill, type StatusPillState } from './diagram/StatusPill';
+import { TraceStep } from './diagram/TraceStep';
+import { LayoutFixture } from './layout/LayoutFixture';
+import { caseFile } from '../content/caseFile';
+import { evidenceCitations } from '../content/evidence';
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -60,7 +74,7 @@ export function StyleGuide() {
           className="text-meta"
           style={{ marginTop: 16, fontFamily: 'var(--font-body)', letterSpacing: '0.06em' }}
         >
-          TRACE-ID: GAL-DS-001 · Version 1.0.0
+          TRACE-ID: {caseFile.trace.id} · Version 1.0.0
         </div>
       </div>
 
@@ -149,7 +163,7 @@ export function StyleGuide() {
           </div>
           <div>
             <div className="text-label" style={{ color: 'var(--text-muted)', marginBottom: 8 }}>METADATA / TRACE ID · Inter Regular 400 · 13px</div>
-            <div className="text-meta">TRACE-GAL-20260102-0047 · AGENT: workflow-router-v3 · STATUS: unresolved</div>
+            <div className="text-meta">TRACE-{caseFile.trace.id} · AGENT: workflow-router-v3 · STATUS: unresolved</div>
           </div>
         </div>
       </Section>
@@ -427,6 +441,55 @@ export function StyleGuide() {
           </div>
         </div>
       </Section>
+
+      <Section title="DIAGRAM KIT">
+        <IllustrativeTag />
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, marginTop: 16 }}>
+          {(['intent', 'success', 'expected', 'evidence', 'anomaly', 'missing', 'pending'] as NodeKind[]).flatMap((kind) =>
+            (['outline', 'resolved'] as NodeState[])
+              .filter((state) => kind !== 'pending' || state === 'outline')
+              .map((state) => (
+                <div key={`${kind}-${state}`} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  <Node kind={kind} state={state} size="md" />
+                  <span className="text-meta">{kind} · {state}</span>
+                </div>
+              )),
+          )}
+        </div>
+        <div style={{ marginTop: 24 }}>
+          <Connector kind="solid" x1={4} y1={12} x2={80} y2={12} />
+          <Connector kind="dashed" x1={4} y1={12} x2={80} y2={12} />
+          <Connector kind="divergence" x1={4} y1={12} x2={80} y2={12} />
+          <Connector kind="elbow" x1={4} y1={8} x2={48} y2={28} />
+        </div>
+        <TraceStep system="PAYMENT API" action="Refund action accepted." detail="Local success." time="T+388ms" status="ok" />
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 12 }}>
+          {(['completed', 'ok', 'closed', 'not-completed', 'divergence'] as StatusPillState[]).map((state) => (
+            <StatusPill key={state} state={state} />
+          ))}
+        </div>
+        <EvidenceRail
+          items={[
+            { label: 'TRACE-ID', value: caseFile.trace.id },
+            { label: 'CASE-ID', value: caseFile.trace.caseId },
+            { label: 'STARTED', value: caseFile.trace.started },
+            { label: 'OBSERVER', value: caseFile.trace.observer },
+          ]}
+        />
+        {evidenceCitations.map((cite) => (
+          <p key={cite.id} className="text-meta">{cite.label}: {cite.note}</p>
+        ))}
+        <StateBar />
+        <Bracket label="What the workflow believes happened" side="bottom" />
+        <Annotation tone="divergence">Authoritative system still shows the renewal.</Annotation>
+        <DiagramFrame title="Sample trace" desc="Illustrative nodes." sequence={['Intent', 'Success']} orientation="horizontal">
+          <svg className="diagram-frame__svg" width="48" height="16" aria-hidden="true">
+            <circle cx="8" cy="8" r="4" fill="var(--node-intent)" />
+          </svg>
+        </DiagramFrame>
+      </Section>
+
+      <LayoutFixture />
     </div>
   );
 }

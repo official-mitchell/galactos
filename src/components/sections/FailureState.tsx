@@ -1,5 +1,9 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
+   2026-11-03: MAX-1001 evidence rail reads caseFile.trace. */
 import React, { useEffect, useRef, useState } from 'react';
+import { IllustrativeTag } from '../diagram/IllustrativeTag';
+import { caseFile } from '../../content/caseFile';
+import { copy } from '../../content/copy';
 
 /* ── Timing ── */
 const NODE_DELAYS = [0, 380, 760, 1140];
@@ -564,7 +568,7 @@ export function FailureState() {
               color: 'var(--text-muted)',
             }}
           >
-            Case: Customer requests cancellation + refund
+            <IllustrativeTag /> Case: {copy['section-divergence'].caseTitle}
           </span>
         </div>
 
@@ -583,10 +587,10 @@ export function FailureState() {
           }}
         >
           {[
-            ['TRACE-ID', 'GAL-20260102-0047'],
-            ['CASE-ID', '2026-CS-004821'],
-            ['STARTED', '2026-01-02T09:14:33Z'],
-            ['OBSERVER', 'galactos-verifier-v2'],
+            ['TRACE-ID', caseFile.trace.id],
+            ['CASE-ID', caseFile.trace.caseId],
+            ['STARTED', caseFile.trace.started],
+            ['OBSERVER', caseFile.trace.observer],
           ].map(([key, val]) => (
             <div
               key={key}
