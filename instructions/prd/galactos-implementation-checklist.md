@@ -1,3 +1,4 @@
+<!-- 2026-11-03: MAX-995 checked off §1.3. typecheck, lint:tokens (baseline + seed), and ci.yml are in place. e2e stays a placeholder for MAX-996. -->
 <!-- 2026-11-03: Owner closed the Phase 1 gate. Hero = galactos-mock-hero.png. Reliability diagnostic = galactos-mock-reliability-diagnostic.png. Verified completion = galactos-mock-component-success.png. Reported versus verified = galactos-mock-done.png. Plus Dev Mode file iGhSTY4TzNtuGE3rDQNO3C node 1:3. -->
 <!-- 2026-11-03: §0.4 scratch app is instructions/context/Galactos • Figma Make - Landing Page/. Make layouts are not the visual target. Parity is mocks in instructions/design/mocks/ plus Dev Mode file iGhSTY4TzNtuGE3rDQNO3C node 1:3. Recorded on MAX-992 and MAX-993. -->
 <!-- 2026-11-03: §0.2 owner decisions — hero plate cancelled; favicon is the G tile (no ring + Cobalt dot); 48×48 icon skipped; OG source is assets/Galactos-OG.png; mocks live in instructions/design/mocks/. design/refs/ cancelled; R1–R5 stay in Figma (file key V2K9MFBI5DHBZPlnK0wag3) via the Figma MCP. -->
@@ -102,11 +103,11 @@ Produces: production bundle with no dev UI
 Requires: 1.1 complete
 Produces: `typecheck`, `format`, `lint:tokens`, CI pipeline
 
-- [ ] 1. Scripts: `typecheck` (`tsc --noEmit`), `format` (oxfmt, already in package.json), `lint:tokens`
-- [ ] 2. `lint:tokens` fails on: hex/rgb literals in `src/components/**` (allow `--on-accent` token only); easing names `back|elastic|bounce|spring` in `src/motion/**`; font-size <12px; `border-radius` ≥ 999px on buttons
-- [ ] 3. CI (GitHub Actions): typecheck → lint:tokens → build → e2e on every PR
-- [ ] 4. 🧪 Seed one violation per rule → gate fails; remove → gate passes
-- [ ] 5. 👁 CI summary prints gate results and bundle sizes
+- [x] 1. Scripts: `typecheck` (`tsc --noEmit`), `format` (oxfmt, already in package.json), `lint:tokens`
+- [x] 2. `lint:tokens` fails on: hex/rgb literals in `src/components/**` (allow `--on-accent` token only); easing names `back|elastic|bounce|spring` in `src/motion/**`; font-size <12px; `border-radius` ≥ 999px on buttons
+- [x] 3. CI (GitHub Actions): typecheck → lint:tokens → build → e2e on every PR
+- [x] 4. 🧪 Seed one violation per rule → gate fails; remove → gate passes
+- [x] 5. 👁 CI summary prints gate results and bundle sizes
 
 ## 1.4 Screenshot Harness (agent-facing)
 Requires: 1.1 complete, 0.3 complete

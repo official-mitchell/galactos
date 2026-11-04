@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "format": "oxfmt"
+    "format": "oxfmt",
+    "typecheck": "tsc --noEmit",
+    "lint:tokens": "node scripts/lint-tokens.mjs",
+    "test:lint-tokens": "node --test scripts/lint-tokens-seed.test.mjs"
   },
   "dependencies": {
     "react": "^19.0.0",
