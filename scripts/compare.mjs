@@ -2,7 +2,7 @@
    npm run compare -- --section <id> [--w 1440] [--h 900] [--mode light]
    Uses an existing mock in instructions/design/mocks/ when the section has one.
    Does not draw or invent mock pixels. Prints a gap when no mock or no shot exists.
-   Known mocks: hero, reliability diagnostic (section-diagnostic), reported-versus-verified (section-cta).
+   Known mocks: hero, recognition (section-diagnostic), reported-versus-verified (section-cta).
    galactos-mock-component-success.png is a component mock, not a section id, so it is not paired here. */
 import fs from 'node:fs'
 import path from 'node:path'
@@ -15,7 +15,7 @@ const mocksDir = path.join(rootDir, 'instructions/design/mocks')
 
 const MOCK_BY_SECTION = {
   'section-hero': 'galactos-mock-hero.png',
-  'section-diagnostic': 'galactos-mock-reliability-diagnostic.png',
+  'section-diagnostic': 'galactos-mock-recognition.png',
   'section-cta': 'galactos-mock-done.png',
   'section-verification': 'galactos-mock-done.png',
   'section-proof': 'galactos-mock-show-proof.png',

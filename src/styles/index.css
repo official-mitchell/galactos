@@ -9,7 +9,8 @@
    2026-11-04: Pressed theme icon uses the same border and color as hover.
    2026-11-03: MAX-1002 motif layer stays at --motif-opacity (8%), including .motif-grid.
    2026-11-03: MAX-999 layout.css and MAX-1000 diagram.css.
-   2026-11-04: MAX-1015 stone rule for the evidence footnote. */
+   2026-11-04: MAX-1015 stone rule for the evidence footnote.
+   2026-11-05: Hero grid stacks by default and splits only when the section is at least 960px wide. */
 @import './tokens.css';
 @import './layout.css';
 @import './diagram.css';
@@ -654,14 +655,38 @@ body {
 }
 
 /* ── Hero responsive ── */
-@media (max-width: 767px) {
+#section-hero {
+  container-type: inline-size;
+  align-items: flex-start;
+  /* Mobile header is the wordmark row plus a full-width action (~121px). */
+  padding-top: 152px;
+}
+
+@media (min-width: 960px) {
+  #section-hero {
+    align-items: center;
+    padding-top: 96px;
+  }
+}
+
+#section-hero .hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  align-items: start;
+  width: 100%;
+}
+
+@container (min-width: 960px) {
   #section-hero .hero-grid {
-    grid-template-columns: 1fr !important;
-    gap: 48px 0 !important;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr);
+    column-gap: 40px;
+    row-gap: var(--space-5);
+    align-items: center;
   }
-  #section-hero .hero-left {
-    padding-bottom: 0 !important;
-  }
+}
+
+@media (max-width: 959px) {
   .hero-diagram-grid,
   .hero-steps {
     grid-template-columns: 1fr;

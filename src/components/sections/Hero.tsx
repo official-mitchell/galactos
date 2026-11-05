@@ -1,4 +1,5 @@
-/* 2026-11-04: MAX-1014 places the hero→S2 seam start on the shared seam x.
+/* 2026-11-05: Hero grid is one column until the section is wide enough for the diagram beside the copy.
+   2026-11-04: MAX-1014 places the hero→S2 seam start on the shared seam x.
    2026-11-04: MAX-1011 carries the Hero reader question and seam from sections.ts.
    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
    2026-11-03: MAX-998 mapped the headline to .text-display-xl and the lede to .text-lede.
@@ -19,22 +20,11 @@ export function Hero() {
       style={{
         position: 'relative',
         display: 'flex',
-        alignItems: 'center',
         overflow: 'visible',
-        paddingTop: 96,
         paddingBottom: 64,
       }}
     >
-      <div
-        className="container-editorial hero-grid"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'minmax(320px, 0.95fr) minmax(0, 1.2fr)',
-          gap: '32px 40px',
-          alignItems: 'center',
-          width: '100%',
-        }}
-      >
+      <div className="container-editorial hero-grid">
         <div className="hero-left" style={{ position: 'relative', zIndex: 1 }}>
           <h1
             className="text-display-xl"
