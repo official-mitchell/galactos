@@ -1,6 +1,8 @@
-/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+/* 2026-11-04: MAX-1011 carries the CTA reader question and spine terminal seam from sections.ts.
+   2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useState } from 'react';
+import { storySectionProps } from '../../content/sections';
 
 /* ── Always-dark tokens ── */
 const P    = '#F8F6F3';
@@ -163,6 +165,7 @@ export function FinalCta() {
   return (
     <section
       id="section-cta"
+      {...storySectionProps('section-cta')}
       style={{
         backgroundColor: DARK,
         position: 'relative',

@@ -1,6 +1,8 @@
-/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+/* 2026-11-04: MAX-1011 carries the Method reader question from sections.ts.
+   2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
+import { storySectionProps } from '../../content/sections';
 
 /* ── Stage data ── */
 const STAGES = [
@@ -340,6 +342,7 @@ export function Method() {
     <section
       ref={sectionRef}
       id="section-method"
+      {...storySectionProps('section-method')}
       style={{ backgroundColor: 'var(--surface-base)', paddingTop: 120, paddingBottom: 128 }}
     >
       <div className="container-editorial">

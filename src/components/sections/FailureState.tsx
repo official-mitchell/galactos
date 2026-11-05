@@ -1,7 +1,9 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
+/* 2026-11-04: MAX-1011 carries the Failure state reader question and seam from sections.ts.
+   2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
    2026-11-03: evidence rail reads caseFile. The invented trace id is not shown. */
 import React, { useEffect, useRef, useState } from 'react';
+import { storySectionProps } from '../../content/sections';
 import { IllustrativeTag } from '../diagram/IllustrativeTag';
 import { caseFile } from '../../content/caseFile';
 import { copy } from '../../content/copy';
@@ -534,6 +536,7 @@ export function FailureState() {
     <section
       ref={sectionRef}
       id="section-divergence"
+      {...storySectionProps('section-divergence')}
       style={{
         backgroundColor: 'var(--surface-base)',
         paddingTop: 96,

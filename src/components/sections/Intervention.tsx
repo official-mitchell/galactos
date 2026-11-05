@@ -1,6 +1,8 @@
-/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+/* 2026-11-04: MAX-1011 carries the Intervention reader question and seam from sections.ts.
+   2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
+import { storySectionProps } from '../../content/sections';
 
 /* ── Always-dark surface tokens ── */
 const P   = '#F8F6F3';                       // Paper
@@ -224,6 +226,7 @@ export function Intervention() {
     <section
       ref={sectionRef}
       id="section-intervention"
+      {...storySectionProps('section-intervention')}
       style={{ backgroundColor: '#0F1E2E', paddingTop: 128, paddingBottom: 128 }}
     >
       <div className="container-editorial">

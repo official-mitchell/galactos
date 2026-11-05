@@ -1,7 +1,9 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
+/* 2026-11-04: MAX-1011 carries the Hero reader question and seam from sections.ts.
+   2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
    2026-11-03: MAX-998 mapped the headline to .text-display-xl and the lede to .text-lede.
    2026-11-03: layout and copy matched to instructions/design/mocks/galactos-mock-hero.png. */
 import React from 'react';
+import { storySectionProps } from '../../content/sections';
 import { HeroDiagram } from '../diagram/HeroDiagram';
 
 function scrollTo(id: string) {
@@ -13,6 +15,7 @@ export function Hero() {
   return (
     <section
       id="section-hero"
+      {...storySectionProps('section-hero')}
       style={{
         position: 'relative',
         display: 'flex',

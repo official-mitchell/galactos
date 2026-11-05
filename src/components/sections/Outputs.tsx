@@ -1,6 +1,8 @@
-/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+/* 2026-11-04: MAX-1011 carries the Outputs reader question from sections.ts.
+   2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
+import { storySectionProps } from '../../content/sections';
 
 /* ─────────────────────────────────────────────────────
    A.01 — Workflow + Failure Map
@@ -437,6 +439,7 @@ export function Outputs() {
     <section
       ref={sectionRef}
       id="section-deliverables"
+      {...storySectionProps('section-deliverables')}
       style={{
         backgroundColor: 'var(--surface-base)',
         paddingTop: 120,

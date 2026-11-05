@@ -1,3 +1,4 @@
+<!-- 2026-11-04: MAX-1011 checked §4.1 items 1–12. Item 13 owner read-through stays open. §4.2–4.6 untouched. -->
 <!-- 2026-11-03: MAX-998 checked §2.2 items 1–6 and 8. Item 7 stays open (inline fontSize remains). -->
 <!-- 2026-11-03: MAX-1003 checked §2.7 items 1–6. Hero plate item cancelled. Phase 2 go-when stays open. -->
 <!-- 2026-11-03: MAX-995 checked off §1.3. typecheck, lint:tokens (baseline + seed), and ci.yml are in place. e2e stays a placeholder for MAX-996. -->
@@ -345,18 +346,18 @@ Produces: story sequence, scroll spine, header, seams, evidence component, per-m
 Requires: Phase 3 complete
 Produces: one reader question per section, one handoff per seam
 
-- [ ] 1. Hero — Q: "Done isn't done?" → seam: trace continues down
-- [ ] 2. S2 Failure state — Q: "Show me." → seam: "The business process did not complete."
-- [ ] 3. S3 Mechanism — Q: "Why does this happen?" → seam: "a different standard for 'done'"
-- [ ] 4. S4 New standard — Q: "What is the standard?" → seam: signature line
-- [ ] 5. S5 Cross-domain — Q: "Is this only support?" → seam: "does this apply to us?"
-- [ ] 6. S6 Recognition — Q: "Is this us?" → seam: boundary line
-- [ ] 7. S7 Intervention — Q: "What is the engagement?" → seam: scope box
-- [ ] 8. S8 Outputs — Q: "What do I leave with?"
-- [ ] 9. S9 Method — Q: "How is it done?"
-- [ ] 10. S10 Credibility — Q: "Why trust this?"
-- [ ] 11. S11 CTA — Q: "What's next?" → spine terminal node
-- [ ] 12. Ban product-page patterns: feature-card grids, icon-title-text rows, pricing-card styling
+- [x] 1. Hero — Q: "Done isn't done?" → seam: trace continues down
+- [x] 2. S2 Failure state — Q: "Show me." → seam: "The business process did not complete."
+- [x] 3. S3 Mechanism — Q: "Why does this happen?" → seam: "a different standard for 'done'"
+- [x] 4. S4 New standard — Q: "What is the standard?" → seam: signature line
+- [x] 5. S5 Cross-domain — Q: "Is this only support?" → seam: "does this apply to us?"
+- [x] 6. S6 Recognition — Q: "Is this us?" → seam: boundary line
+- [x] 7. S7 Intervention — Q: "What is the engagement?" → seam: scope box
+- [x] 8. S8 Outputs — Q: "What do I leave with?"
+- [x] 9. S9 Method — Q: "How is it done?"
+- [x] 10. S10 Credibility — Q: "Why trust this?"
+- [x] 11. S11 CTA — Q: "What's next?" → spine terminal node
+- [x] 12. Ban product-page patterns: feature-card grids, icon-title-text rows, pricing-card styling
 - [ ] 13. 🔍 Full read-through at 1440 with `?motion=final`: each section carries one idea; owner signs off on order
 
 ## 4.2 Scroll Spine (D6)

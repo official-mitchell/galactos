@@ -1,6 +1,8 @@
-/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+/* 2026-11-04: MAX-1011 carries the Mechanism reader question and seam from sections.ts.
+   2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
+import { storySectionProps } from '../../content/sections';
 
 /* ── Timing constants ── */
 const TILE_DELAYS = [0, 200, 400, 600, 800]; // ms after intersection
@@ -484,6 +486,7 @@ export function Mechanism() {
     <section
       ref={sectionRef}
       id="section-mechanism"
+      {...storySectionProps('section-mechanism')}
       style={{
         backgroundColor: 'var(--surface-base)',
         paddingTop: 120,

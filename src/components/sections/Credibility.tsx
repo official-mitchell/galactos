@@ -1,6 +1,8 @@
-/* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
+/* 2026-11-04: MAX-1011 carries the Credibility reader question from sections.ts.
+   2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
+import { storySectionProps } from '../../content/sections';
 
 const IMAGE_URL =
   'https://images.unsplash.com/photo-1704972806322-3bdc80ac03f9?w=900&h=720&fit=crop&auto=format&q=80';
@@ -169,6 +171,7 @@ export function Credibility() {
   return (
     <section
       id="section-credibility"
+      {...storySectionProps('section-credibility')}
       style={{ backgroundColor: 'var(--surface-base)', paddingTop: 120, paddingBottom: 0 }}
     >
       <div className="container-editorial">
