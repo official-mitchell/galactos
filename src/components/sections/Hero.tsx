@@ -1,18 +1,37 @@
-/* 2026-11-04: MAX-1014 places the hero→S2 seam start on the shared seam x.
+/* 2026-11-04: MAX-1017 records hero_view once and hero_cta_click on both CTAs.
+   2026-11-04: MAX-1014 places the hero→S2 seam start on the shared seam x.
    2026-11-04: MAX-1011 carries the Hero reader question and seam from sections.ts.
    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
    2026-11-03: MAX-998 mapped the headline to .text-display-xl and the lede to .text-lede.
    2026-11-03: layout and copy matched to instructions/design/mocks/galactos-mock-hero.png.
    2026-11-04: MAX-1013. Tertiary verification link and primary CTA read sections.ts. */
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { trackEvent } from '../../analytics/track';
 import { scrollTo, sectionHref, storySectionProps } from '../../content/sections';
 import { HeroDiagram } from '../diagram/HeroDiagram';
 import { SeamAnchor } from '../shell/SeamAnchor';
 
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        trackEvent({ name: 'hero_view' });
+        observer.disconnect();
+      },
+      { threshold: 0.05 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="section-hero"
       className="seam-host"
       {...storySectionProps('section-hero')}
@@ -36,17 +55,7 @@ export function Hero() {
         }}
       >
         <div className="hero-left" style={{ position: 'relative', zIndex: 1 }}>
-          <h1
-            className="text-display-xl"
-            style={{
-              fontSize: 'clamp(34px, 3.1vw, 46px)',
-              lineHeight: 1.08,
-              letterSpacing: '-0.03em',
-              color: 'var(--text-primary)',
-              marginBottom: 22,
-              maxWidth: 440,
-            }}
-          >
+          <h1 className="text-display-xl hero-title">
             Your AI workflow can say ‘done’ before the real work is done.
           </h1>
 
@@ -75,7 +84,7 @@ export function Hero() {
               className="btn-primary"
               onClick={(event) => {
                 event.preventDefault();
-                trackEvent({ name: 'nav_click', target: sectionHref('workflow').slice(1) });
+                trackEvent({ name: 'hero_cta_click', id: 'workflow' });
                 scrollTo(sectionHref('workflow'));
               }}
             >
@@ -87,7 +96,7 @@ export function Hero() {
               className="btn-tertiary"
               onClick={(event) => {
                 event.preventDefault();
-                trackEvent({ name: 'nav_click', target: sectionHref('verification').slice(1) });
+                trackEvent({ name: 'hero_cta_click', id: 'verification' });
                 scrollTo(sectionHref('verification'));
               }}
               style={{ fontSize: 15, paddingLeft: 2, minHeight: 44 }}

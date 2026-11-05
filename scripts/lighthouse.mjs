@@ -1,6 +1,9 @@
 /**
+ * 2026-11-04: MAX-1017 LCP ≤2.5s, CLS ≤0.1, and a 20% regression ceiling.
  * MAX-1009: Lighthouse on the production preview. Fails when TBT exceeds 300ms
  * or any long task in the trace summary exceeds 200ms.
+ * MAX-1017: LCP ≤2.5s, CLS ≤0.1, and either metric may not regress more than 20%
+ * against scripts/lighthouse-baseline.json.
  */
 import { spawn } from 'node:child_process'
 import { createRequire } from 'node:module'
@@ -39,9 +42,29 @@ try {
   ])
   const report = JSON.parse(fs.readFileSync(out, 'utf8'))
   const tbt = report.audits['total-blocking-time'].numericValue
+  const lcp = report.audits['largest-contentful-paint'].numericValue
+  const cls = report.audits['cumulative-layout-shift'].numericValue
   const long = report.audits['long-tasks']?.details?.items ?? []
   const worst = long.reduce((max, item) => Math.max(max, item.duration || 0), 0)
-  console.log(`TBT ${Math.round(tbt)} ms · longest task ${Math.round(worst)} ms`)
+  console.log(`TBT ${Math.round(tbt)} ms · LCP ${Math.round(lcp)} ms · CLS ${cls.toFixed(3)} · longest task ${Math.round(worst)} ms`)
+  const baselinePath = path.join(root, 'scripts', 'lighthouse-baseline.json')
+  const baseline = JSON.parse(fs.readFileSync(baselinePath, 'utf8'))
+  if (lcp > baseline.lcp * 1.2) {
+    console.error(`LCP regressed more than 20% (${Math.round(lcp)} > ${Math.round(baseline.lcp * 1.2)})`)
+    process.exit(1)
+  }
+  if (cls > Math.max(baseline.cls * 1.2, 0.1)) {
+    console.error(`CLS regressed more than 20% (${cls} > ${baseline.cls})`)
+    process.exit(1)
+  }
+  if (lcp > 2500) {
+    console.error('LCP exceeds 2.5s')
+    process.exit(1)
+  }
+  if (cls > 0.1) {
+    console.error('CLS exceeds 0.1')
+    process.exit(1)
+  }
   if (tbt > 300) {
     console.error('TBT exceeds 300 ms')
     process.exit(1)

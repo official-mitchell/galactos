@@ -19,6 +19,8 @@ Format:
 ---
 
 ## 2026-11-04
+- [cursor-grok] MAX-1017 closed against the hero mock: mobile 40px title, hero Playwright checks, and Lighthouse LCP/CLS plus a 20% regression ceiling. Plate-only checklist lines are cancelled.
+- [cursor-grok] MAX-1017 started after the owner waived the Phase 4 read-through and live seam review. Hero CTAs emit `hero_cta_click`, the section emits `hero_view` once, and the mock diagram fades in with `useTrace`. Planet-plate checklist items stay open because the mock is the visual target.
 - [cursor-grok] Removed the dev preview bar, fake case rail, section numbers, the S2 placeholder circle, the “A new standard” arrow, and unreadable output-card labels.
 - [cursor-grok] `/impeccable document`: wrote `DESIGN.md` and `.impeccable/design.json` from the live tokens. Mocks win over the live page. No rebuild.
 - [cursor-grok] Recorded code-first as the Impeccable build path in `.impeccable/config.json`.

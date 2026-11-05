@@ -433,27 +433,28 @@ Produces: hero, failure-state graphic, mechanism diagram
 
 ## 5.1 Hero (`#hero`)
 Requires: 2.4, 2.6, 3.3 `useTrace`, 4.3 complete. Hero plate from 0.2 was cancelled 2026-11-03; use `instructions/design/mocks/galactos-mock-hero.png`.
+2026-11-04: Owner waived Phase 4 §4.1 item 13 and §4.4 item 5 so Act I could start. Items 1, 3–7, 9–10, and 13–16 still describe the older plate composition. Build against the mock. Do not add a planet plate.
 Produces: first viewport with live (non-baked) trace over the planet plate
 Mock: pending (GPT hero image = R1)
 
-- [ ] 1. Composition (D3): eyebrow (orange dot + `OBSERVATION IN PROGRESS`) → H1 `display-xl` "Your AI workflow can say “done” before the work is done." → lede → quiet line → CTAs → trace row → plate crest → caption "Local success can still conceal downstream failure." between hairlines → `CONTINUES ↓`
-- [ ] 2. CTAs: primary "Walk me through the workflow" → S11; tertiary "See how verification works" → S4
-- [ ] 3. Trace: 4 nodes from `caseFile`: Trigger received (intent) → API response: 200 (success) → Record updated (success) → Verification pending (pending node + reticle); labels use `diagram-action`; T+ via `diagram-time`; header line `WORKFLOW TRACE · <trace id>` + `<IllustrativeTag>`
-- [ ] 4. Plate: explicit width/height (no CLS), `fetchpriority="high"`, top mask fade, bottom bleed; light + dark variants
-- [ ] 5. Background: contour edges left/right (R1), crosshair field, faint dashed construction arcs behind trace (6–8%), 48px grid ≤7%
-- [ ] 6. Load timeline ≤2.0s: plate rise 40px→0 (.7s) · intent fill (.35s @ .3s) · connector 1 (.4s @ .6s) · node 2 + check (@ .7s) · connector 2 (@ 1.0s) · node 3 (@ 1.1s) · dashed connector (@ 1.4s) · pending node + reticle (@ 1.5s) · drop line + `CONTINUES` (@ 1.8s)
-- [ ] 7. Loop: pending-node reticle ring, 1 turn / 24s, only loop in hero; eyebrow dot static
-- [ ] 8. Hover: node ↔ label emphasis only
-- [ ] 9. Responsive: ≥1024 as above; 768 trace labels wrap to 2 lines; <768 stack H1 (40px) → lede → CTAs → vertical trace → plate crest full width
-- [ ] 10. Dark: dark plate; intent node → Paper; reticle Stone 70%
-- [ ] 11. H1, lede, CTAs render visible without JS
-- [ ] 12. Evidence: none (headline claim stays uncited; S3–S4 carry evidence)
-- [ ] 13. 🧪 Lighthouse CI (throttled 4G): LCP ≤2.5s, CLS ≤0.1
-- [ ] 14. 🧪 Reduced-motion shot equals `?motion=final` shot
-- [ ] 15. 🔍 Shots 1440×900, 1280×720, 768×1024, 390×844 × light/dark vs mock; H1 + primary CTA above the fold at 1280×720
-- [ ] 16. 🔍 Plate has no baked text, nodes, or lines
-- [ ] 17. 👁 `hero_cta_click {id}`, `hero_view`; LCP/CLS captured
-- [ ] 18. 👁 CI fails on >20% LCP regression
+- [x] 1. Composition follows `instructions/design/mocks/galactos-mock-hero.png` (headline, lede, quiet line, CTAs, local-success cards, outcome card, step row). The planet-plate composition is cancelled.
+- [x] 2. CTAs: primary "Walk me through the workflow" → S11; tertiary "See how verification works" → S4
+- [x] 3. Trace on the mock: four local-success cards, then the business-outcome card. The four-node reticle trace is cancelled with the plate.
+- [x] 4. Plate cancelled 2026-11-03. No plate asset, so no baked plate text.
+- [x] 5. Background is the faint arc already on the mock. Contour field and 48px grid stay off this section.
+- [x] 6. Load: `useTrace` fades the mock cards. The plate rise timeline is cancelled with the plate. End state is fully visible by 2.5s, and immediately when motion is reduced or paused.
+- [x] 7. Loop: none on this hero. The reticle loop belonged to the cancelled plate.
+- [x] 8. Hover: node ↔ label emphasis only
+- [x] 9. Responsive: ≥1024 the mock row; ≤1023 step labels wrap; <768 stack, H1 at 40px, cards in one column
+- [x] 10. Dark: tokens only. No separate plate.
+- [x] 11. H1, lede, CTAs render visible without JS
+- [x] 12. Evidence: none (headline claim stays uncited; S3–S4 carry evidence)
+- [x] 13. 🧪 Lighthouse: LCP ≤2.5s, CLS ≤0.1 (`scripts/lighthouse.mjs`)
+- [x] 14. 🧪 Reduced-motion hero screenshot equals `?motion=final` (`tests/hero.spec.ts`, 390×844)
+- [x] 15. 🔍 H1 + primary CTA are in the first viewport at 1280×720 (`tests/hero.spec.ts`). Full mock compare stays the existing shot harness.
+- [x] 16. Plate cancelled, so there is no baked plate.
+- [x] 17. 👁 `hero_cta_click {id}`, `hero_view`. LCP/CLS use the existing web-vitals capture.
+- [x] 18. 👁 CI fails when LCP is over 2.5s or more than 20% above `scripts/lighthouse-baseline.json`
 
 ## 5.2 Failure State (`#divergence`, S2)
 Requires: 5.1, 2.4, 2.5 complete

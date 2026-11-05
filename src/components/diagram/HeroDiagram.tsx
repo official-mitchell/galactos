@@ -1,5 +1,8 @@
-/* 2026-11-03: hero outcome diagram matched to instructions/design/mocks/galactos-mock-hero.png. */
-import React from 'react';
+/* 2026-11-04: MAX-1017 load trace on the mock diagram. Hover emphasizes a node and its label.
+   2026-11-03: hero outcome diagram matched to instructions/design/mocks/galactos-mock-hero.png. */
+import React, { useRef } from 'react';
+import { useTrace } from '../../motion/hooks';
+import type { TraceBeat } from '../../motion/traceSpec';
 
 const CARDS: {
   title: string;
@@ -71,9 +74,21 @@ function Mark({ tone }: { tone: 'success' | 'divergence' }) {
   );
 }
 
+const HERO_TRACE: TraceBeat[] = [
+  { type: 'node', target: '[data-hero="card-0"]', at: 0.3, dur: 0.35 },
+  { type: 'node', target: '[data-hero="card-1"]', at: 0.7, dur: 0.35 },
+  { type: 'connector', target: '[data-hero="steps"]', at: 1.0, dur: 0.3 },
+  { type: 'node', target: '[data-hero="card-2"]', at: 1.1, dur: 0.35 },
+  { type: 'node', target: '[data-hero="card-3"]', at: 1.5, dur: 0.35 },
+  { type: 'divergence', target: '[data-hero="card-4"]', at: 2.45, dur: 0.4 },
+];
+
 export function HeroDiagram() {
+  const rootRef = useRef<HTMLDivElement>(null);
+  useTrace(rootRef, { trigger: 'load', beats: HERO_TRACE });
+
   return (
-    <div className="hero-diagram" style={{ position: 'relative', width: '100%' }}>
+    <div ref={rootRef} className="hero-diagram" style={{ position: 'relative', width: '100%' }}>
       <svg
         aria-hidden="true"
         viewBox="0 0 640 640"
@@ -99,8 +114,8 @@ export function HeroDiagram() {
           <div className="hero-bracket-bar" />
         </div>
 
-        {CARDS.map(card => (
-          <article key={card.title} className={`hero-card hero-card-${card.tone}`}>
+        {CARDS.map((card, index) => (
+          <article key={card.title} data-hero={`card-${index}`} className={`hero-card hero-card-${card.tone}`}>
             <div className="hero-card-title">
               <Mark tone={card.tone} />
               <span>{card.title}</span>
@@ -117,7 +132,7 @@ export function HeroDiagram() {
         ))}
       </div>
 
-      <div className="hero-steps">
+      <div className="hero-steps" data-hero="steps">
         <div className="hero-step-line" aria-hidden="true" />
         {STEPS.map((label, i) => {
           const failed = i === STEPS.length - 1;
