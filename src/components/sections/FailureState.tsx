@@ -1,9 +1,11 @@
-/* 2026-11-04: MAX-1011 carries the Failure state reader question and seam from sections.ts.
+/* 2026-11-04: MAX-1014 placeholder for S2's first node. The hero drop ends on this x.
+   2026-11-04: MAX-1011 carries the Failure state reader question and seam from sections.ts.
    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
    2026-11-03: evidence rail reads caseFile. The invented trace id is not shown. */
 import React, { useEffect, useRef, useState } from 'react';
 import { storySectionProps } from '../../content/sections';
+import { SeamAnchor } from '../shell/SeamAnchor';
 import { IllustrativeTag } from '../diagram/IllustrativeTag';
 import { caseFile } from '../../content/caseFile';
 import { copy } from '../../content/copy';
@@ -536,6 +538,7 @@ export function FailureState() {
     <section
       ref={sectionRef}
       id="section-divergence"
+      className="seam-host"
       {...storySectionProps('section-divergence')}
       style={{
         backgroundColor: 'var(--surface-base)',
@@ -543,6 +546,7 @@ export function FailureState() {
         paddingBottom: 120,
       }}
     >
+      <SeamAnchor id="hero-s2" end role="node" />
       <div className="container-editorial">
         {/* Case context label */}
         <div

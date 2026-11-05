@@ -1,9 +1,11 @@
-/* 2026-11-04: MAX-1011 carries the New standard reader question and seam from sections.ts.
+/* 2026-11-04: MAX-1014 placeholder eyebrow. The S3 closing line and arrow land on this x.
+   2026-11-04: MAX-1011 carries the New standard reader question and seam from sections.ts.
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
     2026-11-04: MAX-1008 shows the authoritative-state definition in the page. It is not a hover tooltip. */
 import React, { useEffect, useRef, useState } from 'react';
 import { storySectionProps } from '../../content/sections';
+import { SeamAnchor } from '../shell/SeamAnchor';
 
 /* ── Timing ── */
 const NODE_DELAYS   = [0, 320, 640, 960];   // shared 4 nodes
@@ -415,6 +417,7 @@ export function NewStandard() {
     <section
       ref={sectionRef}
       id="section-verification"
+      className="seam-host"
       {...storySectionProps('section-verification')}
       style={{
         backgroundColor: 'var(--surface-base)',
@@ -422,6 +425,7 @@ export function NewStandard() {
         paddingBottom: 96,
       }}
     >
+      <SeamAnchor id="s3-s4" end role="eyebrow" label="04 / Standard" />
       <div className="container-editorial">
 
         {/* Headline */}

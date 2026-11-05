@@ -392,10 +392,10 @@ Produces: sticky header, anchor map, mode + motion toggles, mobile menu
 Requires: 4.1, 4.2, 3.3 complete
 Produces: seam mechanics (`data-seam-start` / `data-seam-end` anchors) and alignment tests, run first on placeholders, re-run on real sections in 5.2, 5.3, 6.1, 8.1, 9.2
 
-- [ ] 1. Hero → S2: dashed drop line scrubbed with scroll; ends on S2's first node (same x)
-- [ ] 2. S3 → S4: closing line + arrow lands on S4 eyebrow
-- [ ] 3. S6 → S7 and S10 → S11: band edge = 1px `border-strong`, no gradient
-- [ ] 4. 🧪 Playwright: seam-start x vs seam-end x ≤2px at 1440, 768, 390 (placeholder anchors now; real nodes in Phase 5)
+- [x] 1. Hero → S2: dashed drop line scrubbed with scroll; ends on S2's first node (same x)
+- [x] 2. S3 → S4: closing line + arrow lands on S4 eyebrow
+- [x] 3. S6 → S7 and S10 → S11: band edge = 1px `border-strong`, no gradient
+- [x] 4. 🧪 Playwright: seam-start x vs seam-end x ≤2px at 1440, 768, 390 (placeholder anchors now; real nodes in Phase 5)
 - [ ] 5. 🔍 Scroll the seams slowly in `live` motion; no jump or double line
 - [ ] 6. 👁 (no observability required)
 

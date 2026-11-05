@@ -1,5 +1,6 @@
 /* 2026-11-03: MAX-999 layout primitives. Header offset defaults to 72px.
-   2026-11-04: MAX-1012 spine column. 1.5px trace, x≈40 from 1280 up, hidden 768–1279, x≈10 below 768. */
+   2026-11-04: MAX-1012 spine column. 1.5px trace, x≈40 from 1280 up, hidden 768–1279, x≈10 below 768.
+   2026-11-04: MAX-1014 seam anchors share --seam-x so start and end stay on one vertical. */
 
 :root {
   --header-offset: 72px;
@@ -164,4 +165,84 @@
   .layout-split__sticky {
     position: static;
   }
+}
+
+/* MAX-1014. One shared x for placeholder seam anchors. Real nodes replace them in later acts. */
+:root {
+  --seam-x: 48px;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --seam-x: 24px;
+  }
+}
+
+.seam-host {
+  position: relative;
+}
+
+.seam-anchor {
+  position: absolute;
+  left: var(--seam-x);
+  width: 8px;
+  height: 8px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.seam-anchor--start {
+  bottom: 0;
+}
+
+.seam-anchor--end {
+  top: 28px;
+}
+
+.seam-anchor--node {
+  border: 1.5px solid var(--text-primary);
+  border-radius: 50%;
+  background: transparent;
+}
+
+.seam-anchor__label {
+  position: absolute;
+  left: 16px;
+  top: -4px;
+  white-space: nowrap;
+  color: var(--text-muted);
+}
+
+.seams {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9;
+}
+
+.seam-line {
+  position: absolute;
+  width: 12px;
+  transform: translateX(-50%);
+  overflow: visible;
+}
+
+.seam-line svg {
+  display: block;
+  width: 12px;
+  height: 100%;
+  overflow: visible;
+}
+
+.seam-line line {
+  stroke: var(--text-primary);
+}
+
+.seam-line--dashed line {
+  stroke-width: 1.5;
+  stroke-dasharray: 4 6;
+}
+
+.seam-line--arrow line {
+  stroke-width: 1;
 }

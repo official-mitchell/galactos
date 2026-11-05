@@ -1,4 +1,5 @@
-/* 2026-11-04: MAX-1011 carries the CTA reader question and spine terminal seam from sections.ts.
+/* 2026-11-04: MAX-1014 S10→S11 band edge is 1px border-strong. No gradient.
+   2026-11-04: MAX-1011 carries the CTA reader question and spine terminal seam from sections.ts.
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useState } from 'react';
@@ -165,9 +166,11 @@ export function FinalCta() {
   return (
     <section
       id="section-cta"
+      className="surface-emphasis-band"
+      data-seam-band="s10-s11"
       {...storySectionProps('section-cta')}
       style={{
-        backgroundColor: DARK,
+        backgroundColor: 'var(--surface-emphasis)',
         position: 'relative',
         paddingTop: 128,
         paddingBottom: 88,

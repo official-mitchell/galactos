@@ -1,4 +1,5 @@
-/* 2026-11-04: MAX-1011 carries the Intervention reader question and seam from sections.ts.
+/* 2026-11-04: MAX-1014 S6→S7 band edge is 1px border-strong. No gradient.
+   2026-11-04: MAX-1011 carries the Intervention reader question and seam from sections.ts.
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
@@ -226,8 +227,10 @@ export function Intervention() {
     <section
       ref={sectionRef}
       id="section-intervention"
+      className="surface-emphasis-band"
+      data-seam-band="s6-s7"
       {...storySectionProps('section-intervention')}
-      style={{ backgroundColor: '#0F1E2E', paddingTop: 128, paddingBottom: 128 }}
+      style={{ backgroundColor: 'var(--surface-emphasis)', paddingTop: 128, paddingBottom: 128 }}
     >
       <div className="container-editorial">
         <div className="s7-grid">

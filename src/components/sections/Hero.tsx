@@ -1,10 +1,12 @@
-/* 2026-11-04: MAX-1011 carries the Hero reader question and seam from sections.ts.
+/* 2026-11-04: MAX-1014 places the hero→S2 seam start on the shared seam x.
+   2026-11-04: MAX-1011 carries the Hero reader question and seam from sections.ts.
    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
    2026-11-03: MAX-998 mapped the headline to .text-display-xl and the lede to .text-lede.
    2026-11-03: layout and copy matched to instructions/design/mocks/galactos-mock-hero.png. */
 import React from 'react';
 import { storySectionProps } from '../../content/sections';
 import { HeroDiagram } from '../diagram/HeroDiagram';
+import { SeamAnchor } from '../shell/SeamAnchor';
 
 function scrollTo(id: string) {
   const el = document.querySelector(id);
@@ -15,6 +17,7 @@ export function Hero() {
   return (
     <section
       id="section-hero"
+      className="seam-host"
       {...storySectionProps('section-hero')}
       style={{
         position: 'relative',
@@ -90,6 +93,7 @@ export function Hero() {
           <HeroDiagram />
         </div>
       </div>
+      <SeamAnchor id="hero-s2" />
     </section>
   );
 }

@@ -1,4 +1,5 @@
-/* 2026-11-04: MAX-1012 mounts the scroll spine on the landing page only.
+/* 2026-11-04: MAX-1014 mounts scroll seams beside the spine.
+   2026-11-04: MAX-1012 mounts the scroll spine on the landing page only.
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: MAX-994 gates the Preview bar and Style Guide behind import.meta.env.DEV.
    Production keeps the stored-theme / prefers-color-scheme class effect and always shows the landing page.
@@ -8,6 +9,7 @@
 import React, { useEffect, useState } from 'react';
 import { SiteHeader } from './components/shell/SiteHeader';
 import { Spine } from './components/shell/Spine';
+import { Seams } from './components/shell/Seams';
 import { Hero } from './components/sections/Hero';
 import { FailureState } from './components/sections/FailureState';
 import { Mechanism } from './components/sections/Mechanism';
@@ -247,6 +249,7 @@ export default function App() {
         /* Landing page with real site header */
         <div className="page-frame">
           <Spine />
+          <Seams />
           <SiteHeader isDark={isDark} onToggleMode={() => setIsDark(d => !d)} />
           <main data-anim="page">
             {showLab ? <MotionLab /> : null}
