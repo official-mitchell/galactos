@@ -7,7 +7,8 @@
    2026-11-04: MAX-1008 hover and focus rules live in motion.css.
    2026-11-03: MAX-1003 confirmed body uses --mode-transition (color only, 200ms). prefers-reduced-motion sets body transition to none. No extra motion added.
    2026-11-03: MAX-1002 motif layer stays at --motif-opacity (8%), including .motif-grid.
-   2026-11-03: MAX-999 layout.css and MAX-1000 diagram.css. */
+   2026-11-03: MAX-999 layout.css and MAX-1000 diagram.css.
+   2026-11-04: MAX-1015 stone rule for the evidence footnote. */
 @import './tokens.css';
 @import './layout.css';
 @import './diagram.css';
@@ -699,4 +700,28 @@ html[data-motion='reduced'] * {
 
 html[data-motion='final'] .trace-line {
   stroke-dashoffset: 0;
+}
+
+.evidence-footnote {
+  margin-top: var(--space-4);
+}
+
+.evidence-footnote__rule {
+  border: 0;
+  border-top: 1px solid var(--border-default);
+  margin: 0 0 var(--space-2);
+}
+
+.evidence-footnote__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: baseline;
+  margin: 0;
+}
+
+.evidence-footnote__link {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text-secondary);
 }
