@@ -1,7 +1,6 @@
-/* 2026-11-04: MAX-1011 §4.1 added readerQuestion and seam on each section.
-   One idea per section. Owner read-through (§4.1 item 13) stays unsigned.
-   §4.2–4.6 are not implemented here.
-   2026-11-03: single source of section anchors. DOM ids still match the Make export until the revamp. */
+/* 2026-11-03: single source of section anchors. DOM ids still match the Make export until the revamp.
+   2026-11-04: MAX-1011 readerQuestion and seam on each section. Owner read-through stays unsigned.
+   2026-11-04: MAX-1013 nav labels resolve through navAnchors (S7, S9, S10, S11, S4). */
 
 export type SectionEntry = {
   number: string
@@ -138,4 +137,40 @@ export function storySectionProps(id: string): {
     'data-reader-question': entry.readerQuestion,
     ...(entry.seam ? { 'data-seam': entry.seam } : {}),
   }
+}
+
+/** Checklist §4.3. Keys are nav labels; values are section numbers (S7 is Intervention). */
+const NAV_SECTION_NUMBERS = {
+  diagnostic: '07',
+  method: '09',
+  about: '10',
+  workflow: '11',
+  verification: '04',
+  hero: '01',
+} as const
+
+export type NavAnchorKey = keyof typeof NAV_SECTION_NUMBERS
+
+function sectionByNumber(number: string): SectionEntry {
+  const entry = sections.find((section) => section.number === number)
+  if (!entry) throw new Error(`Missing section ${number}`)
+  return entry
+}
+
+export const navAnchors: Record<NavAnchorKey, SectionEntry> = {
+  diagnostic: sectionByNumber(NAV_SECTION_NUMBERS.diagnostic),
+  method: sectionByNumber(NAV_SECTION_NUMBERS.method),
+  about: sectionByNumber(NAV_SECTION_NUMBERS.about),
+  workflow: sectionByNumber(NAV_SECTION_NUMBERS.workflow),
+  verification: sectionByNumber(NAV_SECTION_NUMBERS.verification),
+  hero: sectionByNumber(NAV_SECTION_NUMBERS.hero),
+}
+
+export function sectionHref(key: NavAnchorKey): string {
+  return `#${navAnchors[key].id}`
+}
+
+export function scrollTo(href: string): void {
+  const id = href.startsWith('#') ? href.slice(1) : href
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 }

@@ -6,7 +6,7 @@
 
 Source of truth for *what* to do: Linear project [Galactos](https://linear.app/maximus-automaton/project/galactos-6d8a77546ba7/overview) (`P-MAX-21`). This file is the *order* agents must follow.
 
-Project status as of 2026-11-04: **Phase 3 gate met**. MAX-1004 through MAX-1010 are Done (owner accepted the MAX-1010 guidelines review). Phase 4 shell may start: MAX-1011, MAX-1012, MAX-1013, and MAX-1015 in parallel. MAX-1014 waits on 1011 and 1012. MAX-1016 waits on 1013. Phase 2 gate was met on `phase-2-integration`. Phase 1 gate was met on 2026-11-03. Phase 0 is Done. MAX-993 (§1.1) visual compare is accepted. Do not invent a parallel track around the gates below.
+Project status as of 2026-11-04: **Phase 4 shell is on `main`**. MAX-1011 through MAX-1016 are merged. Owner read-through (§4.1 item 13) and the live seam scroll (§4.4 item 5) stay open. Evidence footnotes are not mounted on narrative sections yet. Act I waits on those reviews. Phase 3 gate was met the same day. Phase 1 gate was met on 2026-11-03. Phase 0 is Done. Do not invent a parallel track around the gates below.
 
 ## Labels that control worktrees
 
@@ -163,6 +163,7 @@ The first pair to start is MAX-994 and MAX-995.
 
 ## Changelog (this file)
 
+- 2026-11-04: Phase 4 shell merged to main (MAX-1011 through MAX-1016). Owner read-through and live seam review stay open.
 - 2026-11-04: Phase 3 closed. MAX-1010 marked Done. Phase 4 first wave is MAX-1011, MAX-1012, MAX-1013, and MAX-1015.
 - 2026-11-03: Added the parallel execution waves from MAX-994 through Phase 10. First pair to start is MAX-994 and MAX-995.
 - 2026-11-03: Owner closed the Phase 1 gate. Named mocks: hero, reliability diagnostic, verified completion, reported versus verified. MAX-994–996 unblocked. Build was already green.

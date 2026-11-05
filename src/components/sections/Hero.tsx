@@ -2,16 +2,13 @@
    2026-11-04: MAX-1011 carries the Hero reader question and seam from sections.ts.
    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
    2026-11-03: MAX-998 mapped the headline to .text-display-xl and the lede to .text-lede.
-   2026-11-03: layout and copy matched to instructions/design/mocks/galactos-mock-hero.png. */
+   2026-11-03: layout and copy matched to instructions/design/mocks/galactos-mock-hero.png.
+   2026-11-04: MAX-1013. Tertiary verification link and primary CTA read sections.ts. */
 import React from 'react';
-import { storySectionProps } from '../../content/sections';
+import { trackEvent } from '../../analytics/track';
+import { scrollTo, sectionHref, storySectionProps } from '../../content/sections';
 import { HeroDiagram } from '../diagram/HeroDiagram';
 import { SeamAnchor } from '../shell/SeamAnchor';
-
-function scrollTo(id: string) {
-  const el = document.querySelector(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth' });
-}
 
 export function Hero() {
   return (
@@ -73,19 +70,30 @@ export function Hero() {
 
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 16 }}>
             <a
-              href="#section-cta"
+              href={sectionHref('workflow')}
+              data-scroll-target={sectionHref('workflow').slice(1)}
               className="btn-primary"
-              onClick={e => { e.preventDefault(); scrollTo('#section-cta'); }}
+              onClick={(event) => {
+                event.preventDefault();
+                trackEvent({ name: 'nav_click', target: sectionHref('workflow').slice(1) });
+                scrollTo(sectionHref('workflow'));
+              }}
             >
               Walk me through the workflow
             </a>
-            <button
+            <a
+              href={sectionHref('verification')}
+              data-scroll-target={sectionHref('verification').slice(1)}
               className="btn-tertiary"
-              onClick={() => scrollTo('#section-verification')}
-              style={{ fontSize: 15, paddingLeft: 2 }}
+              onClick={(event) => {
+                event.preventDefault();
+                trackEvent({ name: 'nav_click', target: sectionHref('verification').slice(1) });
+                scrollTo(sectionHref('verification'));
+              }}
+              style={{ fontSize: 15, paddingLeft: 2, minHeight: 44 }}
             >
               See how verification works →
-            </button>
+            </a>
           </div>
         </div>
 

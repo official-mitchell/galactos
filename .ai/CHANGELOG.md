@@ -19,6 +19,9 @@ Format:
 ---
 
 ## 2026-11-04
+- [cursor-grok] Merged Phase 4 onto main: story sequence, spine, header, seams, evidence, and section intake (MAX-1011–MAX-1016). Owner read-through and live seam review stay open.
+- [cursor-grok] MAX-1016: section intake protocol in `scripts/section-intake.mjs` and `npm run gate:section` (token lint, type floor, one `?motion=final` shot). Checklist §4.6 items 1–7 checked; Go when stays open.
+- [cursor-grok] MAX-1013: sticky header reads Diagnostic, Method, About, workflow, and verification anchors from `sections.ts`; skip link, scroll border, mobile focus trap, and `nav_click`.
 - [cursor-grok] MAX-1014 §4.4: dashed hero→S2 drop and S3→S4 arrow scrub between shared seam anchors; S7 and S11 use a 1px border-strong band edge. Playwright checks x within 2px at 1440, 768, and 390. Live motion review stays open. Placeholders stand in for the S2 node and S4 eyebrow.
 - [cursor-grok] MAX-1011 §4.1: eleven reader questions and seam handoffs live on `src/content/sections.ts` and each section element. Owner read-through stays unsigned. §4.2–4.6 not started.
 - [cursor-grok] MAX-1012: page-long scroll spine in the left margin, scrubbed with useScrollScrub, with Playwright clearance and final/reduced coverage. Seams stay untouched.

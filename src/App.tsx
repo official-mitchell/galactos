@@ -5,7 +5,8 @@
    Production keeps the stored-theme / prefers-color-scheme class effect and always shows the landing page.
    2026-11-03: ported from the Figma Make scratch app. Sections imported by job name (MAX-993).
    2026-11-03: MAX-996 honors ?mode= and hides the preview bar when ?shot=1. setMode events stay in dev.
-   2026-11-04: MAX-1006 marks main with data-anim so final and reduced captures share one settled state. */
+   2026-11-04: MAX-1006 marks main with data-anim so final and reduced captures share one settled state.
+   2026-11-04: MAX-1013. Main is the skip-to-content target. */
 import React, { useEffect, useState } from 'react';
 import { SiteHeader } from './components/shell/SiteHeader';
 import { Spine } from './components/shell/Spine';
@@ -251,7 +252,7 @@ export default function App() {
           <Spine />
           <Seams />
           <SiteHeader isDark={isDark} onToggleMode={() => setIsDark(d => !d)} />
-          <main data-anim="page">
+          <main id="content" data-anim="page">
             {showLab ? <MotionLab /> : null}
             <Hero />
             <FailureState />

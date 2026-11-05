@@ -414,13 +414,13 @@ Produces: `<Evidence kind label href>`
 Requires: 4.3 complete
 Produces: repeatable section build loop
 
-- [ ] 1. Save mock → `design/mocks/<section>.png`
-- [ ] 2. Diff mock vs the section spec below; update the spec first
-- [ ] 3. List new primitives needed; add to 2.4 only if reused ≥2 times
-- [ ] 4. Build with primitives; no new tokens without owner approval
-- [ ] 5. `npm run shot -- --section <id> --mode both` at 4 viewports
-- [ ] 6. `npm run compare -- --section <id>`; fix; repeat (max 5)
-- [ ] 7. 🧪 Section gate: `lint:tokens`, `test:type-floor`, `?motion=final` snapshot
+- [x] 1. Save mock → `instructions/design/mocks/` (checklist shorthand `design/mocks/<section>.png`; existing mocks stay put). Protocol: `scripts/section-intake.mjs`
+- [x] 2. Diff mock vs the section spec below; update the spec first
+- [x] 3. List new primitives needed; add to 2.4 only if reused ≥2 times
+- [x] 4. Build with primitives; no new tokens without owner approval
+- [x] 5. `npm run shot -- --section <id> --mode both` at 4 viewports
+- [x] 6. `npm run compare -- --section <id>`; fix; repeat (max 5)
+- [x] 7. 🧪 Section gate: `npm run gate:section -- --section <id>` runs `lint:tokens`, `test:type-floor`, and one `?motion=final` snapshot (light, 1440×900) via `npm run shot`. Refuses `--section all`
 - [ ] 8. Open PR with before/after shots
 
 - [ ] **Go when:** spine, header, seams, evidence, and intake protocol pass their tests with placeholder sections
@@ -823,5 +823,6 @@ Strength is the project doc's own rating. It calls only Verifiability "directly 
 
 ## Changelog
 
+- 2026-11-04: MAX-1016 §4.6 items 1–7 checked. Mock path is `instructions/design/mocks/`. Gate is `npm run gate:section`. Item 8 and the Phase 4 Go when line stay open.
 - 2026-11-03: Owner closed the Phase 1 gate and §1.1 item 7. Named mocks for hero, reliability diagnostic, verified completion, and reported versus verified.
 - 2026-11-03: §1.1 items 1–6 done at the repo root. Scratch Make folder removed. Item 7 (match mocks, not the Make preview) is still open.
