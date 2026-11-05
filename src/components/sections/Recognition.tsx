@@ -6,12 +6,14 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useRef, useState } from 'react'
-import { trackSectionView } from '../../analytics/track'
+import { trackSectionView, trackSignalActive } from '../../analytics/track'
+import { evidenceById } from '../../content/evidence'
 import { storySectionProps } from '../../content/sections'
 import { claimLoop, releaseLoop } from '../../motion/loops'
 import { whenNear } from '../../motion/near'
 import { prefersReducedMotion } from '../../motion/reduced'
 import { isMotionPaused } from '../../motion/store'
+import { Evidence } from '../Evidence'
 import { Container } from '../layout/Container'
 import { Split } from '../layout/Split'
 
@@ -175,13 +177,20 @@ export function Recognition() {
       setStep(4)
       return
     }
+    const seen = new Set<number>()
     const hold = 2.15
     const gap = 0.4
     const cycle = hold + gap
     const timeline = gsap.timeline({ paused: true, repeat: -1 })
     CARDS.forEach((_, index) => {
       const at = index * cycle
-      timeline.call(() => setOpen(index), [], at)
+      timeline.call(() => {
+        setOpen(index)
+        if (!seen.has(index)) {
+          seen.add(index)
+          trackSignalActive(index + 1)
+        }
+      }, [], at)
       timeline.call(() => setOpen(-1), [], at + hold)
     })
     const rounds = CARDS.length
@@ -247,6 +256,7 @@ export function Recognition() {
                 cannot confidently reconcile what the workflow reports with what actually happened from trigger through
                 final state.
               </p>
+              <Evidence id="E10" kind={evidenceById.E10.kind} label={evidenceById.E10.label} href={evidenceById.E10.href} />
               <Meter step={step} />
             </div>
           }

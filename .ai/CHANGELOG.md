@@ -19,12 +19,18 @@ Format:
 ---
 
 ## 2026-11-05
+- [cursor] Rebuilt section-mechanism to the local-success mock: seven OK steps, dashed gaps, unresolved business obligation.
+- [cursor-grok] Phase 8 started by owner override (MAX-1023, MAX-1024, MAX-1025): scope labels and probe on intervention, E4, output reader tags, method replay.
+- [cursor-grok] Phase 7 gate: E10 is under the recognition lede, signal_active fires once per card, and the sticky column stays above the footer at 1440 and 1280.
+- [cursor-grok] Hero at phone width uses a 32px headline and a vertical diagram rail, checked at 390px.
 - [cursor-grok] MAX-1022 recognition rebuilt to galactos-mock-recognition.png: looping accordions and a meter that draws to the outcome X.
 - [cursor-grok] Hero content grid stacks on narrow sections and splits at 960px. On mobile the section starts below the taller header and aligns to the top so the headline stays in view.
 - [cursor-grok] Mobile `#section-divergence` diagrams are vertical timelines so each step stays connected to the next.
 - [cursor-grok] Added the mock’s second band to `#section-divergence`: “Component success is not evidence of end-to-end completion,” with reported and verified lanes.
 - [cursor-grok] Rebuilt `#section-divergence` to the component-success mock: left headline, five step cards, green local-success nodes, orange unresolved authoritative state.
 - [cursor-grok] Phase 7 start: MAX-1022 recognition instrument, six signal states, fragmented glyph, and E10 under the lede.
+- [cursor-grok] Verification: wider Reported/Verified column and larger headings, a long cobalt sweep, a longer terminal arrow, and the glossary note plus E1 aside removed.
+- [cursor-grok] Verified sits on the terminal-evidence row, and the cobalt curve meets the independent-verification node.
 - [cursor-grok] Verification diagram now forks at Case closed: a dashed arrow to self-reported completion and a cobalt curve into terminal evidence.
 - [cursor-grok] Phase 6 gate: MAX-1020 and MAX-1021 marked Done. `?motion=final` specs passed, and 1440 and 390 shots exist for section-verification and section-proof. Owner visual sign-off is still unsigned. Compare maps section-verification to galactos-mock-done.png.
 - [cursor-grok] Refined the verification diagram against a 1440 Playwright shot: bracket ticks, and the cobalt curve now meets the independent-verification node.

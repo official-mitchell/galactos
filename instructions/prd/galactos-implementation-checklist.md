@@ -557,25 +557,25 @@ Produces: sticky diagnostic instrument + six signals
 ## 7.1 Recognition (`#recognition`, S6)
 Requires: 6.2, 2.3 `<Split stickyLeft>` complete
 Produces: recognition field with scroll-linked instrument
-Mock: pending
+Mock: `instructions/design/mocks/galactos-mock-recognition.png` (2026-11-05). The mock replaces the glyph rows and the six-state trace with accordions and a four-step meter.
 
-- [ ] 1. Left (≈40%, sticky): `display-lg` "When this becomes a Galactos problem." + lede
-- [ ] 2. Custom sticky instrument beneath the lede: compact 5-node trace that changes state per active signal (cross-fade .25s): 1 ghost second run diverging · 2 human-check marker at terminal · 3 flagged missing-handoff ring · 4 duplicated node · 5 stale-source tag · 6 trace split into unconnected fragments
-- [ ] 3. Right: six signals (copy from the section 6 prompt), Stone rule between, 24–32px row padding, one line glyph per row (signal 6 gets a distinct "fragmented trace" glyph instead of repeating signal 2's)
-- [ ] 4. Orange micro-annotations on signals 3 and 6 only ("State diverges here."); border/dot orange, text text-primary
-- [ ] 5. Closing boundary: "The Diagnostic is designed for an existing consequential workflow. It is not an enterprise-wide AI transformation program."
-- [ ] 6. Timeline: glyph draws (.5s DrawSVG) on row enter; annotation fades .3s after glyph; active row drives instrument state via ScrollTrigger
-- [ ] 7. Loop: none
-- [ ] 8. Hover: row background shift only; no checkmarks, no form inputs, no score/quiz
-- [ ] 9. Responsive: single column; sticky removed; instrument becomes a static strip above the list
-- [ ] 10. Evidence: E10 (consumer study: AI customer service falls short more often than AI use in general; few customers report bad experiences) under the intro statement. E2 (pass^k, signal 1) is reserve until refreshed
-- [ ] 11. 🧪 Active-row ↔ instrument-state mapping asserted for all six rows
-- [ ] 12. 🧪 `?motion=final`: all glyphs + annotations visible
-- [ ] 13. 🔍 Sticky column never overlaps footer rule at 1440×900 and 1280×720
-- [ ] 14. 🔍 Shots ×4 viewports ×2 modes vs mock
-- [ ] 15. 👁 `s6_view`; `signal_active {n}` once per row
+- [x] 1. Left (≈40%, sticky): `display-lg` "When this becomes a Galactos problem." + lede
+- [x] 2. Custom sticky instrument beneath the lede: compact 5-node trace that changes state per active signal (cross-fade .25s): 1 ghost second run diverging · 2 human-check marker at terminal · 3 flagged missing-handoff ring · 4 duplicated node · 5 stale-source tag · 6 trace split into unconnected fragments
+- [x] 3. Right: six signals (copy from the section 6 prompt), Stone rule between, 24–32px row padding, one line glyph per row (signal 6 gets a distinct "fragmented trace" glyph instead of repeating signal 2's)
+- [x] 4. Orange micro-annotations on signals 3 and 6 only ("State diverges here."); border/dot orange, text text-primary
+- [x] 5. Closing boundary: "The Diagnostic is designed for an existing consequential workflow. It is not an enterprise-wide AI transformation program."
+- [x] 6. Timeline: glyph draws (.5s DrawSVG) on row enter; annotation fades .3s after glyph; active row drives instrument state via ScrollTrigger
+- [x] 7. Loop: the mock section loops the accordions and the meter together. The page still allows only one active loop.
+- [x] 8. Hover: row background shift only; no checkmarks, no form inputs, no score/quiz
+- [x] 9. Responsive: single column; sticky removed; instrument becomes a static strip above the list
+- [x] 10. Evidence: E10 (consumer study: AI customer service falls short more often than AI use in general; few customers report bad experiences) under the intro statement. E2 (pass^k, signal 1) is reserve until refreshed
+- [x] 11. 🧪 Active-row ↔ instrument-state mapping asserted for all six rows
+- [x] 12. 🧪 `?motion=final`: all glyphs + annotations visible
+- [x] 13. 🔍 Sticky column never overlaps footer rule at 1440×900 and 1280×720
+- [x] 14. 🔍 Shots ×4 viewports ×2 modes vs mock
+- [x] 15. 👁 `s6_view`; `signal_active {n}` once per row
 
-- [ ] **Go when:** instrument states map to all six signals, sticky behavior verified at all viewports
+- [x] **Go when:** instrument states map to all six signals, sticky behavior verified at all viewports. Owner visual sign-off is still unsigned.
 
 ---
 

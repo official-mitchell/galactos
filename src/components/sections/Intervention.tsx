@@ -1,9 +1,13 @@
-/* 2026-11-04: MAX-1014 S6→S7 band edge is 1px border-strong. No gradient.
+/* 2026-11-05: MAX-1023 scope labels, seeded field, in-view probe, E4.
+   2026-11-04: MAX-1014 S6→S7 band edge is 1px border-strong. No gradient.
    2026-11-04: MAX-1011 carries the Intervention reader question and seam from sections.ts.
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
+import { trackSectionView } from '../../analytics/track';
 import { storySectionProps } from '../../content/sections';
+import { useLoop } from '../../motion/hooks';
+import { Evidence } from '../Evidence';
 
 /* ── Always-dark surface tokens ── */
 const P   = '#F8F6F3';                       // Paper
@@ -16,21 +20,20 @@ const P09 = 'rgba(248,246,243,0.09)';
 const P05 = 'rgba(248,246,243,0.05)';
 
 /* ── Faint enterprise node positions ── */
-const FAINT_NODES = [
-  // rows above path (y ≈ 60–130)
-  { cx: 72,  cy: 68  }, { cx: 148, cy: 63  }, { cx: 228, cy: 70  },
-  { cx: 310, cy: 65  }, { cx: 382, cy: 72  }, { cx: 452, cy: 64  },
-  { cx: 58,  cy: 112 }, { cx: 150, cy: 108 }, { cx: 355, cy: 110 }, { cx: 440, cy: 108 },
-  // rows below path (y ≈ 210–280)
-  { cx: 65,  cy: 228 }, { cx: 148, cy: 234 }, { cx: 232, cy: 226 },
-  { cx: 320, cy: 231 }, { cx: 408, cy: 227 }, { cx: 458, cy: 239 },
-  { cx: 90,  cy: 274 }, { cx: 190, cy: 278 }, { cx: 282, cy: 272 },
-  { cx: 378, cy: 276 }, { cx: 460, cy: 271 },
-  // outside box — dimmer
-  { cx: 14,  cy: 88,  outer: true }, { cx: 17,  cy: 170, outer: true }, { cx: 15,  cy: 255, outer: true },
-  { cx: 188, cy: 18,  outer: true }, { cx: 355, cy: 15,  outer: true },
-  { cx: 128, cy: 322, outer: true }, { cx: 362, cy: 326, outer: true },
-];
+function seededField(count: number) {
+  let state = 1023
+  const next = () => {
+    state = (state * 16807) % 2147483647
+    return (state - 1) / 2147483646
+  }
+  return Array.from({ length: count }, () => ({
+    cx: 28 + next() * 464,
+    cy: 28 + next() * 284,
+    outer: next() < 0.18,
+  }))
+}
+
+const FAINT_NODES = seededField(72)
 
 /* ── Faint edge connections ── */
 const FAINT_EDGES = [
@@ -63,7 +66,9 @@ function DiagramSVG({
       width="100%"
       style={{ display: 'block', overflow: 'visible' }}
       aria-label="Bounded workflow diagnostic diagram"
+      data-seed="1023"
     >
+      <circle data-probe="" cx="100" cy="170" r="3.5" fill={P} opacity={pathVisible && !prefersReduced ? 0.9 : 0} />
       {/* ── Faint enterprise nodes ── */}
       <g style={{ opacity: nodesVisible ? 1 : 0, transition: `opacity ${dur(600)} ease` }}>
         {FAINT_EDGES.map(([x1, y1, x2, y2], i) => (
@@ -73,7 +78,7 @@ function DiagramSVG({
         {FAINT_NODES.map((n, i) => (
           <circle key={i} cx={n.cx} cy={n.cy} r={4.5}
             stroke={P} strokeWidth="0.65" fill="transparent"
-            opacity={n.outer ? 0.04 : 0.09} />
+            opacity={n.outer ? 0.04 : 0.12} />
         ))}
       </g>
 
@@ -183,6 +188,11 @@ function DiagramSVG({
 /* ── Section 7 ── */
 export function Intervention() {
   const sectionRef = useRef<HTMLElement>(null);
+  useLoop(sectionRef, (timeline) => {
+    const probe = sectionRef.current?.querySelector('[data-probe]')
+    if (!probe) return
+    timeline.fromTo(probe, { attr: { cx: 100 } }, { attr: { cx: 444 }, duration: 7, ease: 'none' })
+  })
   const [nodesVisible,  setNodesVisible]  = useState(false);
   const [boxDrawn,      setBoxDrawn]      = useState(false);
   const [pathVisible,   setPathVisible]   = useState(false);
@@ -199,6 +209,7 @@ export function Intervention() {
       ([entry]) => {
         if (!entry.isIntersecting) return;
         observer.disconnect();
+        trackSectionView('s7_view');
 
         if (prefersReduced) {
           setNodesVisible(true);
@@ -230,7 +241,14 @@ export function Intervention() {
       className="surface-emphasis-band"
       data-seam-band="s6-s7"
       {...storySectionProps('section-intervention')}
-      style={{ backgroundColor: 'var(--surface-emphasis)', paddingTop: 128, paddingBottom: 128 }}
+      data-variant="emphasis"
+      style={{
+        backgroundColor: 'var(--surface-emphasis)',
+        borderTop: '1px solid var(--border-strong)',
+        borderBottom: '1px solid var(--border-strong)',
+        paddingTop: 128,
+        paddingBottom: 128,
+      }}
     >
       <div className="container-editorial">
         <div className="s7-grid">
@@ -344,7 +362,7 @@ export function Intervention() {
               color: P28,
               marginBottom: 16,
             }}>
-              Bounded diagnostic scope
+              Scope: one workflow · Mode: diagnostic
             </div>
             <DiagramSVG
               nodesVisible={nodesVisible}
@@ -390,6 +408,12 @@ export function Intervention() {
           </div>
 
         </div>
+        <Evidence
+          id="E4"
+          kind="FORECAST · 2025"
+          label="One industry forecast expects many agentic projects to be canceled over cost, value, and risk."
+          href="https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027"
+        />
       </div>
 
       <style>{`

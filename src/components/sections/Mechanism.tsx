@@ -1,488 +1,111 @@
-/* 2026-11-04: MAX-1014 starts the S3→S4 closing line on the shared seam x.
+/* 2026-11-05: Rebuilt the diagram to match galactos-mock-section-3-local-success:
+   seven local steps, all OK, dashed gaps, and an unresolved business obligation.
+   2026-11-04: MAX-1014 starts the S3→S4 closing line on the shared seam x.
    2026-11-04: MAX-1011 carries the Mechanism reader question and seam from sections.ts.
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
-    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
-import React, { useEffect, useRef, useState } from 'react';
+   2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+import React, { useRef } from 'react';
 import { storySectionProps } from '../../content/sections';
 import { SeamAnchor } from '../shell/SeamAnchor';
 
-/* ── Timing constants ── */
-const TILE_DELAYS = [0, 200, 400, 600, 800]; // ms after intersection
-const PATH_DELAY = 1060;
-const PATH_DURATION = 900; // ms
+type Step = {
+  id: string;
+  label: string;
+  status: string;
+  icon: 'chip' | 'store' | 'code' | 'queue' | 'gear' | 'person' | 'record';
+};
 
-/* ── Tile data ── */
-const TILES = [
-  { id: 'model',    label: 'Model',            success: true  },
-  { id: 'tool',     label: 'Tool',             success: true  },
-  { id: 'auto',     label: 'Automation',       success: true  },
-  { id: 'handoff',  label: 'Handoff',          success: true  },
-  { id: 'system',   label: 'System of Record', success: false },
+const STEPS: Step[] = [
+  { id: 'model', label: 'Model', status: 'OK', icon: 'chip' },
+  { id: 'retrieval', label: 'Retrieval', status: 'OK', icon: 'store' },
+  { id: 'api', label: 'API', status: 'OK', icon: 'code' },
+  { id: 'queue', label: 'Queue', status: 'OK', icon: 'queue' },
+  { id: 'automation', label: 'Automation', status: 'OK', icon: 'gear' },
+  { id: 'hitl', label: 'HITL approval', status: 'Accepted', icon: 'person' },
+  { id: 'record', label: 'System of record', status: 'OK', icon: 'record' },
 ];
 
-/* ── Single instrument tile ── */
-function Tile({ label, success, visible }: { label: string; success: boolean; visible: boolean }) {
+/** Gap labels sit under the dashed joins. Empty slots stay unlabeled. */
+const GAPS = ['context loss', '', 'handoff delay', 'retry risk', '', 'approval ambiguity', 'state mismatch'];
+
+function StepIcon({ name }: { name: Step['icon'] }) {
+  const common = {
+    width: 22,
+    height: 22,
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 1.5,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+    'aria-hidden': true,
+  };
+  if (name === 'chip') {
+    return (
+      <svg {...common}>
+        <rect x="7" y="7" width="10" height="10" rx="1" />
+        <path d="M9 3v4M12 3v4M15 3v4M9 17v4M12 17v4M15 17v4M3 9h4M3 12h4M3 15h4M17 9h4M17 12h4M17 15h4" />
+      </svg>
+    );
+  }
+  if (name === 'store' || name === 'record') {
+    return (
+      <svg {...common}>
+        <ellipse cx="12" cy="6" rx="7" ry="2.5" />
+        <path d="M5 6v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V6" />
+        <path d="M5 12v6c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-6" />
+      </svg>
+    );
+  }
+  if (name === 'code') {
+    return (
+      <svg {...common}>
+        <path d="M8 8 4 12l4 4M16 8l4 4-4 4" />
+      </svg>
+    );
+  }
+  if (name === 'queue') {
+    return (
+      <svg {...common}>
+        <rect x="4" y="5" width="16" height="5" rx="1.5" />
+        <rect x="4" y="14" width="16" height="5" rx="1.5" />
+      </svg>
+    );
+  }
+  if (name === 'gear') {
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="12" r="3" />
+        <path d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6 6l1.6 1.6M16.4 16.4 18 18M18 6l-1.6 1.6M7.6 16.4 6 18" />
+      </svg>
+    );
+  }
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        width: 72,
-        height: 116,
-        border: `1px solid var(--border-${success ? 'default' : 'strong'})`,
-        borderRadius: 4,
-        padding: '10px 6px',
-        backgroundColor: 'var(--surface-base)',
-        flexShrink: 0,
-        opacity: visible ? 1 : 0,
-        transform: visible ? 'none' : 'translateY(6px)',
-        transition: 'opacity 280ms ease, transform 280ms ease',
-      }}
-    >
-      {/* Top label */}
-      <span
-        style={{
-          fontFamily: 'var(--font-body)',
-          fontWeight: 500,
-          fontSize: 12,
-          letterSpacing: '0.1em',
-          textTransform: 'uppercase',
-          color: 'var(--text-muted)',
-          textAlign: 'center',
-          lineHeight: 1.3,
-        }}
-      >
-        {label}
+    <svg {...common}>
+      <circle cx="12" cy="8" r="3" />
+      <path d="M6.5 19c.6-2.6 2.7-4 5.5-4s4.9 1.4 5.5 4" />
+      <path d="m16 11 1.2 1.2 2.3-2.4" />
+    </svg>
+  );
+}
+
+function LocalStep({ step }: { step: Step }) {
+  return (
+    <article className="s3-step" data-status={step.status}>
+      <span className="s3-step-label">{step.label}</span>
+      <span className="s3-step-icon">
+        <StepIcon name={step.icon} />
       </span>
-
-      {/* Center micro-detail: faint grid suggesting a panel reading */}
-      <div
-        style={{
-          width: 40,
-          height: 34,
-          position: 'relative',
-          borderTop: '1px solid var(--border-default)',
-          borderBottom: '1px solid var(--border-default)',
-          opacity: 0.35,
-        }}
-      >
-        {[0, 1, 2].map(i => (
-          <div
-            key={i}
-            style={{
-              position: 'absolute',
-              left: 0,
-              right: 0,
-              top: `${(i + 1) * 25}%`,
-              height: 1,
-              backgroundColor: 'var(--border-default)',
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Bottom indicator */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-        {success ? (
-          <>
-            <div
-              style={{
-                width: 7,
-                height: 7,
-                borderRadius: '50%',
-                backgroundColor: 'var(--accent-success)',
-                flexShrink: 0,
-              }}
-            />
-            <span
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontWeight: 500,
-                fontSize: 12,
-                letterSpacing: '0.06em',
-                color: 'var(--text-muted)',
-              }}
-            >
-              OK
-            </span>
-          </>
-        ) : (
-          <span
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontWeight: 500,
-              fontSize: 12,
-              letterSpacing: '0.06em',
-              color: 'var(--text-muted)',
-            }}
-          >
-            —
-          </span>
-        )}
-      </div>
-    </div>
-  );
-}
-
-/* ── Business obligation node ── */
-function ObligationNode({ visible }: { visible: boolean }) {
-  return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 8,
-        opacity: visible ? 1 : 0,
-        transition: 'opacity 320ms ease',
-        flexShrink: 0,
-      }}
-    >
-      <div
-        style={{
-          width: 42,
-          height: 42,
-          borderRadius: '50%',
-          border: '1.5px solid var(--text-primary)',
-          backgroundColor: 'transparent',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <span
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontWeight: 500,
-            fontSize: 12,
-            letterSpacing: '0.05em',
-            color: 'var(--text-muted)',
-            textAlign: 'center',
-            lineHeight: 1.3,
-          }}
-        >
-          ?
-        </span>
-      </div>
-      <span
-        style={{
-          fontFamily: 'var(--font-body)',
-          fontWeight: 500,
-          fontSize: 12,
-          letterSpacing: '0.06em',
-          textTransform: 'uppercase',
-          color: 'var(--text-muted)',
-          textAlign: 'center',
-          maxWidth: 54,
-          lineHeight: 1.3,
-        }}
-      >
-        Business obligation
+      <span className="s3-step-status">
+        <span className="s3-check" aria-hidden="true" />
+        {step.status}
       </span>
-    </div>
+    </article>
   );
 }
 
-/* ── Desktop diagram ── */
-function DesktopDiagram({ tileVisible, pathAnimating }: { tileVisible: boolean[]; pathAnimating: boolean }) {
-  /*
-    SVG overlay path: weaves through the 5 tile positions then stops short of the obligation node.
-    Tile centers at x: 36, 118, 200, 282, 364  (72px wide, 10px gap each)
-    y oscillates ±12 around 58.
-    Path stops at x≈430; obligation node at cx=494.
-  */
-  const PATH = `
-    M -4,58
-    C 16,58 24,46 36,46
-    C 48,46 60,68 77,68
-    C 94,68 106,46 118,46
-    C 130,46 142,68 159,68
-    C 176,68 188,46 200,46
-    C 212,46 224,68 241,68
-    C 258,68 270,46 282,46
-    C 294,46 306,68 323,68
-    C 340,68 352,46 364,46
-    C 376,46 392,50 430,50
-  `;
-
-  return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 0,
-      }}
-    >
-      {/* Tile row + obligation node — relative container for SVG overlay */}
-      <div style={{ position: 'relative' }}>
-        {/* Tiles */}
-        <div
-          style={{
-            display: 'flex',
-            gap: 10,
-            alignItems: 'flex-start',
-          }}
-        >
-          {TILES.map((tile, i) => (
-            <Tile key={tile.id} label={tile.label} success={tile.success} visible={tileVisible[i]} />
-          ))}
-
-          {/* Gap indicator — tick mark area */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              height: 116,
-              paddingLeft: 12,
-              opacity: pathAnimating ? 1 : 0,
-              transition: 'opacity 200ms ease',
-            }}
-          >
-            {/* Tick mark (gap indicator) */}
-            <svg width="10" height="20" viewBox="0 0 10 20" fill="none" aria-hidden="true">
-              <line x1="5" y1="0" x2="5" y2="20" stroke="var(--border-strong)" strokeWidth="1" />
-            </svg>
-          </div>
-
-          {/* Obligation node */}
-          <div style={{ display: 'flex', alignItems: 'center', height: 116 }}>
-            <ObligationNode visible={tileVisible[4]} />
-          </div>
-        </div>
-
-        {/* SVG overlay for orange trajectory — absolutely positioned over the tile row */}
-        <svg
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            width: '100%',
-            height: 116,
-            pointerEvents: 'none',
-            overflow: 'visible',
-          }}
-          viewBox="0 0 530 116"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          <path
-            d={PATH}
-            stroke="var(--accent-divergence)"
-            strokeWidth="1.5"
-            strokeDasharray="5 3"
-            fill="none"
-            strokeLinecap="round"
-            pathLength="1"
-            style={{
-              strokeDashoffset: pathAnimating ? '0' : '1',
-              transition: pathAnimating
-                ? `stroke-dashoffset ${PATH_DURATION}ms cubic-bezier(0.4, 0, 0.2, 1)`
-                : 'none',
-            }}
-          />
-        </svg>
-      </div>
-    </div>
-  );
-}
-
-/* ── Mobile diagram ── */
-function MobileDiagram({ tileVisible, pathAnimating }: { tileVisible: boolean[]; pathAnimating: boolean }) {
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-      {TILES.map((tile, i) => (
-        <div key={tile.id} style={{ display: 'flex', alignItems: 'stretch', gap: 14 }}>
-          {/* Left side: orange line + indicator dot */}
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              flexShrink: 0,
-              width: 24,
-            }}
-          >
-            {/* Indicator dot */}
-            <div
-              style={{
-                width: 10,
-                height: 10,
-                borderRadius: '50%',
-                flexShrink: 0,
-                marginTop: 20,
-                backgroundColor: tile.success ? 'var(--accent-success)' : 'transparent',
-                border: tile.success ? 'none' : '1.5px solid var(--border-strong)',
-                opacity: tileVisible[i] ? 1 : 0,
-                transition: 'opacity 280ms ease',
-              }}
-            />
-            {/* Orange connector line below (except last item before obligation) */}
-            {i < 4 && (
-              <div
-                style={{
-                  flex: 1,
-                  width: 1.5,
-                  backgroundColor: 'var(--accent-divergence)',
-                  opacity: pathAnimating ? 0.7 : 0,
-                  transition: `opacity 200ms ease ${PATH_DELAY + i * 80}ms`,
-                  marginTop: 4,
-                  marginBottom: 4,
-                  borderLeft: '1.5px dashed var(--accent-divergence)',
-                  background: 'none',
-                }}
-              />
-            )}
-          </div>
-
-          {/* Row content */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 10,
-              paddingTop: 14,
-              paddingBottom: 14,
-              borderBottom: i < 4 ? '1px solid var(--border-default)' : 'none',
-              flex: 1,
-              opacity: tileVisible[i] ? 1 : 0.2,
-              transition: 'opacity 280ms ease',
-            }}
-          >
-            <span
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontWeight: 500,
-                fontSize: 12,
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                color: 'var(--text-secondary)',
-                flex: 1,
-              }}
-            >
-              {tile.label}
-            </span>
-            {tile.success && (
-              <span
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontWeight: 500,
-                  fontSize: 12,
-                  letterSpacing: '0.06em',
-                  color: 'var(--text-muted)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 4,
-                }}
-              >
-                <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', backgroundColor: 'var(--accent-success)' }} />
-                200 OK
-              </span>
-            )}
-          </div>
-        </div>
-      ))}
-
-      {/* Gap + tick + obligation node */}
-      <div style={{ display: 'flex', alignItems: 'stretch', gap: 14, marginTop: 8 }}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: 24,
-            flexShrink: 0,
-          }}
-        >
-          {/* Tick mark (gap indicator) */}
-          <div
-            style={{
-              width: 8,
-              height: 8,
-              borderRadius: 1,
-              border: '1px solid var(--border-strong)',
-              opacity: pathAnimating ? 0.6 : 0,
-              transition: 'opacity 200ms ease',
-              marginTop: 4,
-              marginBottom: 6,
-            }}
-          />
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            paddingTop: 8,
-            paddingBottom: 8,
-            opacity: tileVisible[4] ? 1 : 0,
-            transition: 'opacity 320ms ease',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div
-              style={{
-                width: 32,
-                height: 32,
-                borderRadius: '50%',
-                border: '1.5px solid var(--text-primary)',
-                flexShrink: 0,
-              }}
-            />
-            <span
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontWeight: 500,
-                fontSize: 12,
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-                color: 'var(--text-muted)',
-              }}
-            >
-              Business obligation
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ── Section 3 ── */
 export function Mechanism() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [tileVisible, setTileVisible] = useState([false, false, false, false, false]);
-  const [pathAnimating, setPathAnimating] = useState(false);
-  const prefersReduced =
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        observer.disconnect();
-
-        if (prefersReduced) {
-          setTileVisible([true, true, true, true, true]);
-          setPathAnimating(true);
-          return;
-        }
-
-        TILE_DELAYS.forEach((delay, i) => {
-          setTimeout(() => {
-            setTileVisible(prev => prev.map((v, j) => (j === i ? true : v)));
-          }, delay);
-        });
-        setTimeout(() => setPathAnimating(true), PATH_DELAY);
-      },
-      { threshold: 0.2 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [prefersReduced]);
 
   return (
     <section
@@ -490,221 +113,290 @@ export function Mechanism() {
       id="section-mechanism"
       className="seam-host"
       {...storySectionProps('section-mechanism')}
-      style={{
-        backgroundColor: 'var(--surface-base)',
-        paddingTop: 120,
-        paddingBottom: 120,
-      }}
     >
-      <div className="container-editorial">
-        {/* Section label + rule */}
-        <div style={{ marginBottom: 64 }}>
-          <div
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontWeight: 500,
-              fontSize: 12,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: 'var(--text-muted)',
-              marginBottom: 12,
-            }}
-          >
-            Local success&nbsp;&nbsp;≠&nbsp;&nbsp;Terminal success
-          </div>
-          <div
-            style={{
-              height: 1,
-              backgroundColor: 'var(--border-default)',
-              width: '100%',
-            }}
-          />
-        </div>
+      <div className="container-editorial s3">
+        <p className="s3-kicker">Local success ≠ terminal success</p>
 
-        {/* Split layout */}
         <div className="s3-grid">
-          {/* Left: headline + body */}
-          <div className="s3-left">
-            <h2
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontWeight: 700,
-                fontSize: 'clamp(28px, 4vw, 48px)',
-                lineHeight: 1.1,
-                letterSpacing: '-0.02em',
-                color: 'var(--text-primary)',
-                marginBottom: 40,
-                maxWidth: 460,
-              }}
-            >
-              Every component can report success while the workflow still fails.
-            </h2>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 440 }}>
-              <p
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontWeight: 400,
-                  fontSize: 16,
-                  lineHeight: 1.6,
-                  color: 'var(--text-secondary)',
-                  margin: 0,
-                }}
-              >
-                Component success tells you that a local step behaved as expected.
-                It does not necessarily tell you that the business state the workflow
-                was supposed to create now exists.
-              </p>
-
-              <p
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontWeight: 400,
-                  fontSize: 16,
-                  lineHeight: 1.6,
-                  color: 'var(--text-secondary)',
-                  margin: 0,
-                }}
-              >
-                The gap becomes harder to see when work crosses models, retrieval
-                systems, APIs, queues, automation platforms, human approvals, and
-                systems of record.
-              </p>
-
-              <div
-                style={{
-                  borderTop: '1px solid var(--border-default)',
-                  paddingTop: 20,
-                }}
-              >
-                <p
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontWeight: 600,
-                    fontSize: 16,
-                    lineHeight: 1.6,
-                    color: 'var(--text-primary)',
-                    margin: 0,
-                    marginBottom: 24,
-                  }}
-                >
-                  Reliability therefore requires a different standard for&nbsp;"done."
-                </p>
-
-              </div>
-            </div>
+          <div className="s3-copy">
+            <h2>Every component can report success while the workflow still fails.</h2>
+            <p>
+              Component success tells you that a local step behaved as expected. It does not
+              necessarily tell you that the business state the workflow was supposed to create now
+              exists.
+            </p>
+            <p>
+              The gap becomes harder to see when work crosses models, retrieval systems, APIs,
+              queues, automation platforms, HITL approvals, and systems of record.
+            </p>
+            <p className="s3-close">
+              Reliability therefore requires a different standard for “done.”
+            </p>
           </div>
 
-          {/* Right: diagram */}
-          <div className="s3-right">
-            {/* Diagram labels above tiles */}
-            <div style={{ marginBottom: 12 }}>
-              <div
-                style={{
-                  display: 'flex',
-                  gap: 6,
-                  alignItems: 'center',
-                  marginBottom: 4,
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontWeight: 500,
-                    fontSize: 12,
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    color: 'var(--text-muted)',
-                  }}
-                >
-                  Local evidence
-                </span>
-                <div style={{ flex: 1, height: 1, backgroundColor: 'var(--border-default)' }} />
-                <span
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontWeight: 500,
-                    fontSize: 12,
-                    letterSpacing: '0.1em',
-                    textTransform: 'uppercase',
-                    color: 'var(--text-muted)',
-                  }}
-                >
-                  Terminal evidence
-                </span>
+          <div className="s3-diagram" aria-label="Local component signals beside an unresolved business obligation">
+            <div className="s3-bands">
+              <span>Local evidence</span>
+              <span className="s3-band-rule" />
+              <span>Terminal evidence</span>
+            </div>
+
+            <div className="s3-flow">
+              {STEPS.map((step, index) => (
+                <React.Fragment key={step.id}>
+                  <LocalStep step={step} />
+                  {index < STEPS.length - 1 ? (
+                    <div className="s3-gap" style={{ transitionDelay: `${180 + index * 70}ms` }}>
+                      <span className="s3-gap-line" />
+                      {GAPS[index] ? <span className="s3-gap-label">{GAPS[index]}</span> : null}
+                    </div>
+                  ) : null}
+                </React.Fragment>
+              ))}
+              <div className="s3-gap s3-gap-last" aria-hidden="true">
+                <span className="s3-gap-line" />
+              </div>
+              <div className="s3-obligation">
+                <div className="s3-obligation-mark">
+                  <span>Business obligation</span>
+                  <strong>?</strong>
+                </div>
+                <p>Local signals do not prove the intended business outcome was achieved.</p>
               </div>
             </div>
 
-            {/* Desktop diagram */}
-            <div className="diagram-desktop">
-              <DesktopDiagram tileVisible={tileVisible} pathAnimating={pathAnimating} />
-            </div>
-
-            {/* Mobile diagram */}
-            <div className="diagram-mobile">
-              <MobileDiagram tileVisible={tileVisible} pathAnimating={pathAnimating} />
-            </div>
-
-            {/* Annotation below diagram */}
-            <div
-              style={{
-                marginTop: 20,
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: 10,
-                opacity: pathAnimating ? 1 : 0,
-                transition: 'opacity 400ms ease 600ms',
-              }}
-            >
-              <div
-                style={{
-                  width: 16,
-                  height: 0,
-                  flexShrink: 0,
-                  marginTop: 8,
-                  borderTop: '1.5px dashed var(--accent-divergence)',
-                }}
-              />
-              <span
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontWeight: 400,
-                  fontSize: 12,
-                  color: 'var(--text-muted)',
-                  lineHeight: 1.5,
-                  letterSpacing: '0.01em',
-                }}
-              >
-                The observed state from each local component does not compose into
-                a verified terminal outcome.
-              </span>
-            </div>
+            <p className="s3-legend">
+              <span className="s3-legend-dash" aria-hidden="true" />
+              Observed success at each local component does not automatically compose into verified
+              completion.
+            </p>
           </div>
         </div>
       </div>
 
       <style>{`
+        #section-mechanism {
+          background: var(--surface-base);
+          padding: clamp(96px, 11vw, 160px) 0;
+        }
+        .s3-kicker {
+          margin: 0 0 28px;
+          font-family: var(--font-body);
+          font-size: 12px;
+          font-weight: 500;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--text-muted);
+        }
         .s3-grid {
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 0 80px;
+          grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+          gap: 40px 40px;
           align-items: start;
         }
-        .diagram-desktop { display: block; }
-        .diagram-mobile  { display: none; }
-        @media (max-width: 900px) {
-          .s3-grid {
-            grid-template-columns: 1fr;
-            gap: 56px 0;
-          }
+        .s3-copy { min-width: 0; }
+        .s3-copy h2 {
+          margin: 0 0 28px;
+          max-width: 100%;
+          font-family: var(--font-display);
+          font-weight: 700;
+          font-size: clamp(32px, 3.2vw, 48px);
+          line-height: 1.08;
+          letter-spacing: -0.02em;
+          color: var(--text-primary);
         }
-        @media (max-width: 767px) {
-          .diagram-desktop { display: none; }
-          .diagram-mobile  { display: block; }
+        .s3-copy p {
+          margin: 0 0 16px;
+          max-width: 42ch;
+          font-family: var(--font-body);
+          font-size: 16px;
+          line-height: 1.55;
+          color: var(--text-secondary);
         }
-        @media (min-width: 768px) {
-          .diagram-mobile  { display: none; }
-          .diagram-desktop { display: block; }
+        .s3-close {
+          margin-top: 28px !important;
+          padding-top: 20px;
+          border-top: 1px solid var(--border-default);
+          max-width: 18ch !important;
+          font-family: var(--font-display) !important;
+          font-size: clamp(22px, 2vw, 28px) !important;
+          font-weight: 700 !important;
+          line-height: 1.2 !important;
+          letter-spacing: -0.015em;
+          color: var(--text-primary) !important;
+        }
+        .s3-diagram { min-width: 0; }
+        .s3-bands {
+          display: grid;
+          grid-template-columns: auto 1fr auto;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 18px;
+          font-family: var(--font-body);
+          font-size: 12px;
+          font-weight: 500;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: var(--text-muted);
+        }
+        .s3-band-rule { height: 1px; background: var(--border-default); }
+        .s3-flow {
+          display: flex;
+          align-items: flex-start;
+          gap: 0;
+          overflow: visible;
+          padding-bottom: 4px;
+        }
+        .s3-step {
+          flex: 1 1 0;
+          min-width: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+          min-height: 148px;
+          padding: 12px 8px 10px;
+          border: 1px solid var(--border-default);
+          border-radius: 4px;
+          background: var(--surface-raised);
+          text-align: center;
+        }
+        .s3-step-label {
+          min-height: 2.6em;
+          font-family: var(--font-body);
+          font-size: 12px;
+          font-weight: 500;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          line-height: 1.25;
+          color: var(--text-muted);
+        }
+        .s3-step-icon { color: var(--text-primary); display: flex; }
+        .s3-step[data-status="Accepted"] { flex: 1.35 1 0; }
+        .s3-step-status {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          white-space: nowrap;
+          font-family: var(--font-body);
+          font-size: 12px;
+          font-weight: 500;
+          color: var(--text-secondary);
+        }
+        .s3-check {
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background: var(--accent-success);
+          display: inline-grid;
+          place-items: center;
+        }
+        .s3-check::after {
+          content: "";
+          width: 6px;
+          height: 3px;
+          border-left: 1.5px solid #fff;
+          border-bottom: 1.5px solid #fff;
+          transform: rotate(-45deg) translate(0, -1px);
+        }
+        .s3-gap {
+          position: relative;
+          flex: 0 0 10px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding-top: 58px;
+        }
+        .s3-gap-line {
+          width: 100%;
+          border-top: 1.5px dashed var(--accent-divergence);
+        }
+        .s3-gap-label {
+          position: absolute;
+          top: 148px;
+          left: 50%;
+          width: 76px;
+          transform: translateX(-50%);
+          font-family: var(--font-body);
+          font-size: 12px;
+          line-height: 1.25;
+          text-align: center;
+          color: var(--text-muted);
+        }
+        .s3-gap-last { flex-basis: 16px; }
+        .s3-gap-last .s3-gap-label {
+          left: 0;
+          width: 64px;
+          transform: none;
+        }
+        .s3-obligation {
+          flex: 0 0 108px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+        }
+        .s3-obligation-mark {
+          width: 104px;
+          height: 104px;
+          border-radius: 50%;
+          border: 2px solid var(--accent-divergence);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 2px;
+          text-align: center;
+          color: var(--accent-divergence);
+        }
+        .s3-obligation-mark span {
+          max-width: 9ch;
+          font-family: var(--font-body);
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          line-height: 1.2;
+        }
+        .s3-obligation-mark strong {
+          font-family: var(--font-display);
+          font-size: 28px;
+          font-weight: 600;
+          line-height: 1;
+        }
+        .s3-obligation p {
+          margin: 46px 0 0;
+          width: 15ch;
+          text-align: center;
+          font-family: var(--font-body);
+          font-size: 12px;
+          line-height: 1.4;
+          color: var(--text-muted);
+        }
+        .s3-legend {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          margin: 56px 0 0;
+          max-width: 46ch;
+          font-family: var(--font-body);
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 1.4;
+          color: var(--accent-divergence);
+        }
+        .s3-legend-dash {
+          flex: 0 0 28px;
+          margin-top: 0.55em;
+          border-top: 1.5px dashed var(--accent-divergence);
+        }
+        @media (max-width: 980px) {
+          .s3-grid { grid-template-columns: 1fr; }
+          .s3-copy h2, .s3-close { max-width: 22ch; }
+          .s3-flow { overflow-x: auto; padding-bottom: 12px; }
+          .s3-step { flex: 0 0 84px; }
+          .s3-step[data-status="Accepted"] { flex: 0 0 104px; }
+          .s3-obligation { flex: 0 0 140px; }
         }
       `}</style>
       <SeamAnchor id="s3-s4" />

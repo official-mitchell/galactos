@@ -1,4 +1,5 @@
-/* 2026-11-03: moved from the Make scratch src/index.css.
+/* 2026-11-05: emphasis-band evidence footnote uses paper ink.
+   2026-11-03: moved from the Make scratch src/index.css.
    2026-11-03: MAX-996 freezes CSS animation when ?motion=final or ?motion=reduced. No motion library.
    2026-11-03: MAX-997 moved the token set to tokens.css and dropped the Google Fonts import.
    2026-11-03: MAX-998 type scale (.text-lede, .text-pull, diagram hierarchy), 62ch body measure.
@@ -10,7 +11,8 @@
    2026-11-03: MAX-1002 motif layer stays at --motif-opacity (8%), including .motif-grid.
    2026-11-03: MAX-999 layout.css and MAX-1000 diagram.css.
    2026-11-04: MAX-1015 stone rule for the evidence footnote.
-   2026-11-05: Hero grid stacks by default and splits only when the section is at least 960px wide. */
+   2026-11-05: Hero grid stacks by default and splits only when the section is at least 960px wide.
+   2026-11-05: Below 768px the hero diagram is a vertical rail and the headline drops to a phone size. */
 @import './tokens.css';
 @import './layout.css';
 @import './diagram.css';
@@ -686,6 +688,9 @@ body {
   }
 }
 
+.hero-card-step,
+.hero-flags--mobile { display: none; }
+
 @media (max-width: 959px) {
   .hero-diagram-grid,
   .hero-steps {
@@ -696,6 +701,86 @@ body {
     grid-column: auto;
   }
   .hero-step-line { display: none; }
+}
+
+@media (max-width: 767px) {
+  #section-hero h1 {
+    font-size: 32px !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.02em !important;
+    max-width: none !important;
+    margin-bottom: 14px !important;
+  }
+  #section-hero .text-lede {
+    font-size: 16px !important;
+    max-width: none !important;
+  }
+  #section-hero .hero-diagram > svg { display: none; }
+  .hero-diagram-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .hero-bracket-success { order: 0; }
+  .hero-card-success { order: 1; }
+  .hero-bracket-divergence { order: 2; margin-top: 8px; }
+  .hero-card-divergence { order: 3; }
+  .hero-bracket-bar { display: none; }
+  .hero-bracket-label { text-align: left; margin: 0 0 8px; }
+  .hero-card {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    column-gap: 12px;
+    min-height: 0;
+    padding: 0 0 14px;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    position: relative;
+  }
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 22px;
+    bottom: 0;
+    width: 1.5px;
+    background: var(--accent-success);
+  }
+  .hero-card-divergence::before { background: var(--accent-divergence); height: 0; }
+  .hero-card-title,
+  .hero-card-body,
+  .hero-card-foot,
+  .hero-card-highlight,
+  .hero-card-pill,
+  .hero-flags--mobile { grid-column: 2; }
+  .hero-card-title {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    column-gap: 12px;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .hero-card-step {
+    display: block;
+    margin-top: 2px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--text-muted);
+  }
+  .hero-card-body,
+  .hero-card-foot { margin-bottom: 0; }
+  .hero-card-highlight { display: inline-block; }
+  .hero-flags--mobile {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    margin-top: 8px;
+  }
+  .hero-steps { display: none; }
 }
 
 /* ── Trace SVG path animation ── */
@@ -744,4 +829,15 @@ html[data-motion='final'] .trace-line {
   font-family: var(--font-body);
   font-size: 13px;
   color: var(--text-secondary);
+}
+
+.surface-emphasis-band .evidence-footnote,
+.surface-emphasis-band .evidence-footnote__link,
+.surface-emphasis-band .text-meta,
+.surface-emphasis-band .text-diagram-system {
+  color: rgba(248, 246, 243, 0.72);
+}
+
+.surface-emphasis-band .evidence-footnote__rule {
+  border-top-color: rgba(248, 246, 243, 0.28);
 }

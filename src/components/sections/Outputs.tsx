@@ -1,7 +1,9 @@
-/* 2026-11-04: MAX-1011 carries the Outputs reader question from sections.ts.
+/* 2026-11-05: MAX-1024 reader tags, rest preview mask, 768 columns, s8_view.
+   2026-11-04: MAX-1011 carries the Outputs reader question from sections.ts.
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { trackSectionView } from '../../analytics/track';
 import { storySectionProps } from '../../content/sections';
 
 /* ─────────────────────────────────────────────────────
@@ -221,27 +223,31 @@ function RepairPreview(_props: { hovered: boolean }) {
 ───────────────────────────────────────────────────── */
 type PreviewFC = React.FC<{ hovered: boolean }>;
 
-const SPECIMENS: { id: string; title: string; description: string; Preview: PreviewFC }[] = [
+const SPECIMENS: { id: string; title: string; description: string; reader: string; Preview: PreviewFC }[] = [
   {
     id: 'A.01',
+    reader: 'Engineering',
     title: 'Workflow + Failure Map',
     description: 'Reconstructs the intended end-to-end path, systems, handoffs, state transitions, and meaningful failure points.',
     Preview: TracePreview,
   },
   {
     id: 'A.02',
+    reader: 'Engineering · Risk',
     title: 'Evidence-Backed Defect Register',
     description: 'Documents each material divergence with the observable evidence behind it, consequence, likely cause where supportable, and priority.',
     Preview: DefectTablePreview,
   },
   {
     id: 'A.03',
+    reader: 'Product · Operations',
     title: 'Completion Contract',
     description: 'Defines the testable conditions required before the workflow may truthfully be considered "done," including the terminal state and evidence source.',
     Preview: ContractPreview,
   },
   {
     id: 'A.04',
+    reader: 'Owners of the fix',
     title: 'Prioritized Repair + Regression Plan',
     description: 'Translates findings into what should be corrected first and what tests should demonstrate that the corrected workflow continues to behave correctly.',
     Preview: RepairPreview,
@@ -320,7 +326,17 @@ function SpecimenCard({
             letterSpacing: '0.08em',
             color: 'var(--text-muted)',
           }}>
-            DIAGNOSTIC OUTPUT
+            {spec.id}
+          </span>
+          <span style={{
+            fontFamily: 'var(--font-body)',
+            fontWeight: 500,
+            fontSize: 12,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            color: 'var(--text-muted)',
+          }}>
+            For: {spec.reader}
           </span>
         </div>
 
@@ -382,7 +398,7 @@ function SpecimenCard({
             right: 0,
             height: 60,
             background: `linear-gradient(to bottom, transparent, var(--surface-raised))`,
-            opacity: hovered ? 0 : 1,
+            opacity: 1,
             transition: 'opacity 200ms ease',
             pointerEvents: 'none',
           }} />
@@ -396,8 +412,22 @@ function SpecimenCard({
    Section 8
 ───────────────────────────────────────────────────── */
 export function Outputs() {
+  const sectionRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      trackSectionView('s8_view');
+    }, { threshold: 0.15 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="section-deliverables"
       {...storySectionProps('section-deliverables')}
       style={{
@@ -466,7 +496,7 @@ export function Outputs() {
           gap: 24px;
           align-items: start;
         }
-        @media (max-width: 580px) {
+        @media (max-width: 767px) {
           .s8-grid {
             grid-template-columns: 1fr;
           }

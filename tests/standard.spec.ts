@@ -19,13 +19,8 @@ test('motion final completes both standard lanes and the glossary term is descri
   await expect(section.getByRole('heading', { name: 'Verified' })).toBeVisible()
   await expect(section.getByText('Self-reported completion')).toBeVisible()
   await expect(section.getByText('Verification begins where local success ends.')).toBeVisible()
-  const term = section.getByRole('button', { name: 'authoritative state' })
-  await term.focus()
-  await expect(term).toBeFocused()
-  const noteId = await term.getAttribute('aria-describedby')
-  expect(noteId).toBeTruthy()
-  await expect(section.locator(`#${noteId}`)).toBeVisible()
-  await expect(section.locator('[data-evidence="E1"]')).toBeVisible()
+  await expect(section.locator('#authoritative-state-note')).toHaveCount(0)
+  await expect(section.locator('[data-evidence="E1"]')).toHaveCount(0)
   const viewed = await page.evaluate(
     () => (window as unknown as { __s4?: number }).__s4 ?? 0,
   )

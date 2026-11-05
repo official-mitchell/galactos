@@ -1,4 +1,5 @@
-/* 2026-11-03: hero outcome diagram matched to instructions/design/mocks/galactos-mock-hero.png. */
+/* 2026-11-05: below 768px the five cards become a vertical rail. Desktop stays the mock grid.
+   2026-11-03: hero outcome diagram matched to instructions/design/mocks/galactos-mock-hero.png. */
 import React from 'react';
 
 const CARDS: {
@@ -99,11 +100,14 @@ export function HeroDiagram() {
           <div className="hero-bracket-bar" />
         </div>
 
-        {CARDS.map(card => (
+        {CARDS.map((card, index) => (
           <article key={card.title} className={`hero-card hero-card-${card.tone}`}>
             <div className="hero-card-title">
               <Mark tone={card.tone} />
-              <span>{card.title}</span>
+              <span>
+                {card.title}
+                <span className="hero-card-step">{STEPS[index]}</span>
+              </span>
             </div>
             {card.body ? <p className="hero-card-body">{card.body}</p> : null}
             {card.highlight ? (
@@ -113,6 +117,13 @@ export function HeroDiagram() {
             ) : null}
             {card.pill ? <span className="hero-card-pill">{card.pill}</span> : null}
             {card.foot ? <p className="hero-card-foot">{card.foot}</p> : null}
+            {index === CARDS.length - 1 ? (
+              <div className="hero-flags hero-flags--mobile">
+                {FLAGS.map(flag => (
+                  <span key={flag} className="hero-flag">{flag}</span>
+                ))}
+              </div>
+            ) : null}
           </article>
         ))}
       </div>

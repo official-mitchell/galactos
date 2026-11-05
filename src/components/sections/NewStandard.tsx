@@ -1,6 +1,6 @@
 /* 2026-11-05: Match galactos-mock-done.png. One diagram: local evidence ends at a
    ghost self-report; terminal evidence drops to independent verification.
-   Definitions sit in a left column. "Authoritative state" stays a focusable term.
+   Definitions sit in a wide left column. The fork is a wide sweep, not a short hook.
    2026-11-05: MAX-1020 §6.1. Lane labels are diagram-system rails, not a second headline.
    Reported lane ends at a ghost node. Verified lane fills the terminal node.
    "Authoritative state" is a focusable term described by a visible footnote.
@@ -14,42 +14,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { trackSectionView } from '../../analytics/track';
 import { storySectionProps } from '../../content/sections';
 import { prefersReducedMotion } from '../../motion/reduced';
-import { Evidence } from '../Evidence';
 import { SeamAnchor } from '../shell/SeamAnchor';
 
 /* ── Timing ── */
 const NODE_DELAYS = [0, 260, 520, 800];
 const RIGHT_DELAY = 1900;
 const TERMINAL_DELAY = 2300;
-
-/* ── Tooltip ── */
-const AUTHORITATIVE_NOTE_ID = 'authoritative-state-note';
-const AUTHORITATIVE_NOTE =
-  'Authoritative state: the system or evidence source that determines whether the promised business result actually exists.';
-
-function AuthoritativeStateTerm() {
-  return (
-    <button
-      type="button"
-      aria-describedby={AUTHORITATIVE_NOTE_ID}
-      style={{
-        font: 'inherit',
-        color: 'inherit',
-        fontWeight: 'inherit',
-        background: 'none',
-        border: 0,
-        padding: 0,
-        cursor: 'pointer',
-        textDecoration: 'underline',
-        textDecorationStyle: 'dotted',
-        textDecorationColor: 'var(--border-strong)',
-        textUnderlineOffset: '3px',
-      }}
-    >
-      authoritative state
-    </button>
-  );
-}
 
 /* ── Small node ── */
 function SmNode({
@@ -130,19 +100,21 @@ function NodeUnit({
   type = 'success',
   size = 18,
   maxW = 56,
+  align = 'center',
 }: {
   label: string;
   resolved: boolean;
   type?: 'success' | 'cobalt' | 'terminal' | 'ghost';
   size?: number;
   maxW?: number;
+  align?: 'center' | 'flex-start';
 }) {
   return (
     <div
       style={{
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
+        alignItems: align,
         gap: 7,
         flexShrink: 0,
       }}
@@ -183,8 +155,7 @@ function DoneDiagram({
 }) {
   const forkOn = resolved[3];
   return (
-    <div className="s4-diagram">
-      <div className="s4-flow">
+    <>
         <div className="s4-local-col">
           <div className="s4-rail s4-rail-local">
             <span>Local evidence</span>
@@ -202,37 +173,36 @@ function DoneDiagram({
             ))}
           </div>
         </div>
-        <svg className="s4-fork" viewBox="0 0 76 156" fill="none" aria-hidden="true">
+        <svg className="s4-fork" viewBox="0 0 168 460" fill="none" aria-hidden="true">
           <path
-            d="M0 20 H68"
+            d="M0 52 H158"
             stroke="var(--border-strong)"
             strokeWidth="1.5"
             strokeDasharray="4 3"
             opacity={forkOn ? 1 : 0.25}
           />
           <polyline
-            points="60,15 70,20 60,25"
+            points="148,46 162,52 148,58"
             stroke="var(--border-strong)"
             strokeWidth="1.5"
             fill="none"
             opacity={forkOn ? 1 : 0.25}
           />
           <path
-            d="M4 24 C 8 78, 18 112, 62 128"
+            d="M8 64 C 18 64, 22 150, 36 210 C 58 290, 100 296, 158 296"
             stroke="var(--accent-info)"
             strokeWidth="1.75"
             fill="none"
             opacity={cobaltResolved ? 1 : 0.2}
           />
           <polyline
-            points="52,122 68,130 54,138"
+            points="146,290 164,296 146,302"
             stroke="var(--accent-info)"
             strokeWidth="1.75"
             fill="none"
             opacity={cobaltResolved ? 1 : 0.2}
           />
         </svg>
-        <div className="s4-outcomes">
           <div className="s4-ghost" style={{ opacity: forkOn ? 1 : 0.35 }}>
             <SmNode resolved={false} type="ghost" size={40} />
             <div>
@@ -245,9 +215,9 @@ function DoneDiagram({
               <span>Terminal evidence</span>
             </div>
             <div className="s4-terminal">
-              <NodeUnit label="Independent verification" resolved={cobaltResolved} type="cobalt" size={40} maxW={108} />
+              <NodeUnit label="Independent verification" resolved={cobaltResolved} type="cobalt" size={40} maxW={108} align="flex-start" />
               <div className="s4-join">
-                <SmArrow visible={cobaltResolved} width={36} />
+                <SmArrow visible={cobaltResolved} width={84} />
               </div>
               <div className="s4-terminal-node">
                 <SmNode resolved={terminalResolved} type="terminal" size={44} />
@@ -255,9 +225,7 @@ function DoneDiagram({
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+    </>
   );
 }
 
@@ -320,42 +288,31 @@ export function NewStandard() {
 
         <div className="s4-frame">
           <h2 className="s4-headline">“Done” has two meanings.</h2>
-          <div className="s4-split">
-            <div className="s4-defs">
+          <div className="s4-board">
+            <div className="s4-def s4-def-reported">
               <h3>Reported</h3>
               <p>The workflow, component, or interaction says the work finished.</p>
-              <h3>Verified</h3>
-              <p>
-                The intended business state has been independently checked in the{' '}
-                <AuthoritativeStateTerm />.
-              </p>
             </div>
             <DoneDiagram
               resolved={resolved}
               cobaltResolved={cobaltResolved}
               terminalResolved={terminalResolved}
             />
+            <div className="s4-def s4-def-verified">
+              <h3>Verified</h3>
+              <p>
+                The intended business state has been independently checked in the authoritative state.
+              </p>
+            </div>
           </div>
           <div className="s4-close">
             <p className="s4-close-title">Verification begins where local success ends.</p>
             <p className="s4-close-sub">
               Local evidence can be necessary without being sufficient for completion.
             </p>
-            <p id={AUTHORITATIVE_NOTE_ID} className="text-meta s4-note">
-              {AUTHORITATIVE_NOTE}
-            </p>
           </div>
         </div>
 
-      </div>
-
-      <div className="container-editorial">
-        <Evidence
-          id="E1"
-          kind="RESEARCH · 2025"
-          label="A customer-service benchmark scores the agent on the final data state, not the conversation."
-          href="https://arxiv.org/abs/2406.12045"
-        />
       </div>
 
       <style>{`
@@ -371,38 +328,37 @@ export function NewStandard() {
           padding: 28px 0 32px;
           border-bottom: 1px solid var(--border-default);
         }
-        .s4-split {
+        .s4-board {
           display: grid;
-          grid-template-columns: 220px 1fr;
-          gap: 32px;
-          padding: 36px 0 28px;
+          grid-template-columns: 300px minmax(240px, 1fr) 168px minmax(240px, 300px);
+          grid-template-rows: 240px 220px;
+          padding: 28px 0 8px;
           border-bottom: 1px solid var(--border-default);
-          align-items: start;
         }
-        .s4-defs { border-right: 1px solid var(--border-default); padding-right: 24px; }
-        .s4-defs h3 {
+        .s4-def { border-right: 1px solid var(--border-default); padding-right: 20px; }
+        .s4-def-reported { grid-column: 1; grid-row: 1; }
+        .s4-def-verified { grid-column: 1; grid-row: 2; align-self: start; padding-top: 48px; }
+        .s4-local-col { grid-column: 2; grid-row: 1; padding-left: 24px; }
+        .s4-fork { grid-column: 3; grid-row: 1 / 3; width: 168px; height: 460px; overflow: visible; }
+        .s4-terminal-block { margin-top: 8px; }
+        .s4-ghost { grid-column: 4; grid-row: 1; padding-top: 32px; }
+        .s4-terminal-block { grid-column: 4; grid-row: 2; align-self: start; }
+        .s4-def h3 {
           font-family: var(--font-display);
           font-weight: 600;
-          font-size: 28px;
+          font-size: 40px;
           line-height: 1.2;
           color: var(--text-primary);
           margin: 0 0 8px;
         }
-        .s4-defs h3 + p { margin-bottom: 36px; }
-        .s4-defs p {
+        .s4-def p {
           font-family: var(--font-body);
-          font-size: 15px;
+          font-size: 18px;
           line-height: 1.5;
           color: var(--text-secondary);
           margin: 0;
         }
-        .s4-diagram { min-width: 0; }
-        .s4-flow { display: flex; align-items: flex-start; gap: 0; }
-        .s4-local-col { flex: 1; min-width: 0; }
         .s4-join { margin-top: 11px; flex-shrink: 0; }
-        .s4-fork { width: 76px; height: 156px; flex-shrink: 0; margin-top: 28px; }
-        .s4-outcomes { width: 248px; flex-shrink: 0; padding-top: 28px; }
-        .s4-terminal-block { margin-top: 36px; }
         .s4-rail {
           display: flex;
           align-items: flex-start;
@@ -472,13 +428,15 @@ export function NewStandard() {
           color: var(--text-secondary);
           margin: 0;
         }
-        .s4-note { max-width: 520px; margin: 20px auto 0; }
         @media (max-width: 900px) {
-          .s4-split { grid-template-columns: 1fr; }
-          .s4-defs { border-right: 0; border-bottom: 1px solid var(--border-default); padding: 0 0 24px; }
-          .s4-flow { flex-direction: column; gap: 20px; }
-          .s4-fork { margin-top: 0; }
-          .s4-outcomes { width: 100%; padding-top: 0; }
+          .s4-board { grid-template-columns: 1fr; grid-template-rows: auto; }
+          .s4-def, .s4-local-col, .s4-fork, .s4-ghost, .s4-terminal-block {
+            grid-column: 1;
+            grid-row: auto;
+          }
+          .s4-def { border-right: 0; border-bottom: 1px solid var(--border-default); padding: 0 0 16px; margin-bottom: 16px; }
+          .s4-def-verified { padding-top: 28px; }
+          .s4-fork { width: 120px; height: 180px; }
           .s4-local { flex-wrap: wrap; gap: 12px; }
         }
       `}</style>

@@ -1,4 +1,5 @@
-/* 2026-11-05: Hero grid is one column until the section is wide enough for the diagram beside the copy.
+/* 2026-11-05: Phone size drops the headline and turns the diagram into a vertical rail.
+   2026-11-05: Hero grid is one column until the section is wide enough for the diagram beside the copy.
    2026-11-04: MAX-1014 places the hero→S2 seam start on the shared seam x.
    2026-11-04: MAX-1011 carries the Hero reader question and seam from sections.ts.
    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).

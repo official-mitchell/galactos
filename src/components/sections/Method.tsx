@@ -1,7 +1,9 @@
-/* 2026-11-04: MAX-1011 carries the Method reader question from sections.ts.
+/* 2026-11-05: MAX-1025 replay control, s9_view, method_replay.
+   2026-11-04: MAX-1011 carries the Method reader question from sections.ts.
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { trackMethodReplay, trackSectionView } from '../../analytics/track';
 import { storySectionProps } from '../../content/sections';
 
 /* ── Stage data ── */
@@ -302,12 +304,31 @@ function MobileStageItem({
 /* ── Section 9 ── */
 export function Method() {
   const sectionRef = useRef<HTMLElement>(null);
+  const timers = useRef<number[]>([]);
   const [resolved,  setResolved]  = useState([false, false, false, false, false, false]);
   const [animated,  setAnimated]  = useState(false);
+  const [run, setRun] = useState(0);
 
   const prefersReduced =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const play = useCallback((reduced: boolean) => {
+    timers.current.forEach((id) => window.clearTimeout(id));
+    timers.current = [];
+    if (reduced) {
+      setResolved([true, true, true, true, true, true]);
+      setAnimated(true);
+      return;
+    }
+    setResolved([false, false, false, false, false, false]);
+    setAnimated(false);
+    window.requestAnimationFrame(() => setAnimated(true));
+    const step = 2800 / 5;
+    timers.current = [0, 1, 2, 3, 4, 5].map((i) => window.setTimeout(() => {
+      setResolved((prev) => prev.map((value, index) => index === i ? true : value));
+    }, Math.round(i * step)));
+  }, []);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -316,27 +337,20 @@ export function Method() {
       ([entry]) => {
         if (!entry.isIntersecting) return;
         observer.disconnect();
-
-        if (prefersReduced) {
-          setResolved([true, true, true, true, true, true]);
-          setAnimated(true);
-          return;
-        }
-
-        /* Marker starts immediately; each node resolves as it arrives */
-        setAnimated(true); // triggers CSS path + marker transition (2800ms total)
-        const STEP = 2800 / 5;
-        [0, 1, 2, 3, 4, 5].forEach(i => {
-          setTimeout(() => {
-            setResolved(prev => prev.map((v, j) => j === i ? true : v));
-          }, Math.round(i * STEP));
-        });
+        trackSectionView('s9_view');
+        play(prefersReduced);
       },
       { threshold: 0.15 }
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [prefersReduced]);
+  }, [play, prefersReduced]);
+
+  useEffect(() => {
+    if (run === 0) return;
+    play(prefersReduced);
+    return () => timers.current.forEach((id) => window.clearTimeout(id));
+  }, [play, prefersReduced, run]);
 
   return (
     <section
@@ -385,6 +399,29 @@ export function Method() {
             />
           ))}
         </div>
+
+        <button
+          type="button"
+          onClick={() => {
+            trackMethodReplay();
+            setRun((value) => value + 1);
+          }}
+          style={{
+            marginTop: 28,
+            background: 'transparent',
+            border: '1px solid var(--border-strong)',
+            borderRadius: 4,
+            color: 'var(--text-secondary)',
+            fontFamily: 'var(--font-body)',
+            fontSize: 12,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            padding: '8px 14px',
+            cursor: 'pointer',
+          }}
+        >
+          Replay
+        </button>
 
         {/* Footnote */}
         <div style={{
