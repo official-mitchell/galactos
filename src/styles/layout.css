@@ -1,4 +1,5 @@
-/* 2026-11-03: MAX-999 layout primitives. Header offset defaults to 72px. */
+/* 2026-11-03: MAX-999 layout primitives. Header offset defaults to 72px.
+   2026-11-04: MAX-1012 spine column. 1.5px trace, x≈40 from 1280 up, hidden 768–1279, x≈10 below 768. */
 
 :root {
   --header-offset: 72px;
@@ -78,6 +79,79 @@
   border: 0;
   background: var(--border-default);
   margin: 0;
+}
+
+.page-frame {
+  position: relative;
+}
+
+.spine {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  z-index: var(--z-spine);
+  pointer-events: none;
+}
+
+@media (min-width: 1280px) {
+  .spine {
+    display: block;
+    left: 40px;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 767px) {
+  .spine {
+    display: block;
+    left: 10px;
+    transform: translateX(-50%);
+  }
+}
+
+.spine__segment {
+  position: absolute;
+  left: 50%;
+  width: 1.5px;
+  transform: translateX(-50%);
+}
+
+.spine__segment--success {
+  background: var(--accent-success);
+}
+
+.spine__segment--divergence {
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--accent-divergence) 0 4px,
+    transparent 4px 8px
+  );
+}
+
+.spine__segment--space {
+  background: var(--text-primary);
+}
+
+.spine__node {
+  position: absolute;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translate(-50%, -50%);
+}
+
+.spine__node-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  opacity: 0;
+  background: var(--text-primary);
+}
+
+.spine__node[data-spine-tone='success'] .spine__node-fill {
+  background: var(--accent-success);
 }
 
 @media (max-width: 768px) {
