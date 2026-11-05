@@ -354,7 +354,7 @@ export function Method() {
             letterSpacing: '0.12em', textTransform: 'uppercase',
             color: 'var(--text-muted)', marginBottom: 12,
           }}>
-            09&nbsp;&nbsp;/&nbsp;&nbsp;Method
+            Method
           </div>
           <div style={{ height: 1, backgroundColor: 'var(--border-default)' }} />
         </div>

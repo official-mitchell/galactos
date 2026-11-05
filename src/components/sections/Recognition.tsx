@@ -266,7 +266,7 @@ export function Recognition() {
                 marginBottom: 20,
               }}
             >
-              06&nbsp;&nbsp;/&nbsp;&nbsp;Recognition
+              Recognition
             </div>
 
             <h2

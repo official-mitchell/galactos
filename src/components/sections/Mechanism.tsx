@@ -510,7 +510,7 @@ export function Mechanism() {
               marginBottom: 12,
             }}
           >
-            03&nbsp;&nbsp;/&nbsp;&nbsp;Local success&nbsp;&nbsp;≠&nbsp;&nbsp;Terminal success
+            Local success&nbsp;&nbsp;≠&nbsp;&nbsp;Terminal success
           </div>
           <div
             style={{
@@ -591,38 +591,6 @@ export function Mechanism() {
                   Reliability therefore requires a different standard for&nbsp;"done."
                 </p>
 
-                {/* Down-arrow toward next section */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <svg
-                    width="14"
-                    height="24"
-                    viewBox="0 0 14 24"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <line x1="7" y1="0" x2="7" y2="18" stroke="var(--text-muted)" strokeWidth="1.25" />
-                    <polyline
-                      points="3,14 7,22 11,14"
-                      stroke="var(--text-muted)"
-                      strokeWidth="1.25"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      fill="none"
-                    />
-                  </svg>
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-body)',
-                      fontWeight: 500,
-                      fontSize: 12,
-                      letterSpacing: '0.1em',
-                      textTransform: 'uppercase',
-                      color: 'var(--text-muted)',
-                    }}
-                  >
-                    A new standard
-                  </span>
-                </div>
               </div>
             </div>
           </div>

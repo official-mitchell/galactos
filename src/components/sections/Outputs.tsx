@@ -1,13 +1,13 @@
 /* 2026-11-04: MAX-1011 carries the Outputs reader question from sections.ts.
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { storySectionProps } from '../../content/sections';
 
 /* ─────────────────────────────────────────────────────
    A.01 — Workflow + Failure Map
 ───────────────────────────────────────────────────── */
-function TracePreview({ hovered }: { hovered: boolean }) {
+function TracePreview(_props: { hovered: boolean }) {
   return (
     <div style={{ padding: '12px 14px 0' }}>
       <svg viewBox="0 0 228 96" width="100%" style={{ display: 'block', overflow: 'visible' }} aria-hidden="true">
@@ -44,7 +44,7 @@ function TracePreview({ hovered }: { hovered: boolean }) {
         <text x="172" y="59" fontSize="12" fill="var(--text-muted)" fontFamily="Inter, sans-serif" textAnchor="middle">Success</text>
         {/* Hover-reveal: anomaly label */}
         <text x="184" y="85" fontSize="12" fontFamily="Inter, sans-serif" fill="var(--accent-divergence)" letterSpacing="0.05em"
-          style={{ opacity: hovered ? 1 : 0, transition: 'opacity 220ms ease' }}>
+          style={{ opacity: 1 }}>
           state mismatch
         </text>
       </svg>
@@ -61,7 +61,7 @@ const DEFECT_ROWS = [
   { id: 'D-003', divergence: 'Retry produced duplicate record',  evidence: 'Event stream: duplicate',     sev: 'LOW',  hi: false },
 ];
 
-function DefectTablePreview({ hovered }: { hovered: boolean }) {
+function DefectTablePreview(_props: { hovered: boolean }) {
   return (
     <div style={{ paddingTop: 4 }}>
       {/* Header */}
@@ -81,7 +81,7 @@ function DefectTablePreview({ hovered }: { hovered: boolean }) {
           padding: '7px 14px',
           borderBottom: i < 1 ? '1px solid var(--border-default)' : 'none',
           backgroundColor: row.hi ? 'rgba(255,107,0,0.04)' : 'transparent',
-          opacity: i === 2 ? (hovered ? 1 : 0) : 1,
+          opacity: 1,
           transition: 'opacity 220ms ease',
         }}>
           <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12,
@@ -121,7 +121,7 @@ const CONTRACT_FIELDS = [
 ];
 const CONTRACT_EXTRA = { heading: 'Scope', lines: ['Single path: trigger → state update → confirmation'] };
 
-function ContractPreview({ hovered }: { hovered: boolean }) {
+function ContractPreview(_props: { hovered: boolean }) {
   return (
     <div style={{ padding: '12px 14px 0' }}>
       {CONTRACT_FIELDS.map((f, i) => (
@@ -132,7 +132,7 @@ function ContractPreview({ hovered }: { hovered: boolean }) {
           </div>
           {f.lines.map(l => (
             <div key={l} style={{ display: 'flex', gap: 6, marginBottom: 2 }}>
-              <span style={{ color: 'var(--border-strong)', fontFamily: 'var(--font-body)', fontSize: 12 }}>—</span>
+              <span style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-body)', fontSize: 12 }}>—</span>
               <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, lineHeight: 1.4, color: 'var(--text-secondary)' }}>{l}</span>
             </div>
           ))}
@@ -141,7 +141,7 @@ function ContractPreview({ hovered }: { hovered: boolean }) {
       {/* Hover-reveal extra field */}
       <div style={{
         marginTop: 12,
-        opacity: hovered ? 1 : 0,
+        opacity: 1,
         transition: 'opacity 220ms ease',
       }}>
         <div style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12,
@@ -150,7 +150,7 @@ function ContractPreview({ hovered }: { hovered: boolean }) {
         </div>
         {CONTRACT_EXTRA.lines.map(l => (
           <div key={l} style={{ display: 'flex', gap: 6 }}>
-            <span style={{ color: 'var(--border-strong)', fontFamily: 'var(--font-body)', fontSize: 12 }}>—</span>
+            <span style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-body)', fontSize: 12 }}>—</span>
             <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, lineHeight: 1.4, color: 'var(--text-secondary)' }}>{l}</span>
           </div>
         ))}
@@ -180,7 +180,7 @@ const REPAIR_EXTRA = {
   test: 'Replay historical traces; compare output against expected terminal state',
 };
 
-function RepairPreview({ hovered }: { hovered: boolean }) {
+function RepairPreview(_props: { hovered: boolean }) {
   return (
     <div style={{ padding: '12px 14px 0' }}>
       {REPAIR_ITEMS.map((item, i) => (
@@ -192,14 +192,14 @@ function RepairPreview({ hovered }: { hovered: boolean }) {
               color: 'var(--text-secondary)' }}>{item.action}</span>
           </div>
           <div style={{ paddingLeft: 22, display: 'flex', gap: 5, alignItems: 'baseline' }}>
-            <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'var(--border-strong)', flexShrink: 0 }}>↳</span>
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'var(--text-muted)', flexShrink: 0 }}>↳</span>
             <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, lineHeight: 1.45,
               color: 'var(--text-muted)', fontStyle: 'italic' }}>Test: {item.test}</span>
           </div>
         </div>
       ))}
       {/* Hover-reveal */}
-      <div style={{ opacity: hovered ? 1 : 0, transition: 'opacity 220ms ease' }}>
+      <div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'baseline', marginBottom: 4 }}>
           <span style={{ fontFamily: 'var(--font-body)', fontWeight: 600, fontSize: 12,
             letterSpacing: '0.06em', color: 'var(--text-primary)', flexShrink: 0 }}>{REPAIR_EXTRA.priority}</span>
@@ -207,7 +207,7 @@ function RepairPreview({ hovered }: { hovered: boolean }) {
             color: 'var(--text-secondary)' }}>{REPAIR_EXTRA.action}</span>
         </div>
         <div style={{ paddingLeft: 22, display: 'flex', gap: 5, alignItems: 'baseline' }}>
-          <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'var(--border-strong)', flexShrink: 0 }}>↳</span>
+          <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, color: 'var(--text-muted)', flexShrink: 0 }}>↳</span>
           <span style={{ fontFamily: 'var(--font-body)', fontSize: 12, lineHeight: 1.45,
             color: 'var(--text-muted)', fontStyle: 'italic' }}>Test: {REPAIR_EXTRA.test}</span>
         </div>
@@ -263,8 +263,8 @@ function SpecimenCard({
       position: 'relative',
       paddingRight: 7,
       paddingBottom: 7,
-      opacity: visible ? 1 : 0,
-      transform: visible ? 'none' : 'translateY(10px)',
+      opacity: 1,
+      transform: 'none',
       transition: 'opacity 340ms ease, transform 340ms ease',
     }}>
       {/* Paper layer 2 — furthest back */}
@@ -317,18 +317,8 @@ function SpecimenCard({
             fontFamily: 'var(--font-body)',
             fontWeight: 500,
             fontSize: 12,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            color: 'var(--text-muted)',
-          }}>
-            {spec.id}
-          </span>
-          <span style={{
-            fontFamily: 'var(--font-body)',
-            fontWeight: 500,
-            fontSize: 12,
             letterSpacing: '0.08em',
-            color: 'var(--border-strong)',
+            color: 'var(--text-muted)',
           }}>
             DIAGNOSTIC OUTPUT
           </span>
@@ -376,7 +366,7 @@ function SpecimenCard({
             fontSize: 12,
             letterSpacing: '0.1em',
             textTransform: 'uppercase',
-            color: 'var(--border-strong)',
+            color: 'var(--text-muted)',
           }}>
             Illustrative structure
           </div>
@@ -406,38 +396,8 @@ function SpecimenCard({
    Section 8
 ───────────────────────────────────────────────────── */
 export function Outputs() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [cardsVisible, setCardsVisible] = useState([false, false, false, false]);
-  const prefersReduced =
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        observer.disconnect();
-        if (prefersReduced) {
-          setCardsVisible([true, true, true, true]);
-          return;
-        }
-        [0, 1, 2, 3].forEach(i => {
-          setTimeout(() => {
-            setCardsVisible(prev => prev.map((v, j) => (j === i ? true : v)));
-          }, i * 160);
-        });
-      },
-      { threshold: 0.12 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [prefersReduced]);
-
   return (
     <section
-      ref={sectionRef}
       id="section-deliverables"
       {...storySectionProps('section-deliverables')}
       style={{
@@ -459,7 +419,7 @@ export function Outputs() {
             color: 'var(--text-muted)',
             marginBottom: 12,
           }}>
-            08&nbsp;&nbsp;/&nbsp;&nbsp;Outputs
+            Outputs
           </div>
           <div style={{ height: 1, backgroundColor: 'var(--border-default)' }} />
         </div>
@@ -493,7 +453,7 @@ export function Outputs() {
         {/* 2 × 2 specimen grid */}
         <div className="s8-grid">
           {SPECIMENS.map((spec, i) => (
-            <SpecimenCard key={spec.id} spec={spec} visible={cardsVisible[i]} />
+            <SpecimenCard key={spec.id} spec={spec} visible />
           ))}
         </div>
 

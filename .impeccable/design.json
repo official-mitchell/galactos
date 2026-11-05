@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-04T22:45:00-06:00",
+  "title": "Design System: Galactos Observatory Editorial",
+  "extensions": {
+    "colorMeta": {
+      "paper": { "role": "neutral", "displayName": "Paper", "canonical": "#F8F6F3" },
+      "white": { "role": "neutral", "displayName": "White", "canonical": "#FFFFFF" },
+      "deep-space": { "role": "primary", "displayName": "Deep Space", "canonical": "#0F1E2E" },
+      "stone": { "role": "neutral", "displayName": "Stone", "canonical": "#D6D1C9" },
+      "graphite": { "role": "neutral", "displayName": "Graphite", "canonical": "#374151" },
+      "cobalt": { "role": "secondary", "displayName": "Cobalt", "canonical": "#3882F6" },
+      "signal-orange": { "role": "tertiary", "displayName": "Signal Orange", "canonical": "#F97316" },
+      "success-green": { "role": "tertiary", "displayName": "Success Green", "canonical": "#22C55E" },
+      "night": { "role": "neutral", "displayName": "Night", "canonical": "#0A1520" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero only. At most three lines at 1440." },
+      "headline": { "displayName": "Headline", "purpose": "Section display." },
+      "title": { "displayName": "Title", "purpose": "Section titles." },
+      "body": { "displayName": "Body", "purpose": "Reading text, max 62ch." },
+      "label": { "displayName": "Label", "purpose": "Eyebrows and diagram system labels. Nothing under 12px." }
+    },
+    "shadows": [
+      { "name": "paper-lift", "value": "0 1px 2px rgba(15, 30, 46, 0.06)", "purpose": "Cards at rest, light mode only." },
+      { "name": "panel-lift", "value": "0 8px 24px rgba(15, 30, 46, 0.08)", "purpose": "A second sheet. Light mode only." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.25, 0.46, 0.45, 0.94)", "purpose": "Default ease for allowed traces." },
+      { "name": "mode", "value": "200ms ease", "purpose": "Color crossfade only. None under reduced motion." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "390px" },
+      { "name": "tablet", "value": "768px" },
+      { "name": "desktop", "value": "1440px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Deep Space fill, Paper text, 4px corners, 44px tall.",
+      "html": "<button class=\"ds-btn-primary\">Request a diagnostic</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 12px 24px; background: var(--btn-primary-bg, #0F1E2E); color: var(--btn-primary-fg, #F8F6F3); font-family: Inter, system-ui, sans-serif; font-weight: 500; font-size: 14px; letter-spacing: 0.02em; border: 1px solid transparent; border-radius: 4px; cursor: pointer; text-decoration: none; } .ds-btn-primary:hover { opacity: 0.85; } .ds-btn-primary:focus-visible { outline: 2px solid #3882F6; outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Transparent fill, 1px Deep Space outline.",
+      "html": "<button class=\"ds-btn-secondary\">Read the method</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 12px 24px; background: transparent; color: var(--text-primary, #0F1E2E); font-family: Inter, system-ui, sans-serif; font-weight: 500; font-size: 14px; letter-spacing: 0.02em; border: 1px solid var(--text-primary, #0F1E2E); border-radius: 4px; cursor: pointer; } .ds-btn-secondary:hover { opacity: 0.7; } .ds-btn-secondary:focus-visible { outline: 2px solid #3882F6; outline-offset: 2px; }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Raised paper sheet with a Stone border and a hairline shadow.",
+      "html": "<article class=\"ds-card\"><p class=\"ds-card-label\">Evidence</p><p class=\"ds-card-body\">The business process did not complete.</p></article>",
+      "css": ".ds-card { background: var(--surface-raised, #FFFFFF); color: var(--text-primary, #0F1E2E); border: 1px solid var(--border-default, #D6D1C9); border-radius: 4px; padding: 24px; box-shadow: 0 1px 2px rgba(15, 30, 46, 0.06); } .ds-card:hover { border-color: var(--border-strong, #D6D1C9); } .ds-card-label { font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 8px; } .ds-card-body { font-family: Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.55; margin: 0; max-width: 62ch; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Galactos Observatory Editorial",
+    "overview": "An editorial research journal crossed with a systems observatory and a technical diagnostic instrument. Flat, matte, and paper-like. The page should read as a careful record of a workflow, not as a software demo.\n\nThis file is the full spec for new screens. It records the tokens in src/styles/tokens.css. Motion, diagram grammar, and the avoid list in more detail stay in docs/design-system.md. Do not rebuild the app to match this file. Use it to clean the page that already exists.",
+    "keyCharacteristics": [
+      "Paper ground, Deep Space ink, one cobalt instrument accent.",
+      "Fraunces for display, Inter for reading and labels.",
+      "Slightly curved corners (4px), not pills.",
+      "Depth is layered paper. Shadows are faint and light-mode only.",
+      "Diagrams are the product picture: nodes, arrows, and a divergence path."
+    ],
+    "rules": [
+      { "name": "The Mock Rule", "body": "When the live page and a mock in instructions/design/mocks/ disagree, the mock wins. Leftovers from the original Figma Make / Vite export are defects, not a second system. Tokens still name color, type, and spacing. They do not excuse a layout or a sentence the mock has already replaced.", "section": "overview" },
+      { "name": "The One Instrument Rule", "body": "Cobalt, orange, and green mark evidence, divergence, and local success. They are not body copy and they are not decoration.", "section": "colors" },
+      { "name": "The Two-Family Rule", "body": "Fraunces carries the editorial voice. Inter carries the instrument. Do not add a third family.", "section": "typography" },
+      { "name": "The Flat-by-Default Rule", "body": "Surfaces are matte. No glow, neon, bloom, or glossy gradient. Dark mode has no shadow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do match instructions/design/mocks/ when the live page has drifted.",
+      "Do use semantic tokens from src/styles/tokens.css.",
+      "Do keep Fraunces for display and Inter for body and labels.",
+      "Do keep corners at 4px unless the token scale says 8px or 12px.",
+      "Do show the final static state under prefers-reduced-motion."
+    ],
+    "donts": [
+      "Don't rebuild the app to apply the design system. Clean the existing page.",
+      "Don't keep a Figma Make / Vite artifact once a mock shows the intended layout or content.",
+      "Don't use pill buttons, glossy gradients, glow, neon, or cartoon AI imagery.",
+      "Don't invent screenshots, testimonials, logos, metrics, or case studies.",
+      "Don't set body copy in orange, green, or red. Orange is divergence. Green is a success node.",
+      "Don't use Graphite as text on a dark surface."
+    ]
+  }
+}

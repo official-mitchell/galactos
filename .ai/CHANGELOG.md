@@ -19,6 +19,11 @@ Format:
 ---
 
 ## 2026-11-04
+- [cursor-grok] Removed the dev preview bar, fake case rail, section numbers, the S2 placeholder circle, the “A new standard” arrow, and unreadable output-card labels.
+- [cursor-grok] `/impeccable document`: wrote `DESIGN.md` and `.impeccable/design.json` from the live tokens. Mocks win over the live page. No rebuild.
+- [cursor-grok] Recorded code-first as the Impeccable build path in `.impeccable/config.json`.
+- [cursor-grok] `/impeccable init`: wrote `PRODUCT.md` from the owner’s confirmed reader, position, and no-invented-proof rule, plus `.impeccable/live/config.json` (no CSP).
+- [cursor-grok] Installed Impeccable into `.cursor` (skill, agents, design-check hook) and ignored ephemeral `.impeccable/` runtime files.
 - [cursor-grok] Merged Phase 4 onto main: story sequence, spine, header, seams, evidence, and section intake (MAX-1011–MAX-1016). Owner read-through and live seam review stay open.
 - [cursor-grok] MAX-1016: section intake protocol in `scripts/section-intake.mjs` and `npm run gate:section` (token lint, type floor, one `?motion=final` shot). Checklist §4.6 items 1–7 checked; Go when stays open.
 - [cursor-grok] MAX-1013: sticky header reads Diagnostic, Method, About, workflow, and verification anchors from `sections.ts`; skip link, scroll border, mobile focus trap, and `nav_click`.

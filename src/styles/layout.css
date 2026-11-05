@@ -200,8 +200,7 @@
 }
 
 .seam-anchor--node {
-  border: 1.5px solid var(--text-primary);
-  border-radius: 50%;
+  /* Measurement point only. The drawn placeholder circle was a Make leftover. */
   background: transparent;
 }
 

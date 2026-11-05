@@ -50,15 +50,6 @@ function getInitialDark(): boolean {
   return false;
 }
 
-function hidePreviewForShot(): boolean {
-  if (!import.meta.env.DEV || typeof window === 'undefined') return false;
-  try {
-    return new URLSearchParams(window.location.search).get('shot') === '1';
-  } catch {
-    return false;
-  }
-}
-
 function getInitialPage(): Page {
   if (!import.meta.env.DEV) return 'landing';
   try {
@@ -79,7 +70,6 @@ export default function App() {
     const on = new URLSearchParams(window.location.search).get('fixture') === 'motion';
     setShowLab(on);
   }, []);
-  const hidePreviewBar = hidePreviewForShot();
 
   /* Apply dark class + persist */
   useEffect(() => {
@@ -117,106 +107,8 @@ export default function App() {
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  function switchPage(p: Page) {
-    setPage(p);
-    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
-  }
-
   return (
     <div style={{ minHeight: '100vh', backgroundColor: 'var(--surface-base)' }}>
-
-      {/* ── Dev utility bar (stripped from the production bundle) ── */}
-      {import.meta.env.DEV && !hidePreviewBar && (
-      <div
-        style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 300,
-          backgroundColor: 'var(--surface-emphasis)',
-          borderBottom: '1px solid var(--border-strong)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0 24px',
-          height: 36,
-          gap: 12,
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontWeight: 500,
-              fontSize: 12,
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              color: 'rgba(248,246,243,0.4)',
-            }}
-          >
-            Preview
-          </span>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          {/* Page toggle */}
-          {(['landing', 'styleguide'] as Page[]).map(p => (
-            <button
-              key={p}
-              onClick={() => switchPage(p)}
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontWeight: 500,
-                fontSize: 12,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                padding: '4px 12px',
-                border: '1px solid',
-                borderColor: page === p ? 'rgba(248,246,243,0.5)' : 'rgba(248,246,243,0.15)',
-                borderRadius: 3,
-                backgroundColor: page === p ? 'rgba(248,246,243,0.12)' : 'transparent',
-                color: page === p ? 'rgba(248,246,243,0.9)' : 'rgba(248,246,243,0.4)',
-                cursor: 'pointer',
-                height: 24,
-              }}
-            >
-              {p === 'landing' ? 'Landing' : 'Style Guide'}
-            </button>
-          ))}
-
-          {/* Divider */}
-          <div style={{ width: 1, height: 16, backgroundColor: 'rgba(248,246,243,0.15)' }} />
-
-          {/* Dark mode toggle */}
-          <button
-            onClick={() => setIsDark(d => !d)}
-            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 6,
-              fontFamily: 'var(--font-body)',
-              fontWeight: 500,
-              fontSize: 12,
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              padding: '4px 10px',
-              border: '1px solid rgba(248,246,243,0.15)',
-              borderRadius: 3,
-              backgroundColor: 'transparent',
-              color: 'rgba(248,246,243,0.5)',
-              cursor: 'pointer',
-              height: 24,
-            }}
-          >
-            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.25" />
-              <path d="M 8 1.5 A 6.5 6.5 0 0 1 8 14.5 Z" fill="currentColor" />
-            </svg>
-            {isDark ? 'Light' : 'Dark'}
-          </button>
-        </div>
-      </div>
-      )}
 
       {/* ── Main content ── */}
       {import.meta.env.DEV && page === 'styleguide' ? (

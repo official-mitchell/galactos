@@ -20,7 +20,7 @@ export function LayoutFixture() {
         >
           <Container>
             <SectionHeader
-              eyebrow={`${entry.number} / ${entry.label.toUpperCase()}`}
+              eyebrow={entry.label}
               title={entry.label}
               lede={entry.component}
             />

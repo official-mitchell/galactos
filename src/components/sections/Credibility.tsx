@@ -183,7 +183,7 @@ export function Credibility() {
             letterSpacing: '0.12em', textTransform: 'uppercase',
             color: 'var(--text-muted)', marginBottom: 12,
           }}>
-            10&nbsp;&nbsp;/&nbsp;&nbsp;Approach
+            Approach
           </div>
           <div style={{ height: 1, backgroundColor: 'var(--border-default)' }} />
         </div>

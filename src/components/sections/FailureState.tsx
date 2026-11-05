@@ -2,13 +2,10 @@
    2026-11-04: MAX-1011 carries the Failure state reader question and seam from sections.ts.
    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
-   2026-11-03: evidence rail reads caseFile. The invented trace id is not shown. */
+   2026-11-04: removed the invented case rail and case title. */
 import React, { useEffect, useRef, useState } from 'react';
 import { storySectionProps } from '../../content/sections';
 import { SeamAnchor } from '../shell/SeamAnchor';
-import { IllustrativeTag } from '../diagram/IllustrativeTag';
-import { caseFile } from '../../content/caseFile';
-import { copy } from '../../content/copy';
 
 /* ── Timing ── */
 const NODE_DELAYS = [0, 380, 760, 1140];
@@ -548,73 +545,6 @@ export function FailureState() {
     >
       <SeamAnchor id="hero-s2" end role="node" />
       <div className="container-editorial">
-        {/* Case context label */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 12,
-            marginBottom: 32,
-          }}
-        >
-          <div
-            style={{
-              width: 4,
-              height: 4,
-              borderRadius: '50%',
-              backgroundColor: 'var(--text-muted)',
-              flexShrink: 0,
-            }}
-          />
-          <span
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontWeight: 500,
-              fontSize: 12,
-              letterSpacing: '0.1em',
-              textTransform: 'uppercase',
-              color: 'var(--text-muted)',
-            }}
-          >
-            <IllustrativeTag /> Case: {copy['section-divergence'].caseTitle}
-          </span>
-        </div>
-
-        {/* Evidence rail */}
-        <div
-          style={{
-            display: 'flex',
-            gap: 0,
-            marginBottom: 48,
-            borderTop: '1px solid var(--border-default)',
-            borderBottom: '1px solid var(--border-default)',
-            padding: '8px 0',
-            flexWrap: 'wrap',
-            columnGap: 32,
-            rowGap: 4,
-          }}
-        >
-          {[
-            ['CASE-ID', caseFile.trace.caseId],
-            ['STARTED', caseFile.trace.started],
-            ['OBSERVER', caseFile.trace.observer],
-          ].map(([key, val]) => (
-            <div
-              key={key}
-              style={{
-                display: 'flex',
-                gap: 8,
-                fontFamily: 'var(--font-body)',
-                fontSize: 12,
-                letterSpacing: '0.05em',
-              }}
-            >
-              <span style={{ color: 'var(--text-muted)', fontWeight: 500 }}>{key}</span>
-              <span style={{ color: 'var(--text-secondary)', fontWeight: 400 }}>{val}</span>
-            </div>
-          ))}
-        </div>
-
         {/* Desktop trace */}
         <div className="trace-desktop">
           <HorizontalTrace resolved={resolved} branchVisible={branchVisible} />

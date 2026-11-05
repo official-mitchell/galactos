@@ -425,7 +425,7 @@ export function NewStandard() {
         paddingBottom: 96,
       }}
     >
-      <SeamAnchor id="s3-s4" end role="eyebrow" label="04 / Standard" />
+      <SeamAnchor id="s3-s4" end role="eyebrow" />
       <div className="container-editorial">
 
         {/* Headline */}

@@ -378,7 +378,7 @@ export function CrossDomain() {
               marginBottom: 12,
             }}
           >
-            05&nbsp;&nbsp;/&nbsp;&nbsp;Cross-domain
+            Cross-domain
           </div>
           <div style={{ height: 1, backgroundColor: 'var(--border-default)' }} />
         </div>

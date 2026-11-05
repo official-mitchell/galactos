@@ -11,14 +11,12 @@ import { Annotation } from './diagram/Annotation';
 import { Bracket } from './diagram/Bracket';
 import { Connector } from './diagram/Connector';
 import { DiagramFrame } from './diagram/DiagramFrame';
-import { EvidenceRail } from './diagram/EvidenceRail';
 import { IllustrativeTag } from './diagram/IllustrativeTag';
 import { Node, type NodeKind, type NodeState } from './diagram/Node';
 import { StateBar } from './diagram/StateBar';
 import { StatusPill, type StatusPillState } from './diagram/StatusPill';
 import { TraceStep } from './diagram/TraceStep';
 import { LayoutFixture } from './layout/LayoutFixture';
-import { caseFile } from '../content/caseFile';
 import { evidenceById } from '../content/evidence';
 import { Evidence } from './Evidence';
 
@@ -474,13 +472,6 @@ export function StyleGuide() {
             <StatusPill key={state} state={state} />
           ))}
         </div>
-        <EvidenceRail
-          items={[
-            { label: 'CASE-ID', value: caseFile.trace.caseId },
-            { label: 'STARTED', value: caseFile.trace.started },
-            { label: 'OBSERVER', value: caseFile.trace.observer },
-          ]}
-        />
         <Evidence
           id="E1"
           kind={evidenceById.E1.kind}
