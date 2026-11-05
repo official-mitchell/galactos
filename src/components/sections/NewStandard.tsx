@@ -1,5 +1,6 @@
 /* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
-    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
+    2026-11-04: MAX-1008 shows the authoritative-state definition in the page. It is not a hover tooltip. */
 import React, { useEffect, useRef, useState } from 'react';
 
 /* ── Timing ── */
@@ -8,24 +9,14 @@ const RIGHT_DELAY   = 960 + 640;            // cobalt node + continuation
 const TERMINAL_DELAY = RIGHT_DELAY + 420;
 
 /* ── Tooltip ── */
-function AuthoritativeStateTooltip({ children }: { children: React.ReactNode }) {
-  const [open, setOpen] = useState(false);
+function AuthoritativeStateNote({ children }: { children: React.ReactNode }) {
   const CONTENT =
     'Authoritative state: the system or evidence source that determines whether the promised business result actually exists.';
 
   return (
-    <span style={{ position: 'relative', display: 'inline' }}>
-      <button
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-        onFocus={() => setOpen(true)}
-        onBlur={() => setOpen(false)}
-        aria-describedby="tooltip-auth-state"
+    <span style={{ display: 'inline' }}>
+      <span
         style={{
-          background: 'none',
-          border: 'none',
-          padding: 0,
-          cursor: 'help',
           font: 'inherit',
           color: 'inherit',
           fontWeight: 'inherit',
@@ -36,56 +27,20 @@ function AuthoritativeStateTooltip({ children }: { children: React.ReactNode }) 
         }}
       >
         {children}
-      </button>
-
+      </span>
       <span
-        id="tooltip-auth-state"
-        role="tooltip"
-        aria-hidden={!open}
         style={{
-          position: 'absolute',
-          bottom: 'calc(100% + 10px)',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 80,
-          backgroundColor: 'var(--surface-raised)',
-          border: '1px solid var(--border-default)',
-          borderRadius: 4,
-          padding: '10px 14px',
-          width: 264,
-          pointerEvents: 'none',
-          opacity: open ? 1 : 0,
-          transition: 'opacity 150ms ease',
-          boxShadow: 'var(--shadow-sm)',
+          display: 'block',
+          marginTop: 8,
+          maxWidth: 420,
+          fontFamily: 'var(--font-body)',
+          fontWeight: 400,
+          fontSize: 12,
+          lineHeight: 1.55,
+          color: 'var(--text-primary)',
         }}
       >
-        {/* Caret */}
-        <span
-          style={{
-            position: 'absolute',
-            bottom: -5,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: 8,
-            height: 8,
-            backgroundColor: 'var(--surface-raised)',
-            border: '1px solid var(--border-default)',
-            borderTop: 'none',
-            borderLeft: 'none',
-            rotate: '45deg',
-          }}
-        />
-        <span
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontWeight: 400,
-            fontSize: 12,
-            lineHeight: 1.55,
-            color: 'var(--text-primary)',
-          }}
-        >
-          {CONTENT}
-        </span>
+        {CONTENT}
       </span>
     </span>
   );
@@ -316,7 +271,7 @@ function RightTrace({
             transition: 'opacity 280ms ease',
           }}
         >
-          <AuthoritativeStateTooltip>Authoritative state</AuthoritativeStateTooltip>{' '}confirmed
+          <AuthoritativeStateNote>Authoritative state</AuthoritativeStateNote>{' '}confirmed
         </span>
       </div>
     </div>
@@ -408,7 +363,7 @@ function VerticalTrace({
           >
             <SmNode resolved={terminalResolved} type="terminal" size={18} />
             <span style={{ fontFamily: 'var(--font-body)', fontWeight: 400, fontSize: 12, color: 'var(--text-secondary)' }}>
-              <AuthoritativeStateTooltip>Authoritative state</AuthoritativeStateTooltip> confirmed
+              <AuthoritativeStateNote>Authoritative state</AuthoritativeStateNote> confirmed
             </span>
           </div>
         </>
@@ -576,7 +531,7 @@ export function NewStandard() {
             >
               Verified completion means the intended business state has been
               independently checked in the{' '}
-              <AuthoritativeStateTooltip>authoritative state</AuthoritativeStateTooltip>
+              <AuthoritativeStateNote>authoritative state</AuthoritativeStateNote>
               {' '}— the system or evidence source that can actually prove the outcome.
             </p>
 

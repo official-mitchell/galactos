@@ -4,12 +4,14 @@
    2026-11-03: MAX-998 type scale (.text-lede, .text-pull, diagram hierarchy), 62ch body measure.
    Display titles stay at most three lines at 1440; that is a layout note, not a clamp.
    2026-11-04: MAX-1005 gates .animate-node-resolve behind .js and uses --dur-md / --ease-out.
+   2026-11-04: MAX-1008 hover and focus rules live in motion.css.
    2026-11-03: MAX-1003 confirmed body uses --mode-transition (color only, 200ms). prefers-reduced-motion sets body transition to none. No extra motion added.
    2026-11-03: MAX-1002 motif layer stays at --motif-opacity (8%), including .motif-grid.
    2026-11-03: MAX-999 layout.css and MAX-1000 diagram.css. */
 @import './tokens.css';
 @import './layout.css';
 @import './diagram.css';
+@import './motion.css';
 @import 'tailwindcss';
 
 @theme inline {

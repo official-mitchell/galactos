@@ -18,7 +18,7 @@ Self-hosted Fraunces and Inter files are in `assets/fonts/`. The stylesheet stil
 
 ---
 
-**Version 1.0.0** — Foundation prompt. Every later section prompt inherits this document.
+**Version 1.1.0** — Motion rules amended (MAX-1010). Every later section prompt inherits this document.
 
 ---
 
@@ -163,9 +163,13 @@ Always very low contrast — **never the focal point**.
 | Dark mode switch: 200ms color crossfade only | ✓ Allowed |
 | `prefers-reduced-motion`: show final static state | ✓ Required |
 | Bounce / spring physics | ✗ Forbidden |
-| Parallax spectacle | ✗ Forbidden |
-| Looping animation | ✗ Forbidden |
+| Loop policy (D8) | Loops run only while in view. One loop at a time. Pause / Resume in the header, stored as `galactos-motion`. Static under reduced motion. |
+| Parallax | No pointer- or scroll-driven parallax. Scroll-scrubbed progress is allowed for the spine and seams. |
 | Sliding or sweeping mode transitions | ✗ Forbidden |
+| Hover | Emphasis only: connected path, label contrast, 2px lift where a pointer can hover. The same change exists on `:focus-visible` and tap. No copy is hidden until hover. |
+| `<Evidence>` (D7) | External citations are allowed only through `<Evidence>`. Do not invent metrics. |
+| Text floor | No visible text smaller than 12px. |
+| Chips | 4px radius. No pills. |
 
 ---
 
@@ -231,6 +235,7 @@ Precise, observant, restrained. Never alarmist about AI. No invented testimonial
 
 ## Changelog
 
+- 2026-11-04: MAX-1010. Guidelines v1.1.0. Loop policy, scrubbed seams, hover rule, Evidence rule, 12px floor, 4px chips.
 - 2026-11-04: MAX-1004 / MAX-1005. GSAP 3.15.1 is registered once. Motion durations and the three eases live in `src/motion/tokens.ts`. CSS mirrors stay in `src/styles/tokens.css`.
 - 2026-11-03: MAX-997. Semantic colors, spacing, z-index, tints, and motion mirrors live in `src/styles/tokens.css`. `index.css` imports that file. Fonts are the variable files in `assets/fonts/` (`font-display: swap`).
 - 2026-11-03: Noted the live stylesheet and Figma style-guide node `1:2506`. Palette is the Make style guide, not a separate Dev Mode token set.

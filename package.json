@@ -22,7 +22,9 @@
     "test:e2e": "playwright test --project=390x844-light",
     "test:layout": "playwright test tests/layout-primitives.spec.ts --project=390x844-light",
     "test:diagram": "playwright test tests/diagram-kit.spec.ts --project=390x844-light",
-    "test:case-ids": "node scripts/test-case-ids.mjs"
+    "test:case-ids": "node scripts/test-case-ids.mjs",
+    "test:motion": "node --experimental-strip-types --test tests/trace-spec.test.ts",
+    "test:lighthouse": "node scripts/lighthouse.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -32,12 +34,14 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "1.64.1",
     "@tailwindcss/vite": "^4.0.0",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^6.0.0",
+    "lighthouse": "^13.6.0",
     "oxfmt": "^0.2.0",
     "pngjs": "^7.0.0",
     "tailwindcss": "^4.0.0",

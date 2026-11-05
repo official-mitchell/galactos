@@ -1,4 +1,5 @@
-/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+/* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
+   2026-11-04: MAX-1008 drops the title tooltip. The accessible name is the aria-label. */
 import React from 'react';
 
 interface ModeToggleProps {
@@ -12,7 +13,6 @@ export function ModeToggle({ isDark, onToggle }: ModeToggleProps) {
       className="mode-toggle"
       onClick={onToggle}
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-      title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
     >
       {/* Half-filled circle icon */}
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">

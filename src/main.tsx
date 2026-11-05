@@ -6,6 +6,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './motion/register'
+import { captureWebVitals } from './motion/vitals'
 import './styles/index.css'
 
 async function boot() {
@@ -15,6 +16,7 @@ async function boot() {
     const { installGalactosHarness } = await import('./harness/devBridge')
     installGalactosHarness()
   }
+  captureWebVitals()
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
       <App />

@@ -1,6 +1,8 @@
 /* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
-    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
+    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
+    2026-11-04: MAX-1007 places MotionToggle in the desktop header and the mobile menu. */
 import React, { useEffect, useRef, useState } from 'react';
+import { MotionToggle } from '../../motion/MotionToggle';
 import { ModeToggle } from './ModeToggle';
 
 interface SiteHeaderProps {
@@ -148,6 +150,7 @@ export function SiteHeader({ isDark, onToggleMode }: SiteHeaderProps) {
           <div style={{ width: 1, height: 20, backgroundColor: 'var(--border-default)', margin: '0 16px' }} />
 
           <ModeToggle isDark={isDark} onToggle={onToggleMode} />
+          <MotionToggle />
 
           <div style={{ width: 12 }} />
 
@@ -254,7 +257,8 @@ export function SiteHeader({ isDark, onToggleMode }: SiteHeaderProps) {
               {label}
             </a>
           ))}
-          <div style={{ marginTop: 20 }}>
+          <div style={{ marginTop: 20, display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <MotionToggle />
             <a
               href="#section-cta"
               className="btn-secondary"

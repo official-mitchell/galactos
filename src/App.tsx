@@ -2,7 +2,8 @@
     2026-11-03: MAX-994 gates the Preview bar and Style Guide behind import.meta.env.DEV.
    Production keeps the stored-theme / prefers-color-scheme class effect and always shows the landing page.
    2026-11-03: ported from the Figma Make scratch app. Sections imported by job name (MAX-993).
-   2026-11-03: MAX-996 honors ?mode= and hides the preview bar when ?shot=1. setMode events stay in dev. */
+   2026-11-03: MAX-996 honors ?mode= and hides the preview bar when ?shot=1. setMode events stay in dev.
+   2026-11-04: MAX-1006 marks main with data-anim so final and reduced captures share one settled state. */
 import React, { useEffect, useState } from 'react';
 import { SiteHeader } from './components/shell/SiteHeader';
 import { Hero } from './components/sections/Hero';
@@ -18,6 +19,7 @@ import { Credibility } from './components/sections/Credibility';
 import { FinalCta } from './components/sections/FinalCta';
 import { SiteFooter } from './components/shell/SiteFooter';
 import { StyleGuide } from './components/StyleGuide';
+import { MotionLab } from './motion/MotionLab';
 
 type Page = 'landing' | 'styleguide';
 
@@ -67,6 +69,11 @@ export default function App() {
   const [page, setPage] = useState<Page>(() =>
     typeof window !== 'undefined' ? getInitialPage() : 'landing'
   );
+  const [showLab, setShowLab] = useState(false);
+  useEffect(() => {
+    const on = new URLSearchParams(window.location.search).get('fixture') === 'motion';
+    setShowLab(on);
+  }, []);
   const hidePreviewBar = hidePreviewForShot();
 
   /* Apply dark class + persist */
@@ -238,7 +245,8 @@ export default function App() {
         /* Landing page with real site header */
         <div>
           <SiteHeader isDark={isDark} onToggleMode={() => setIsDark(d => !d)} />
-          <main>
+          <main data-anim="page">
+            {showLab ? <MotionLab /> : null}
             <Hero />
             <FailureState />
             <Mechanism />

@@ -19,6 +19,9 @@ Format:
 ---
 
 ## 2026-11-04
+- [cursor-grok] Closed MAX-1010 and committed the Phase 3 motion system. Phase 4 shell starts with MAX-1011, MAX-1012, MAX-1013, and MAX-1015.
+- [cursor-grok] MAX-1005 through MAX-1010 gaps: prerendered HTML for no-js, motion-lab loop proof, always-visible authoritative-state copy, web vitals, Lighthouse budget, style-guide rules aligned to v1.1.0.
+- [cursor-grok] MAX-1006 through MAX-1010: reveal, trace, loop, and scrub hooks; pause toggle; hover/focus rules; transform/opacity limits; guidelines v1.1.0. Lighthouse CI stays with the later performance pass.
 - [cursor-grok] MAX-1004 and MAX-1005: GSAP 3.15.1 registered once, `src/motion/tokens.ts` beside the existing CSS mirrors, `no-js` swap, bundle gzip budget in the build and CI summary.
 - [cursor-grok] Phase 2 gate closed. Contrast exceptions recorded, connector can measure endpoints, style guide kit checked in dark. Inline `fontSize` and section rebuilds stay with Acts I–V. DrawSVG stays in Phase 3.
 

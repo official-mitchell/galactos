@@ -6,7 +6,7 @@
 
 Source of truth for *what* to do: Linear project [Galactos](https://linear.app/maximus-automaton/project/galactos-6d8a77546ba7/overview) (`P-MAX-21`). This file is the *order* agents must follow.
 
-Project status as of 2026-11-04: **Phase 2 gate met** on `phase-2-integration`. Tokens, type scale, layout primitives, diagram kit, case file, motifs, and dark mode are in. Act rebuilds still replace inline `fontSize`. DrawSVG waits for Phase 3. Phase 1 gate was met on 2026-11-03. Phase 0 is Done. MAX-993 (§1.1) visual compare is accepted. MAX-994, MAX-995, and MAX-996 are unblocked. Do not invent a parallel track around the gates below.
+Project status as of 2026-11-04: **Phase 3 gate met**. MAX-1004 through MAX-1010 are Done (owner accepted the MAX-1010 guidelines review). Phase 4 shell may start: MAX-1011, MAX-1012, MAX-1013, and MAX-1015 in parallel. MAX-1014 waits on 1011 and 1012. MAX-1016 waits on 1013. Phase 2 gate was met on `phase-2-integration`. Phase 1 gate was met on 2026-11-03. Phase 0 is Done. MAX-993 (§1.1) visual compare is accepted. Do not invent a parallel track around the gates below.
 
 ## Labels that control worktrees
 
@@ -163,6 +163,7 @@ The first pair to start is MAX-994 and MAX-995.
 
 ## Changelog (this file)
 
+- 2026-11-04: Phase 3 closed. MAX-1010 marked Done. Phase 4 first wave is MAX-1011, MAX-1012, MAX-1013, and MAX-1015.
 - 2026-11-03: Added the parallel execution waves from MAX-994 through Phase 10. First pair to start is MAX-994 and MAX-995.
 - 2026-11-03: Owner closed the Phase 1 gate. Named mocks: hero, reliability diagnostic, verified completion, reported versus verified. MAX-994–996 unblocked. Build was already green.
 - 2026-11-03: MAX-989 Done (D12 closed on the Fraunces wordmark default). MAX-1050 Done. MAX-990 stays open for MAX-1048 and MAX-1049. Hero plate and design/refs cancelled in Linear. Fonts marked done.

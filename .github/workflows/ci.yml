@@ -45,6 +45,10 @@ jobs:
         id: e2e
         run: npm run test:e2e
 
+      - name: lighthouse
+        id: lighthouse
+        run: npm run test:lighthouse
+
       - name: summary
         if: always()
         run: |
@@ -59,6 +63,7 @@ jobs:
             echo "| test:lint-tokens | ${{ steps.test-lint-tokens.outcome }} |"
             echo "| build | ${{ steps.build.outcome }} |"
             echo "| e2e | ${{ steps.e2e.outcome }} |"
+            echo "| lighthouse | ${{ steps.lighthouse.outcome }} |"
             echo ""
             echo "## Production bundle sizes"
             echo ""

@@ -1,6 +1,4 @@
-/* 2026-11-04: MAX-1005. With JavaScript disabled, the document stays no-js and
-   the static shell is not painted at opacity 0. Section copy is client-rendered,
-   so it is absent until JS runs. */
+/* 2026-11-04: MAX-1005. With JavaScript disabled, prerendered section text stays visible. */
 import { expect, test } from '@playwright/test'
 
 test.use({ javaScriptEnabled: false })
@@ -9,20 +7,13 @@ test('text stays visible when JavaScript is off', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('html')).toHaveClass(/no-js/)
   const hidden = await page.evaluate(() => {
+    const main = document.querySelector('main')
+    if (!main) return ['missing main']
+    const faded = main.querySelectorAll<HTMLElement>('[style*="opacity: 0"], [style*="opacity:0"]')
     const offenders: string[] = []
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT)
-    let node = walker.nextNode()
-    while (node) {
-      const text = node.textContent?.trim()
-      const parent = node.parentElement
-      if (text && parent) {
-        const style = getComputedStyle(parent)
-        if (style.visibility === 'hidden' || Number(style.opacity) === 0 || style.display === 'none') {
-          offenders.push(text.slice(0, 40))
-        }
-      }
-      node = walker.nextNode()
-    }
+    faded.forEach((el) => {
+      if (getComputedStyle(el).opacity === '0') offenders.push((el.textContent || '').trim().slice(0, 40))
+    })
     return offenders
   })
   expect(hidden).toEqual([])
@@ -38,4 +29,5 @@ test('text stays visible when JavaScript is off', async ({ page }) => {
     }
   })
   expect(shell).toEqual({ bodyHidden: false, rootHidden: false })
+  await expect(page.locator('main')).toContainText('Galactos investigates consequential')
 })

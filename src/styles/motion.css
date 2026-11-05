@@ -1,0 +1,48 @@
+/* 2026-11-04: MAX-1005/1007/1008. Pause control, focus, and hover emphasis.
+   Hover only highlights a data-link group. Copy is never gated on hover. */
+
+/* Without JavaScript the prerendered markup stays, and inline opacity:0 waits are cleared. */
+html.no-js #root,
+html.no-js #root * {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.motion-toggle {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.motion-toggle:focus-visible,
+[data-link]:focus-visible,
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+[data-link] {
+  transition: transform 120ms var(--ease-out), opacity 120ms var(--ease-out);
+}
+
+@media (hover: hover) {
+  [data-link]:hover,
+  [data-link]:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  [data-link]:hover [data-link-part],
+  [data-link]:focus-visible [data-link-part] {
+    opacity: 1;
+    color: var(--text-primary);
+  }
+}

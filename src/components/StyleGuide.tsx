@@ -405,8 +405,11 @@ export function StyleGuide() {
               { rule: 'Dark mode switches with 200ms color crossfade only', type: 'allowed' },
               { rule: 'prefers-reduced-motion: show final static state immediately', type: 'allowed' },
               { rule: 'No bounce, no spring physics', type: 'forbidden' },
-              { rule: 'No parallax spectacle', type: 'forbidden' },
-              { rule: 'No looping animation', type: 'forbidden' },
+              { rule: 'Loops only while in view, one at a time, with Pause motion. Static when reduced.', type: 'allowed' },
+              { rule: 'No pointer or scroll parallax. Scroll-scrubbed spine and seams are allowed.', type: 'allowed' },
+              { rule: 'Hover is emphasis only. Copy stays visible. Focus and tap match hover.', type: 'allowed' },
+              { rule: 'Citations only through Evidence. No invented metrics.', type: 'allowed' },
+              { rule: 'No visible text under 12px. Chips use a 4px radius.', type: 'allowed' },
               { rule: 'No sliding or sweeping mode transitions', type: 'forbidden' },
             ].map(({ rule, type }) => (
               <li key={rule} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
