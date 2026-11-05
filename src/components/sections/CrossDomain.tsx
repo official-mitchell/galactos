@@ -1,8 +1,17 @@
-/* 2026-11-04: MAX-1011 carries the Cross-domain reader question and seam from sections.ts.
+/* 2026-11-05: legend row under the plates removed.
+   2026-11-05: MAX-1021 visual target is galactos-mock-show-proof.png.
+   Cards show a domain subtitle, a status rail, and a tinted Actual row.
+   2026-11-05: MAX-1021 §6.2. Plates share REPORTED / ACTUAL / VERIFIED.
+   Support carries E9, Revenue carries E7, Knowledge renders no Evidence.
+   ?motion=final settles every row. s5_view fires once.
+   2026-11-04: MAX-1011 carries the Cross-domain reader question and seam from sections.ts.
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useEffect, useRef, useState } from 'react';
+import { trackSectionView } from '../../analytics/track';
 import { storySectionProps } from '../../content/sections';
+import { prefersReducedMotion } from '../../motion/reduced';
+import { Evidence } from '../Evidence';
 
 /* ── Data ── */
 const MODULES = [
@@ -10,6 +19,7 @@ const MODULES = [
     id: 'support',
     index: '01',
     domain: 'Support',
+    subtitle: 'Cancellation and refund',
     motif: 'support' as const,
     reported: '"Refund issued."',
     actual:
@@ -21,6 +31,7 @@ const MODULES = [
     id: 'revenue',
     index: '02',
     domain: 'Revenue',
+    subtitle: 'Lead routing and follow-up',
     motif: 'revenue' as const,
     reported: '"Lead qualified and routed."',
     actual:
@@ -32,12 +43,13 @@ const MODULES = [
     id: 'knowledge',
     index: '03',
     domain: 'Knowledge',
+    subtitle: 'Answer generation and citation',
     motif: 'knowledge' as const,
     reported: '"Answer generated."',
     actual:
       'The response relied on obsolete, conflicting, or unauthorized source material.',
     verified:
-      'The answer uses the correct authoritative source set, version, and permissions for that user and request.',
+      'The answer uses the correct authoritative source set, version, and permissions.',
   },
 ] as const;
 
@@ -52,90 +64,29 @@ function getModuleDelay(moduleIdx: number) {
   return moduleIdx * 200;
 }
 
-/* ── Faint background motifs ── */
-function Motif({ type }: { type: MotifType }) {
-  const style: React.CSSProperties = {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    pointerEvents: 'none',
-    color: 'var(--text-primary)',
-    opacity: 0.055,
-  };
-
+function PlateIcon({ type }: { type: MotifType }) {
   if (type === 'support') {
     return (
-      <svg style={style} width="160" height="120" viewBox="0 0 160 120" fill="none" aria-hidden="true">
-        {/* Ticket */}
-        <rect x="4" y="44" width="48" height="60" rx="2" stroke="currentColor" strokeWidth="0.8" />
-        <line x1="10" y1="56" x2="46" y2="56" stroke="currentColor" strokeWidth="0.7" />
-        <line x1="10" y1="64" x2="46" y2="64" stroke="currentColor" strokeWidth="0.7" />
-        <line x1="10" y1="72" x2="36" y2="72" stroke="currentColor" strokeWidth="0.7" />
-        {/* Curved path to ledger */}
-        <path d="M 52 74 Q 80 74 80 50 Q 80 30 108 24" stroke="currentColor" strokeWidth="0.7" strokeDasharray="3 2" fill="none" />
-        {/* Ledger */}
-        <rect x="108" y="8" width="48" height="60" rx="2" stroke="currentColor" strokeWidth="0.8" />
-        <line x1="114" y1="20" x2="150" y2="20" stroke="currentColor" strokeWidth="0.7" />
-        <line x1="114" y1="28" x2="150" y2="28" stroke="currentColor" strokeWidth="0.7" />
-        <line x1="114" y1="36" x2="150" y2="36" stroke="currentColor" strokeWidth="0.7" />
-        <line x1="114" y1="44" x2="150" y2="44" stroke="currentColor" strokeWidth="0.7" />
-        <line x1="114" y1="52" x2="140" y2="52" stroke="currentColor" strokeWidth="0.7" />
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M4 7a4 4 0 0 1 8 0v2H4V7Z" stroke="currentColor" strokeWidth="1.2" />
+        <path d="M3 9h2v3H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1Zm10 0h-2v3h2a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1Z" stroke="currentColor" strokeWidth="1.2" />
       </svg>
     );
   }
-
   if (type === 'revenue') {
     return (
-      <svg style={style} width="160" height="120" viewBox="0 0 160 120" fill="none" aria-hidden="true">
-        {/* Input node */}
-        <circle cx="16" cy="60" r="5" stroke="currentColor" strokeWidth="0.8" />
-        {/* Stem */}
-        <line x1="21" y1="60" x2="60" y2="60" stroke="currentColor" strokeWidth="0.8" />
-        {/* Fork point */}
-        <circle cx="60" cy="60" r="3" fill="currentColor" />
-        {/* Upper branch */}
-        <line x1="60" y1="60" x2="100" y2="28" stroke="currentColor" strokeWidth="0.8" />
-        <circle cx="100" cy="28" r="5" stroke="currentColor" strokeWidth="0.8" />
-        {/* Upper branch continuation */}
-        <line x1="105" y1="28" x2="152" y2="14" stroke="currentColor" strokeWidth="0.6" strokeDasharray="3 2" />
-        <line x1="105" y1="28" x2="152" y2="42" stroke="currentColor" strokeWidth="0.6" strokeDasharray="3 2" />
-        {/* Lower branch */}
-        <line x1="60" y1="60" x2="100" y2="92" stroke="currentColor" strokeWidth="0.8" />
-        <circle cx="100" cy="92" r="5" stroke="currentColor" strokeWidth="0.8" />
-        <line x1="105" y1="92" x2="152" y2="78" stroke="currentColor" strokeWidth="0.6" strokeDasharray="3 2" />
-        <line x1="105" y1="92" x2="152" y2="106" stroke="currentColor" strokeWidth="0.6" strokeDasharray="3 2" />
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <ellipse cx="8" cy="4" rx="5" ry="2" stroke="currentColor" strokeWidth="1.2" />
+        <path d="M3 4v4c0 1.1 2.2 2 5 2s5-.9 5-2V4" stroke="currentColor" strokeWidth="1.2" />
+        <path d="M3 8v4c0 1.1 2.2 2 5 2s5-.9 5-2V8" stroke="currentColor" strokeWidth="1.2" />
       </svg>
     );
   }
-
-  /* knowledge */
   return (
-    <svg style={style} width="160" height="120" viewBox="0 0 160 120" fill="none" aria-hidden="true">
-      {/* Overlapping document-source circles */}
-      <ellipse cx="52" cy="56" rx="36" ry="46" stroke="currentColor" strokeWidth="0.8" />
-      <ellipse cx="88" cy="44" rx="32" ry="40" stroke="currentColor" strokeWidth="0.8" />
-      <ellipse cx="112" cy="70" rx="36" ry="38" stroke="currentColor" strokeWidth="0.8" />
-      {/* Faint connection lines between centers */}
-      <line x1="52" y1="56" x2="88" y2="44" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 2" />
-      <line x1="88" y1="44" x2="112" y2="70" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 2" />
-      <line x1="112" y1="70" x2="52" y2="56" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 2" />
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M8 2 14 5 8 8 2 5 8 2Z" stroke="currentColor" strokeWidth="1.2" />
+      <path d="M2 8l6 3 6-3M2 11l6 3 6-3" stroke="currentColor" strokeWidth="1.2" />
     </svg>
-  );
-}
-
-/* ── Row marker dot ── */
-function RowMarker({ color }: { color: string }) {
-  return (
-    <div
-      style={{
-        width: 7,
-        height: 7,
-        borderRadius: '50%',
-        backgroundColor: color,
-        flexShrink: 0,
-        marginTop: 1,
-      }}
-    />
   );
 }
 
@@ -143,59 +94,76 @@ function RowMarker({ color }: { color: string }) {
 function SpecimenRow({
   label,
   text,
-  markerColor,
+  tone,
   italic,
   resolved,
   last,
 }: {
   label: string;
   text: string;
-  markerColor: string;
+  tone: 'reported' | 'actual' | 'verified';
   italic?: boolean;
   resolved: boolean;
   last?: boolean;
 }) {
+  const color =
+    tone === 'reported'
+      ? 'var(--accent-success)'
+      : tone === 'actual'
+        ? 'var(--accent-divergence)'
+        : 'var(--accent-info)';
   return (
     <div
+      data-row={label}
       style={{
-        paddingTop: 16,
-        paddingBottom: 16,
-        borderBottom: last ? 'none' : '1px solid var(--border-default)',
+        display: 'grid',
+        gridTemplateColumns: '16px 1fr',
+        gap: 10,
+        padding: tone === 'actual' ? '12px 10px' : '12px 0',
+        marginTop: tone === 'actual' ? 4 : 0,
+        borderRadius: tone === 'actual' ? 8 : 0,
+        background: tone === 'actual' ? 'color-mix(in srgb, var(--accent-divergence) 10%, transparent)' : 'transparent',
         opacity: resolved ? 1 : 0.2,
         transition: 'opacity 280ms ease',
       }}
     >
-      {/* Label row */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 7, marginBottom: 7 }}>
-        <RowMarker color={markerColor} />
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <span
+          aria-hidden="true"
           style={{
-            fontFamily: 'var(--font-body)',
-            fontWeight: 500,
-            fontSize: 12,
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            color: 'var(--text-muted)',
+            width: 16,
+            height: 16,
+            borderRadius: '50%',
+            background: color,
+            color: '#fff',
+            fontSize: 10,
+            lineHeight: '16px',
+            textAlign: 'center',
+            fontWeight: 700,
           }}
         >
-          {label}
+          {tone === 'actual' ? '×' : '✓'}
         </span>
+        {!last && (
+          <span aria-hidden="true" style={{ width: 1.5, flex: 1, minHeight: 18, marginTop: 4, background: color, opacity: 0.45 }} />
+        )}
       </div>
-      {/* Text content */}
-      <p
-        style={{
-          fontFamily: 'var(--font-body)',
-          fontWeight: 400,
-          fontSize: 13,
-          lineHeight: 1.55,
-          color: 'var(--text-secondary)',
-          fontStyle: italic ? 'italic' : 'normal',
-          margin: 0,
-          paddingLeft: 14,
-        }}
-      >
-        {text}
-      </p>
+      <div>
+        <div className="text-diagram-system" style={{ color, marginBottom: 4 }}>{label}</div>
+        <p
+          style={{
+            fontFamily: 'var(--font-body)',
+            fontWeight: 400,
+            fontSize: 14,
+            lineHeight: 1.5,
+            color: 'var(--text-primary)',
+            fontStyle: italic ? 'italic' : 'normal',
+            margin: 0,
+          }}
+        >
+          {text}
+        </p>
+      </div>
     </div>
   );
 }
@@ -216,11 +184,12 @@ function SpecimenModule({
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      style={{
+      data-plate={module.id}
+    style={{
         position: 'relative',
         backgroundColor: 'var(--surface-raised)',
         border: `1px solid ${hovered ? 'var(--text-primary)' : 'var(--border-default)'}`,
-        borderRadius: 4,
+        borderRadius: 12,
         padding: '24px 24px 20px',
         overflow: 'hidden',
         opacity: moduleVisible ? 1 : 0,
@@ -231,66 +200,39 @@ function SpecimenModule({
       }}
     >
       {/* Background motif */}
-      <Motif type={module.motif} />
-
-      {/* Domain label */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          marginBottom: 4,
-        }}
-      >
-        <span
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontWeight: 500,
-            fontSize: 12,
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            color: 'var(--text-primary)',
-          }}
-        >
-          {module.domain}
-        </span>
-        <span
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontWeight: 400,
-            fontSize: 12,
-            letterSpacing: '0.06em',
-            color: 'var(--text-muted)',
-          }}
-        >
-          {module.index}
-        </span>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 16 }}>
+        <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+          <span aria-hidden="true" style={{ width: 32, height: 32, borderRadius: 8, background: 'var(--surface-base)', display: 'grid', placeItems: 'center', color: 'var(--text-secondary)' }}>
+            <PlateIcon type={module.motif} />
+          </span>
+          <div>
+            <div className="text-diagram-system" style={{ color: 'var(--text-primary)' }}>{module.domain}</div>
+            <div className="text-meta">{module.subtitle}</div>
+          </div>
+        </div>
+        <span className="text-meta">{module.index}</span>
       </div>
-
-      {/* Hairline below domain label */}
-      <div style={{ height: 1, backgroundColor: 'var(--border-default)', marginBottom: 0 }} />
-
-      {/* Three rows */}
-      <SpecimenRow
-        label="Reported"
-        text={module.reported}
-        markerColor="var(--accent-success)"
-        italic
-        resolved={rowsResolved[0]}
-      />
-      <SpecimenRow
-        label="Actual"
-        text={module.actual}
-        markerColor="var(--accent-divergence)"
-        resolved={rowsResolved[1]}
-      />
-      <SpecimenRow
-        label="Verified"
-        text={module.verified}
-        markerColor="var(--accent-info)"
-        resolved={rowsResolved[2]}
-        last
-      />
+      <SpecimenRow label="Reported" text={module.reported} tone="reported" italic resolved={rowsResolved[0]} />
+      <SpecimenRow label="Actual" text={module.actual} tone="actual" resolved={rowsResolved[1]} />
+      <SpecimenRow label="Verified" text={module.verified} tone="verified" resolved={rowsResolved[2]} last />
+      {module.id === 'support' && (
+        <Evidence
+          id="E9"
+          plate="support"
+          kind="VENDOR · 2026"
+          label="A help-desk vendor separates contained resolutions from resolutions that pass an extra check."
+          href="https://support.zendesk.com/hc/en-us/articles/9570369117338-About-automated-resolution-tiers"
+        />
+      )}
+      {module.id === 'revenue' && (
+        <Evidence
+          id="E7"
+          plate="revenue"
+          kind="ADJACENT · 2025"
+          label="A vendor playbook treats bad data, slow routing, and wrong assignment as lead-routing problems."
+          href="https://www.leandata.com/wp-content/uploads/2025/06/B2B-Lead-Response-Time-Playbook-eBook-062525.pdf"
+        />
+      )}
     </div>
   );
 }
@@ -298,31 +240,42 @@ function SpecimenModule({
 /* ── Section 5 ── */
 export function CrossDomain() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [moduleVisible, setModuleVisible] = useState([false, false, false]);
-  const [rowsResolved, setRowsResolved] = useState<boolean[][]>([
-    [false, false, false],
-    [false, false, false],
-    [false, false, false],
-  ]);
-  const prefersReduced =
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const settled = typeof window !== 'undefined' && prefersReducedMotion();
+  const [moduleVisible, setModuleVisible] = useState(() =>
+    settled ? [true, true, true] : [false, false, false],
+  );
+  const [rowsResolved, setRowsResolved] = useState<boolean[][]>(() =>
+    settled
+      ? [
+          [true, true, true],
+          [true, true, true],
+          [true, true, true],
+        ]
+      : [
+          [false, false, false],
+          [false, false, false],
+          [false, false, false],
+        ],
+  );
 
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
+    const finish = () => {
+      setModuleVisible([true, true, true]);
+      setRowsResolved([
+        [true, true, true],
+        [true, true, true],
+        [true, true, true],
+      ]);
+    };
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
         observer.disconnect();
-
-        if (prefersReduced) {
-          setModuleVisible([true, true, true]);
-          setRowsResolved([
-            [true, true, true],
-            [true, true, true],
-            [true, true, true],
-          ]);
+        trackSectionView('s5_view');
+        if (prefersReducedMotion()) {
+          finish();
           return;
         }
 
@@ -348,15 +301,21 @@ export function CrossDomain() {
       },
       { threshold: 0.15 }
     );
+    if (prefersReducedMotion()) {
+      trackSectionView('s5_view');
+      finish();
+      return;
+    }
     observer.observe(el);
     return () => observer.disconnect();
-  }, [prefersReduced]);
+  }, []);
 
   return (
     <section
       ref={sectionRef}
       id="section-proof"
       {...storySectionProps('section-proof')}
+      data-plates={rowsResolved.every((rows) => rows.every(Boolean)) ? 'complete' : 'drawing'}
       style={{
         backgroundColor: 'var(--surface-base)',
         paddingTop: 120,
@@ -384,20 +343,12 @@ export function CrossDomain() {
         </div>
 
         {/* Headline */}
-        <h2
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontWeight: 700,
-            fontSize: 'clamp(28px, 4vw, 48px)',
-            lineHeight: 1.1,
-            letterSpacing: '-0.02em',
-            color: 'var(--text-primary)',
-            marginBottom: 56,
-            maxWidth: 680,
-          }}
-        >
+        <h2 className="text-display-lg" style={{ marginBottom: 16, maxWidth: 720, color: 'var(--text-primary)' }}>
           This problem appears anywhere AI crosses systems.
         </h2>
+        <p className="text-lede" style={{ marginTop: 0, marginBottom: 40, maxWidth: 640 }}>
+          Work can look complete in one system, while the real business outcome tells a different story.
+        </p>
 
         {/* Specimen grid */}
         <div className="s5-grid">
@@ -410,31 +361,6 @@ export function CrossDomain() {
             />
           ))}
         </div>
-
-        {/* Footer note */}
-        <div
-          style={{
-            marginTop: 40,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: 'var(--accent-success)', flexShrink: 0 }} />
-            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Reported</span>
-          </div>
-          <span style={{ color: 'var(--border-strong)', fontSize: 12 }}>·</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: 'var(--accent-divergence)', flexShrink: 0 }} />
-            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Actual (divergence)</span>
-          </div>
-          <span style={{ color: 'var(--border-strong)', fontSize: 12 }}>·</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ width: 7, height: 7, borderRadius: '50%', backgroundColor: 'var(--accent-info)', flexShrink: 0 }} />
-            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Verified (requirement)</span>
-          </div>
-        </div>
       </div>
 
       <style>{`
@@ -444,12 +370,12 @@ export function CrossDomain() {
           gap: 20px;
           align-items: stretch;
         }
-        @media (max-width: 960px) {
+        @media (max-width: 1023px) {
           .s5-grid {
             grid-template-columns: repeat(2, 1fr);
           }
         }
-        @media (max-width: 580px) {
+        @media (max-width: 767px) {
           .s5-grid {
             grid-template-columns: 1fr;
           }

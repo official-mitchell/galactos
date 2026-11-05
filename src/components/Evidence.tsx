@@ -1,5 +1,6 @@
-/* 2026-11-04: MAX-1015 footnote row. Renders only Appendix A rows whose status is OK.
-   Changelog: 2026-11-04 added the Evidence footnote. */
+/* 2026-11-05: optional plate so two footnotes can share a section file.
+   2026-11-04: MAX-1015 footnote row. Renders only Appendix A rows whose status is OK.
+   Changelog: 2026-11-05 plate attribute for the evidence gate. 2026-11-04 added the Evidence footnote. */
 
 import { evidenceById, wordCount } from '../content/evidence'
 import { trackEvidenceClick } from '../analytics/track'
@@ -9,6 +10,7 @@ export type EvidenceProps = {
   kind: string
   label: string
   href: string
+  plate?: string
 }
 
 export function Evidence({ id, kind, label, href }: EvidenceProps) {

@@ -1,52 +1,53 @@
-/* 2026-11-04: MAX-1014 placeholder eyebrow. The S3 closing line and arrow land on this x.
+/* 2026-11-05: Match galactos-mock-done.png. One diagram: local evidence ends at a
+   ghost self-report; terminal evidence drops to independent verification.
+   Definitions sit in a left column. "Authoritative state" stays a focusable term.
+   2026-11-05: MAX-1020 §6.1. Lane labels are diagram-system rails, not a second headline.
+   Reported lane ends at a ghost node. Verified lane fills the terminal node.
+   "Authoritative state" is a focusable term described by a visible footnote.
+   ?motion=final settles both lanes. Evidence E1 sits under the section.
+   2026-11-04: MAX-1014 placeholder eyebrow. The S3 closing line and arrow land on this x.
    2026-11-04: MAX-1011 carries the New standard reader question and seam from sections.ts.
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
     2026-11-04: MAX-1008 shows the authoritative-state definition in the page. It is not a hover tooltip. */
 import React, { useEffect, useRef, useState } from 'react';
+import { trackSectionView } from '../../analytics/track';
 import { storySectionProps } from '../../content/sections';
+import { prefersReducedMotion } from '../../motion/reduced';
+import { Evidence } from '../Evidence';
 import { SeamAnchor } from '../shell/SeamAnchor';
 
 /* ── Timing ── */
-const NODE_DELAYS   = [0, 320, 640, 960];   // shared 4 nodes
-const RIGHT_DELAY   = 960 + 640;            // cobalt node + continuation
-const TERMINAL_DELAY = RIGHT_DELAY + 420;
+const NODE_DELAYS = [0, 260, 520, 800];
+const RIGHT_DELAY = 1900;
+const TERMINAL_DELAY = 2300;
 
 /* ── Tooltip ── */
-function AuthoritativeStateNote({ children }: { children: React.ReactNode }) {
-  const CONTENT =
-    'Authoritative state: the system or evidence source that determines whether the promised business result actually exists.';
+const AUTHORITATIVE_NOTE_ID = 'authoritative-state-note';
+const AUTHORITATIVE_NOTE =
+  'Authoritative state: the system or evidence source that determines whether the promised business result actually exists.';
 
+function AuthoritativeStateTerm() {
   return (
-    <span style={{ display: 'inline' }}>
-      <span
-        style={{
-          font: 'inherit',
-          color: 'inherit',
-          fontWeight: 'inherit',
-          textDecoration: 'underline',
-          textDecorationStyle: 'dotted',
-          textDecorationColor: 'var(--border-strong)',
-          textUnderlineOffset: '3px',
-        }}
-      >
-        {children}
-      </span>
-      <span
-        style={{
-          display: 'block',
-          marginTop: 8,
-          maxWidth: 420,
-          fontFamily: 'var(--font-body)',
-          fontWeight: 400,
-          fontSize: 12,
-          lineHeight: 1.55,
-          color: 'var(--text-primary)',
-        }}
-      >
-        {CONTENT}
-      </span>
-    </span>
+    <button
+      type="button"
+      aria-describedby={AUTHORITATIVE_NOTE_ID}
+      style={{
+        font: 'inherit',
+        color: 'inherit',
+        fontWeight: 'inherit',
+        background: 'none',
+        border: 0,
+        padding: 0,
+        cursor: 'pointer',
+        textDecoration: 'underline',
+        textDecorationStyle: 'dotted',
+        textDecorationColor: 'var(--border-strong)',
+        textUnderlineOffset: '3px',
+      }}
+    >
+      authoritative state
+    </button>
   );
 }
 
@@ -57,18 +58,20 @@ function SmNode({
   size = 18,
 }: {
   resolved: boolean;
-  type?: 'success' | 'cobalt' | 'terminal';
+  type?: 'success' | 'cobalt' | 'terminal' | 'ghost';
   size?: number;
 }) {
   const fills = {
     success: 'var(--accent-success)',
     cobalt: 'var(--accent-info)',
-    terminal: 'transparent',
+    terminal: 'var(--text-primary)',
+    ghost: 'transparent',
   };
   const borders = {
     success: resolved ? 'var(--accent-success)' : 'var(--border-strong)',
     cobalt: resolved ? 'var(--accent-info)' : 'var(--border-strong)',
     terminal: 'var(--text-primary)',
+    ghost: 'var(--border-strong)',
   };
 
   return (
@@ -79,14 +82,15 @@ function SmNode({
         borderRadius: '50%',
         flexShrink: 0,
         backgroundColor: resolved ? fills[type] : 'transparent',
-        border: `1.5px solid ${borders[type]}`,
+        border: `1.5px ${type === 'ghost' ? 'dashed' : 'solid'} ${borders[type]}`,
+        boxShadow: type === 'terminal' && resolved ? '0 0 0 3px var(--surface-base), 0 0 0 4.5px var(--text-primary)' : undefined,
         transition: 'background-color 300ms ease, border-color 260ms ease',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
       }}
     >
-      {type === 'success' && resolved && (
+      {(type === 'success' || type === 'cobalt' || type === 'terminal') && resolved && (
         <svg width={size * 0.52} height={size * 0.52} viewBox="0 0 10 10" fill="none">
           <polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
@@ -119,34 +123,6 @@ function SmArrow({ visible, width = 36 }: { visible: boolean; width?: number }) 
   );
 }
 
-/* ── Boundary line ── */
-function Boundary({ crossed = false }: { crossed?: boolean }) {
-  return (
-    <svg
-      width="14"
-      height="56"
-      viewBox="0 0 14 56"
-      fill="none"
-      style={{ flexShrink: 0, alignSelf: 'flex-start' }}
-      aria-hidden="true"
-    >
-      <line
-        x1="7"
-        y1="0"
-        x2="7"
-        y2="56"
-        stroke="var(--border-strong)"
-        strokeWidth="1"
-        strokeDasharray="3 3"
-      />
-      {crossed && (
-        /* crossing tick — short perpendicular mark at mid-point */
-        <line x1="1" y1="21" x2="13" y2="21" stroke="var(--border-strong)" strokeWidth="1" />
-      )}
-    </svg>
-  );
-}
-
 /* ── Node unit: node + label stacked ── */
 function NodeUnit({
   label,
@@ -157,7 +133,7 @@ function NodeUnit({
 }: {
   label: string;
   resolved: boolean;
-  type?: 'success' | 'cobalt' | 'terminal';
+  type?: 'success' | 'cobalt' | 'terminal' | 'ghost';
   size?: number;
   maxW?: number;
 }) {
@@ -195,38 +171,8 @@ function NodeUnit({
 /* ── Shared labels ── */
 const SHARED_LABELS = ['Model response', 'API accepted', 'Automation complete', 'Case closed'];
 
-/* ── LEFT trace (stops at boundary) ── */
-function LeftTrace({ resolved }: { resolved: boolean[] }) {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 0, overflow: 'visible' }}>
-      {SHARED_LABELS.map((label, i) => (
-        <React.Fragment key={label}>
-          <NodeUnit label={label} resolved={resolved[i]} type="success" />
-          {i < 3 && <SmArrow visible={resolved[i]} width={32} />}
-        </React.Fragment>
-      ))}
-
-      {/* Stop arrow pointing at boundary */}
-      <div style={{ display: 'flex', alignItems: 'center', paddingBottom: 22 }}>
-        <svg
-          width="24"
-          height="18"
-          viewBox="0 0 24 18"
-          fill="none"
-          style={{ opacity: resolved[3] ? 0.35 : 0, transition: 'opacity 280ms ease' }}
-          aria-hidden="true"
-        >
-          <line x1="0" y1="9" x2="18" y2="9" stroke="var(--text-primary)" strokeWidth="1.2" />
-          <polyline points="14,5 22,9 14,13" stroke="var(--text-primary)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-        </svg>
-        <Boundary crossed={false} />
-      </div>
-    </div>
-  );
-}
-
-/* ── RIGHT trace (continues past boundary) ── */
-function RightTrace({
+/* ── Done diagram: local row, ghost self-report, terminal drop ── */
+function DoneDiagram({
   resolved,
   cobaltResolved,
   terminalResolved,
@@ -235,143 +181,82 @@ function RightTrace({
   cobaltResolved: boolean;
   terminalResolved: boolean;
 }) {
+  const forkOn = resolved[3];
   return (
-    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 0, overflow: 'visible' }}>
-      {SHARED_LABELS.map((label, i) => (
-        <React.Fragment key={label}>
-          <NodeUnit label={label} resolved={resolved[i]} type="success" />
-          {i < 3 && <div style={{ paddingTop: 1 }}><SmArrow visible={resolved[i]} width={32} /></div>}
-        </React.Fragment>
-      ))}
-
-      {/* Boundary + crossing arrows */}
-      <div style={{ display: 'flex', alignItems: 'center', paddingTop: 1 }}>
-        <SmArrow visible={resolved[3]} width={18} />
-        <Boundary crossed={cobaltResolved} />
-        <SmArrow visible={cobaltResolved} width={18} />
-      </div>
-
-      {/* Independent check (Cobalt evidence node) */}
-      <NodeUnit label="Independent check" resolved={cobaltResolved} type="cobalt" maxW={52} />
-
-      {/* Arrow to terminal */}
-      <div style={{ paddingTop: 1 }}>
-        <SmArrow visible={cobaltResolved} width={28} />
-      </div>
-
-      {/* Terminal node with inline tooltip label */}
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 7, flexShrink: 0 }}>
-        <SmNode resolved={terminalResolved} type="terminal" size={20} />
-        <span
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontWeight: 400,
-            fontSize: 12,
-            color: 'var(--text-muted)',
-            textAlign: 'center',
-            lineHeight: 1.3,
-            maxWidth: 76,
-            opacity: terminalResolved ? 1 : 0,
-            transition: 'opacity 280ms ease',
-          }}
-        >
-          <AuthoritativeStateNote>Authoritative state</AuthoritativeStateNote>{' '}confirmed
-        </span>
-      </div>
-    </div>
-  );
-}
-
-/* ── Mobile vertical trace ── */
-function VerticalTrace({
-  side,
-  resolved,
-  cobaltResolved,
-  terminalResolved,
-}: {
-  side: 'left' | 'right';
-  resolved: boolean[];
-  cobaltResolved: boolean;
-  terminalResolved: boolean;
-}) {
-  const nodes = SHARED_LABELS.map((label, i) => ({ label, resolved: resolved[i] }));
-
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-      {nodes.map((node, i) => (
-        <React.Fragment key={node.label}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-            <SmNode resolved={node.resolved} type="success" size={16} />
-            <span
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontWeight: 400,
-                fontSize: 12,
-                color: 'var(--text-secondary)',
-                opacity: node.resolved ? 1 : 0.3,
-                transition: 'opacity 240ms ease',
-              }}
-            >
-              {node.label}
-            </span>
+    <div className="s4-diagram">
+      <div className="s4-flow">
+        <div className="s4-local-col">
+          <div className="s4-rail s4-rail-local">
+            <span>Local evidence</span>
           </div>
-          <div
-            style={{
-              marginLeft: 7,
-              width: 1.5,
-              height: 24,
-              backgroundColor: 'var(--border-default)',
-              opacity: node.resolved ? 0.5 : 0.15,
-            }}
+          <div className="s4-local">
+            {SHARED_LABELS.map((label, i) => (
+              <React.Fragment key={label}>
+                <NodeUnit label={label} resolved={resolved[i]} type="success" size={40} maxW={84} />
+                {i < 3 && (
+                  <div className="s4-join">
+                    <SmArrow visible={resolved[i]} width={36} />
+                  </div>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+        <svg className="s4-fork" viewBox="0 0 76 156" fill="none" aria-hidden="true">
+          <path
+            d="M0 20 H68"
+            stroke="var(--border-strong)"
+            strokeWidth="1.5"
+            strokeDasharray="4 3"
+            opacity={forkOn ? 1 : 0.25}
           />
-        </React.Fragment>
-      ))}
-
-      {/* Boundary line (horizontal on mobile) */}
-      <div
-        style={{
-          borderTop: '1px dashed var(--border-strong)',
-          marginLeft: 0,
-          marginBottom: 12,
-          marginTop: 4,
-          opacity: resolved[3] ? 1 : 0,
-          transition: 'opacity 240ms ease',
-        }}
-      />
-
-      {side === 'right' && (
-        <>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 14,
-              opacity: cobaltResolved ? 1 : 0,
-              transition: 'opacity 280ms ease',
-            }}
-          >
-            <SmNode resolved={cobaltResolved} type="cobalt" size={16} />
-            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 400, fontSize: 12, color: 'var(--text-secondary)' }}>
-              Independent check
-            </span>
+          <polyline
+            points="60,15 70,20 60,25"
+            stroke="var(--border-strong)"
+            strokeWidth="1.5"
+            fill="none"
+            opacity={forkOn ? 1 : 0.25}
+          />
+          <path
+            d="M4 24 C 8 78, 18 112, 62 128"
+            stroke="var(--accent-info)"
+            strokeWidth="1.75"
+            fill="none"
+            opacity={cobaltResolved ? 1 : 0.2}
+          />
+          <polyline
+            points="52,122 68,130 54,138"
+            stroke="var(--accent-info)"
+            strokeWidth="1.75"
+            fill="none"
+            opacity={cobaltResolved ? 1 : 0.2}
+          />
+        </svg>
+        <div className="s4-outcomes">
+          <div className="s4-ghost" style={{ opacity: forkOn ? 1 : 0.35 }}>
+            <SmNode resolved={false} type="ghost" size={40} />
+            <div>
+              <div className="s4-ghost-title">Self-reported completion</div>
+              <div className="s4-ghost-note">No independent proof beyond this point.</div>
+            </div>
           </div>
-          <div style={{ marginLeft: 7, width: 1.5, height: 20, backgroundColor: 'var(--border-default)', opacity: cobaltResolved ? 0.4 : 0, transition: 'opacity 240ms ease' }} />
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 14,
-              opacity: terminalResolved ? 1 : 0,
-              transition: 'opacity 280ms ease',
-            }}
-          >
-            <SmNode resolved={terminalResolved} type="terminal" size={18} />
-            <span style={{ fontFamily: 'var(--font-body)', fontWeight: 400, fontSize: 12, color: 'var(--text-secondary)' }}>
-              <AuthoritativeStateNote>Authoritative state</AuthoritativeStateNote> confirmed
-            </span>
+          <div className="s4-terminal-block">
+            <div className="s4-rail s4-rail-terminal">
+              <span>Terminal evidence</span>
+            </div>
+            <div className="s4-terminal">
+              <NodeUnit label="Independent verification" resolved={cobaltResolved} type="cobalt" size={40} maxW={108} />
+              <div className="s4-join">
+                <SmArrow visible={cobaltResolved} width={36} />
+              </div>
+              <div className="s4-terminal-node">
+                <SmNode resolved={terminalResolved} type="terminal" size={44} />
+                <span>Authoritative state confirmed</span>
+              </div>
+            </div>
           </div>
-        </>
-      )}
+        </div>
+      </div>
     </div>
   );
 }
@@ -379,27 +264,30 @@ function VerticalTrace({
 /* ── Section 4 ── */
 export function NewStandard() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [resolved, setResolved] = useState([false, false, false, false]);
-  const [cobaltResolved, setCobaltResolved] = useState(false);
-  const [terminalResolved, setTerminalResolved] = useState(false);
-  const prefersReduced =
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const settled = typeof window !== 'undefined' && prefersReducedMotion();
+  const [resolved, setResolved] = useState(() =>
+    settled ? [true, true, true, true] : [false, false, false, false],
+  );
+  const [cobaltResolved, setCobaltResolved] = useState(settled);
+  const [terminalResolved, setTerminalResolved] = useState(settled);
 
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
+    const settle = () => {
+      setResolved([true, true, true, true]);
+      setCobaltResolved(true);
+      setTerminalResolved(true);
+    };
+    trackSectionView('s4_view');
+    if (prefersReducedMotion()) {
+      settle();
+      return;
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
         observer.disconnect();
-
-        if (prefersReduced) {
-          setResolved([true, true, true, true]);
-          setCobaltResolved(true);
-          setTerminalResolved(true);
-          return;
-        }
 
         NODE_DELAYS.forEach((delay, i) => {
           setTimeout(() => setResolved(prev => prev.map((v, j) => (j === i ? true : v))), delay);
@@ -411,7 +299,7 @@ export function NewStandard() {
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [prefersReduced]);
+  }, []);
 
   return (
     <section
@@ -419,6 +307,8 @@ export function NewStandard() {
       id="section-verification"
       className="seam-host"
       {...storySectionProps('section-verification')}
+      data-lanes={resolved.every(Boolean) && cobaltResolved && terminalResolved ? 'complete' : 'drawing'}
+      data-terminal={terminalResolved ? 'filled' : 'open'}
       style={{
         backgroundColor: 'var(--surface-base)',
         paddingTop: 120,
@@ -428,238 +318,168 @@ export function NewStandard() {
       <SeamAnchor id="s3-s4" end role="eyebrow" />
       <div className="container-editorial">
 
-        {/* Headline */}
-        <h2
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontWeight: 700,
-            fontSize: 'clamp(32px, 4vw, 48px)',
-            lineHeight: 1.1,
-            letterSpacing: '-0.02em',
-            color: 'var(--text-primary)',
-            marginBottom: 64,
-            maxWidth: 540,
-          }}
-        >
-          "Done" has two meanings.
-        </h2>
-
-        {/* ── Side-by-side contrast ── */}
-        <div className="s4-grid">
-
-          {/* LEFT: Reported */}
-          <div className="s4-col">
-            {/* Large word */}
-            <div
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontWeight: 700,
-                fontStyle: 'italic',
-                fontSize: 'clamp(48px, 6vw, 72px)',
-                lineHeight: 1,
-                letterSpacing: '-0.025em',
-                color: 'var(--text-secondary)',
-                marginBottom: 16,
-              }}
-            >
-              Reported
+        <div className="s4-frame">
+          <h2 className="s4-headline">“Done” has two meanings.</h2>
+          <div className="s4-split">
+            <div className="s4-defs">
+              <h3>Reported</h3>
+              <p>The workflow, component, or interaction says the work finished.</p>
+              <h3>Verified</h3>
+              <p>
+                The intended business state has been independently checked in the{' '}
+                <AuthoritativeStateTerm />.
+              </p>
             </div>
-
-            {/* Metadata */}
-            <p
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontWeight: 400,
-                fontSize: 14,
-                lineHeight: 1.55,
-                color: 'var(--text-secondary)',
-                marginBottom: 36,
-                maxWidth: 340,
-              }}
-            >
-              Reported completion means the workflow, component, or interaction says
-              the work finished.
-            </p>
-
-            {/* Desktop trace */}
-            <div className="trace-d">
-              <LeftTrace resolved={resolved} />
-            </div>
-
-            {/* Mobile trace */}
-            <div className="trace-m">
-              <VerticalTrace side="left" resolved={resolved} cobaltResolved={false} terminalResolved={false} />
-            </div>
-          </div>
-
-          {/* Vertical divider */}
-          <div className="s4-rule" aria-hidden="true">
-            <div
-              style={{
-                width: 1,
-                height: '100%',
-                backgroundColor: 'var(--border-default)',
-                minHeight: 200,
-              }}
+            <DoneDiagram
+              resolved={resolved}
+              cobaltResolved={cobaltResolved}
+              terminalResolved={terminalResolved}
             />
           </div>
-
-          {/* Horizontal divider (mobile only) */}
-          <div className="s4-hrule" aria-hidden="true">
-            <div style={{ height: 1, backgroundColor: 'var(--border-default)', width: '100%' }} />
-          </div>
-
-          {/* RIGHT: Verified */}
-          <div className="s4-col">
-            <div
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontWeight: 700,
-                fontSize: 'clamp(48px, 6vw, 72px)',
-                lineHeight: 1,
-                letterSpacing: '-0.025em',
-                color: 'var(--text-primary)',
-                marginBottom: 16,
-              }}
-            >
-              Verified
-            </div>
-
-            <p
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontWeight: 400,
-                fontSize: 14,
-                lineHeight: 1.55,
-                color: 'var(--text-secondary)',
-                marginBottom: 36,
-                maxWidth: 360,
-              }}
-            >
-              Verified completion means the intended business state has been
-              independently checked in the{' '}
-              <AuthoritativeStateNote>authoritative state</AuthoritativeStateNote>
-              {' '}— the system or evidence source that can actually prove the outcome.
+          <div className="s4-close">
+            <p className="s4-close-title">Verification begins where local success ends.</p>
+            <p className="s4-close-sub">
+              Local evidence can be necessary without being sufficient for completion.
             </p>
-
-            {/* Desktop trace */}
-            <div className="trace-d" style={{ overflow: 'visible' }}>
-              <RightTrace
-                resolved={resolved}
-                cobaltResolved={cobaltResolved}
-                terminalResolved={terminalResolved}
-              />
-            </div>
-
-            {/* Mobile trace */}
-            <div className="trace-m">
-              <VerticalTrace
-                side="right"
-                resolved={resolved}
-                cobaltResolved={cobaltResolved}
-                terminalResolved={terminalResolved}
-              />
-            </div>
+            <p id={AUTHORITATIVE_NOTE_ID} className="text-meta s4-note">
+              {AUTHORITATIVE_NOTE}
+            </p>
           </div>
-        </div>
-
-        {/* ── Definition block ── */}
-        <div
-          style={{
-            marginTop: 80,
-            paddingTop: 56,
-            borderTop: '1px solid var(--border-default)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
-            gap: 24,
-          }}
-        >
-          <blockquote
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontWeight: 700,
-              fontSize: 'clamp(20px, 2.8vw, 32px)',
-              lineHeight: 1.25,
-              letterSpacing: '-0.01em',
-              color: 'var(--text-primary)',
-              maxWidth: 760,
-              margin: 0,
-            }}
-          >
-            A workflow is complete only when the intended end state has been
-            independently verified — not merely when the components involved
-            report success.
-          </blockquote>
-
-          <p
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontWeight: 400,
-              fontSize: 15,
-              lineHeight: 1.65,
-              color: 'var(--text-secondary)',
-              maxWidth: 620,
-              margin: 0,
-            }}
-          >
-            For consequential workflows, verified completion means the required
-            outcome exists correctly, within policy, without unresolved contradiction
-            or duplicate side effects, and with evidence sufficient to determine
-            what actually happened.
-          </p>
-        </div>
-
-        {/* ── Signature line ── */}
-        <div
-          style={{
-            marginTop: 56,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: 12,
-          }}
-        >
-          <div style={{ width: 24, height: 1, backgroundColor: 'var(--border-default)' }} />
-          <span
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontWeight: 500,
-              fontSize: 12,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: 'var(--text-muted)',
-            }}
-          >
-            See what's actually happening.
-          </span>
-          <div style={{ width: 24, height: 1, backgroundColor: 'var(--border-default)' }} />
         </div>
 
       </div>
 
+      <div className="container-editorial">
+        <Evidence
+          id="E1"
+          kind="RESEARCH · 2025"
+          label="A customer-service benchmark scores the agent on the final data state, not the conversation."
+          href="https://arxiv.org/abs/2406.12045"
+        />
+      </div>
+
       <style>{`
-        .s4-grid {
+        .s4-frame { border-top: 1px solid var(--border-default); }
+        .s4-headline {
+          font-family: var(--font-display);
+          font-weight: 700;
+          font-size: clamp(40px, 4.6vw, 64px);
+          line-height: 1.08;
+          letter-spacing: -0.02em;
+          color: var(--text-primary);
+          margin: 0;
+          padding: 28px 0 32px;
+          border-bottom: 1px solid var(--border-default);
+        }
+        .s4-split {
           display: grid;
-          grid-template-columns: 1fr auto 1fr;
-          gap: 0 48px;
+          grid-template-columns: 220px 1fr;
+          gap: 32px;
+          padding: 36px 0 28px;
+          border-bottom: 1px solid var(--border-default);
           align-items: start;
         }
-        .s4-rule  { display: flex; }
-        .s4-hrule { display: none; }
-        .trace-d  { display: block; overflow: visible; }
-        .trace-m  { display: none; }
-
-        @media (max-width: 860px) {
-          .s4-grid {
-            grid-template-columns: 1fr;
-            gap: 48px 0;
-          }
-          .s4-rule  { display: none; }
-          .s4-hrule { display: block; }
-          .trace-d  { display: none; }
-          .trace-m  { display: block; }
+        .s4-defs { border-right: 1px solid var(--border-default); padding-right: 24px; }
+        .s4-defs h3 {
+          font-family: var(--font-display);
+          font-weight: 600;
+          font-size: 28px;
+          line-height: 1.2;
+          color: var(--text-primary);
+          margin: 0 0 8px;
+        }
+        .s4-defs h3 + p { margin-bottom: 36px; }
+        .s4-defs p {
+          font-family: var(--font-body);
+          font-size: 15px;
+          line-height: 1.5;
+          color: var(--text-secondary);
+          margin: 0;
+        }
+        .s4-diagram { min-width: 0; }
+        .s4-flow { display: flex; align-items: flex-start; gap: 0; }
+        .s4-local-col { flex: 1; min-width: 0; }
+        .s4-join { margin-top: 11px; flex-shrink: 0; }
+        .s4-fork { width: 76px; height: 156px; flex-shrink: 0; margin-top: 28px; }
+        .s4-outcomes { width: 248px; flex-shrink: 0; padding-top: 28px; }
+        .s4-terminal-block { margin-top: 36px; }
+        .s4-rail {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          font-family: var(--font-body);
+          font-size: 12px;
+          font-weight: 500;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: var(--text-muted);
+        }
+        .s4-rail::before, .s4-rail::after {
+          content: "";
+          flex: 1;
+          height: 8px;
+          margin-top: 4px;
+          border-top: 1px solid var(--border-strong);
+        }
+        .s4-rail::before { border-left: 1px solid var(--border-strong); }
+        .s4-rail::after { border-right: 1px solid var(--border-strong); }
+        .s4-rail-local { margin-bottom: 12px; }
+        .s4-local { display: flex; align-items: flex-start; justify-content: space-between; gap: 4px; }
+        .s4-ghost { display: flex; align-items: flex-start; gap: 12px; min-height: 40px; }
+        .s4-ghost-title {
+          font-family: var(--font-body);
+          font-size: 14px;
+          font-weight: 500;
+          color: var(--text-primary);
+          line-height: 1.3;
+        }
+        .s4-ghost-note {
+          font-family: var(--font-body);
+          font-size: 12px;
+          color: var(--text-muted);
+          line-height: 1.4;
+          margin-top: 4px;
+        }
+        .s4-rail-terminal { color: var(--accent-info); margin-bottom: 12px; }
+        .s4-rail-terminal::before, .s4-rail-terminal::after { border-color: var(--accent-info); }
+        .s4-terminal { display: flex; align-items: flex-start; gap: 4px; }
+        .s4-terminal-node {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 7px;
+        }
+        .s4-terminal-node span {
+          font-family: var(--font-body);
+          font-size: 12px;
+          color: var(--text-muted);
+          text-align: center;
+          max-width: 110px;
+          line-height: 1.3;
+        }
+        .s4-close { text-align: center; padding: 40px 16px 8px; }
+        .s4-close-title {
+          font-family: var(--font-display);
+          font-weight: 700;
+          font-size: clamp(28px, 3vw, 40px);
+          line-height: 1.15;
+          color: var(--text-primary);
+          margin: 0 0 12px;
+        }
+        .s4-close-sub {
+          font-family: var(--font-body);
+          font-size: 16px;
+          color: var(--text-secondary);
+          margin: 0;
+        }
+        .s4-note { max-width: 520px; margin: 20px auto 0; }
+        @media (max-width: 900px) {
+          .s4-split { grid-template-columns: 1fr; }
+          .s4-defs { border-right: 0; border-bottom: 1px solid var(--border-default); padding: 0 0 24px; }
+          .s4-flow { flex-direction: column; gap: 20px; }
+          .s4-fork { margin-top: 0; }
+          .s4-outcomes { width: 100%; padding-top: 0; }
+          .s4-local { flex-wrap: wrap; gap: 12px; }
         }
       `}</style>
     </section>

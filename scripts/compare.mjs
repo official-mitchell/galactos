@@ -17,6 +17,8 @@ const MOCK_BY_SECTION = {
   'section-hero': 'galactos-mock-hero.png',
   'section-diagnostic': 'galactos-mock-reliability-diagnostic.png',
   'section-cta': 'galactos-mock-done.png',
+  'section-verification': 'galactos-mock-done.png',
+  'section-proof': 'galactos-mock-show-proof.png',
 }
 
 const args = parseArgs(process.argv.slice(2))

@@ -6,7 +6,7 @@
 
 Source of truth for *what* to do: Linear project [Galactos](https://linear.app/maximus-automaton/project/galactos-6d8a77546ba7/overview) (`P-MAX-21`). This file is the *order* agents must follow.
 
-Project status as of 2026-11-04: **Phase 4 shell is on `main`**. MAX-1011 through MAX-1016 are merged. Owner read-through (§4.1 item 13) and the live seam scroll (§4.4 item 5) stay open. Evidence footnotes are not mounted on narrative sections yet. Act I waits on those reviews. Phase 3 gate was met the same day. Phase 1 gate was met on 2026-11-03. Phase 0 is Done. Do not invent a parallel track around the gates below.
+Project status as of 2026-11-05: **Phase 6 Act II is implemented**. MAX-1020 and MAX-1021 are Done in Linear. Owner visual sign-off is unsigned. The work is uncommitted. Phase 4 shell is on `main`. MAX-1011 through MAX-1016 are merged. Owner read-through (§4.1 item 13) and the live seam scroll (§4.4 item 5) stay open. Evidence footnotes are not mounted on narrative sections yet. Act I waits on those reviews. Phase 3 gate was met the same day. Phase 1 gate was met on 2026-11-03. Phase 0 is Done. Do not invent a parallel track around the gates below.
 
 ## Labels that control worktrees
 

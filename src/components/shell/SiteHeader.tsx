@@ -1,12 +1,11 @@
 /* 2026-11-03: MAX-998 raised font sizes under 12px to 12px.
    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
-   2026-11-04: MAX-1007 places MotionToggle in the desktop header and the mobile menu.
    2026-11-04: MAX-1013. Anchors come from sections.ts. Scroll border, skip link,
-   mobile focus trap, and nav_click. */
+   mobile focus trap, and nav_click.
+   2026-11-04: Text lockup, icon theme buttons, no pause control, Audit Your Workflow. */
 import React, { useEffect, useRef, useState } from 'react';
 import { trackEvent } from '../../analytics/track';
 import { sectionHref, scrollTo, type NavAnchorKey } from '../../content/sections';
-import { MotionToggle } from '../../motion/MotionToggle';
 import { ModeToggle } from './ModeToggle';
 
 interface SiteHeaderProps {
@@ -135,7 +134,7 @@ export function SiteHeader({ isDark, onToggleMode }: SiteHeaderProps) {
         justifyContent: 'center',
       }}
     >
-      Walk me through the workflow
+      Audit Your Workflow
     </a>
   );
 
@@ -169,45 +168,13 @@ export function SiteHeader({ isDark, onToggleMode }: SiteHeaderProps) {
           data-scroll-target={heroHref.slice(1)}
           onClick={(event) => go(event, heroHref)}
           onKeyDown={(event) => onAnchorKey(event, heroHref)}
-          style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, minHeight: 44 }}
+          style={{ textDecoration: 'none', display: 'flex', alignItems: 'baseline', gap: 0, minHeight: 44 }}
           aria-label="Galactos — home"
         >
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-            <circle cx="11" cy="11" r="10" stroke="var(--text-primary)" strokeWidth="1.2" />
-            <circle cx="11" cy="11" r="9.5" stroke="var(--text-primary)" strokeWidth="0.3" strokeDasharray="2 3" />
-            <circle cx="11" cy="11" r="2.5" fill="var(--accent-info)" />
-            <line x1="11" y1="1" x2="11" y2="5.5" stroke="var(--text-primary)" strokeWidth="1.2" />
-            <line x1="11" y1="16.5" x2="11" y2="21" stroke="var(--text-primary)" strokeWidth="1.2" />
-            <line x1="1" y1="11" x2="5.5" y2="11" stroke="var(--text-primary)" strokeWidth="1.2" />
-            <line x1="16.5" y1="11" x2="21" y2="11" stroke="var(--text-primary)" strokeWidth="1.2" />
-          </svg>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-            <span
-              style={{
-                fontFamily: 'var(--font-display)',
-                fontWeight: 700,
-                fontSize: 18,
-                color: 'var(--text-primary)',
-                letterSpacing: '-0.015em',
-                lineHeight: 1,
-              }}
-            >
-              Galactos
-            </span>
-            <span
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontWeight: 500,
-                fontSize: 12,
-                color: 'var(--text-muted)',
-                letterSpacing: '0.08em',
-                lineHeight: 1.2,
-                marginTop: 2,
-              }}
-            >
-              AI WORKFLOW RELIABILITY
-            </span>
-          </div>
+          <span className="brand-lockup">
+            Galactos
+            <span className="brand-tag"> | AI Workflow Reliability</span>
+          </span>
         </a>
 
         <nav
@@ -220,7 +187,6 @@ export function SiteHeader({ isDark, onToggleMode }: SiteHeaderProps) {
           <div style={{ width: 1, height: 20, backgroundColor: 'var(--border-default)', margin: '0 16px' }} />
 
           <ModeToggle isDark={isDark} onToggle={onToggleMode} />
-          <MotionToggle />
 
           <div style={{ width: 12 }} />
 
@@ -304,9 +270,6 @@ export function SiteHeader({ isDark, onToggleMode }: SiteHeaderProps) {
           }}
         >
           {NAV_LINKS.map(({ label, key }) => renderLink(label, key, true))}
-          <div style={{ marginTop: 20 }}>
-            <MotionToggle />
-          </div>
         </div>
       )}
 
@@ -330,6 +293,22 @@ export function SiteHeader({ isDark, onToggleMode }: SiteHeaderProps) {
         }
         .skip-link:focus {
           transform: none;
+        }
+        .brand-lockup {
+          font-family: var(--font-display);
+          font-weight: 700;
+          font-size: 18px;
+          color: var(--text-primary);
+          letter-spacing: -0.015em;
+          line-height: 1;
+          white-space: nowrap;
+        }
+        .brand-tag {
+          color: var(--accent-info);
+          font-weight: 500;
+        }
+        @media (max-width: 767px) {
+          .brand-tag { display: none; }
         }
         @media (min-width: 768px) {
           .desktop-nav { display: flex !important; }

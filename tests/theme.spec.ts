@@ -24,7 +24,15 @@ test('header theme toggle persists across reload', async ({ page }) => {
   })
 
   await page.goto('/?shot=1')
-  await page.getByRole('button', { name: 'Switch to dark mode' }).click()
+  const toggle = page.getByRole('button', { name: 'Switch to dark mode' })
+  await expect(toggle).toHaveCount(1)
+  const box = await toggle.evaluate((el) => {
+    const style = getComputedStyle(el)
+    return { borderWidth: style.borderTopWidth, borderStyle: style.borderTopStyle, svg: el.querySelector('svg')?.innerHTML ?? '' }
+  })
+  expect(box.borderStyle === 'none' || box.borderWidth === '0px').toBe(true)
+  await toggle.click()
+  await expect(page.getByRole('button', { name: 'Switch to light mode' })).toHaveCount(1)
   await expect(page.locator('html')).toHaveClass(/dark/)
   await expect.poll(async () => page.evaluate(() => localStorage.getItem('galactos-theme'))).toBe('dark')
 

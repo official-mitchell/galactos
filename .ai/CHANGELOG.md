@@ -18,7 +18,20 @@ Format:
 
 ---
 
+## 2026-11-05
+- [cursor-grok] Verification diagram now forks at Case closed: a dashed arrow to self-reported completion and a cobalt curve into terminal evidence.
+- [cursor-grok] Phase 6 gate: MAX-1020 and MAX-1021 marked Done. `?motion=final` specs passed, and 1440 and 390 shots exist for section-verification and section-proof. Owner visual sign-off is still unsigned. Compare maps section-verification to galactos-mock-done.png.
+- [cursor-grok] Refined the verification diagram against a 1440 Playwright shot: bracket ticks, and the cobalt curve now meets the independent-verification node.
+- [cursor-grok] Rebuilt `#section-verification` to match galactos-mock-done.png: left Reported/Verified definitions, one local-to-terminal diagram, closing line under the frame.
+- [cursor-grok] Removed the Cross-domain legend row under the three plates (MAX-1021).
+- [cursor-grok] MAX-1021 Cross-domain section now follows instructions/design/mocks/galactos-mock-show-proof.png, and compare maps section-proof to that file.
+- [cursor-grok] MAX-1021 §6.2 started: cross-domain plates share Reported/Actual/Verified, Support has E9, Revenue has E7, Knowledge has no Evidence, and `?motion=final` settles the rows.
+- [cursor-grok] MAX-1020: `s4_view` fires once, and the signature line uses the diagram-system style.
+- [cursor-grok] MAX-1020 §6.1 started: New Standard lanes use diagram-system labels, a reported ghost node, a focusable authoritative-state footnote, E1, and a settled `?motion=final` state.
+
 ## 2026-11-04
+- [cursor-grok] Theme control is one borderless icon that swaps between sun and moon.
+- [cursor-grok] Header: text lockup “Galactos | AI Workflow Reliability”, sun/moon theme icons, Pause Motion removed, CTA reads “Audit Your Workflow”.
 - [cursor-grok] Removed the dev preview bar, fake case rail, section numbers, the S2 placeholder circle, the “A new standard” arrow, and unreadable output-card labels.
 - [cursor-grok] `/impeccable document`: wrote `DESIGN.md` and `.impeccable/design.json` from the live tokens. Mocks win over the live page. No rebuild.
 - [cursor-grok] Recorded code-first as the Impeccable build path in `.impeccable/config.json`.

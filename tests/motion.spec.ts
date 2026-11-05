@@ -1,6 +1,6 @@
 /* 2026-11-04: MAX-1006 final/reduced settle, one-loop rule. MAX-1007 pause persistence.
-   MAX-1008 nothing is revealed only on hover. axe checks the pause control. */
-import AxeBuilder from '@axe-core/playwright'
+   2026-11-04: MAX-1008 nothing is revealed only on hover.
+   2026-11-04: Pause is set through the dev motion harness. The header button is gone. */
 import { expect, test } from '@playwright/test'
 
 test('final and reduced screenshots of data-anim match', async ({ page }) => {
@@ -23,8 +23,9 @@ test('two loops in view leave one playing, and pause stops it', async ({ page })
     return motion.activeLoopCount()
   })
   expect(playing).toBe(1)
-  await page.getByRole('button', { name: 'Open menu' }).click()
-  await page.getByRole('button', { name: 'Pause motion' }).click()
+  await page.evaluate(() => {
+    ;(window as unknown as { __galactosMotion: { setMotionPaused: (paused: boolean) => void } }).__galactosMotion.setMotionPaused(true)
+  })
   await page.waitForTimeout(200)
   const paused = await page.evaluate(() => {
     const motion = (window as unknown as { __galactosMotion: { activeLoopCount: () => number } }).__galactosMotion
@@ -35,21 +36,17 @@ test('two loops in view leave one playing, and pause stops it', async ({ page })
 
 test('pause persists across reload', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('button', { name: 'Open menu' }).click()
-  await page.getByRole('button', { name: 'Pause motion' }).click()
-  await expect(page.getByRole('button', { name: 'Resume motion' })).toHaveAttribute('aria-pressed', 'true')
+  await page.evaluate(() => {
+    ;(window as unknown as { __galactosMotion: { setMotionPaused: (paused: boolean) => void } }).__galactosMotion.setMotionPaused(true)
+  })
+  await expect.poll(async () => page.evaluate(() => localStorage.getItem('galactos-motion'))).toBe('paused')
   await page.reload()
-  await page.getByRole('button', { name: 'Open menu' }).click()
-  await expect(page.getByRole('button', { name: 'Resume motion' })).toHaveAttribute('aria-pressed', 'true')
+  expect(await page.evaluate(() => localStorage.getItem('galactos-motion'))).toBe('paused')
 })
 
-test('pause toggle has an accessible name and no axe violations', async ({ page }) => {
+test('header has no pause motion button', async ({ page }) => {
   await page.goto('/')
-  await page.getByRole('button', { name: 'Open menu' }).click()
-  const toggle = page.getByRole('button', { name: 'Pause motion' })
-  await expect(toggle).toHaveAttribute('aria-pressed', 'false')
-  const results = await new AxeBuilder({ page }).include('.motion-toggle').analyze()
-  expect(results.violations).toEqual([])
+  await expect(page.getByRole('button', { name: /motion/i })).toHaveCount(0)
 })
 
 test('hover does not gate copy', async ({ page }) => {
