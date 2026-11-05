@@ -19,6 +19,7 @@ Format:
 ---
 
 ## 2026-11-04
+- [cursor-grok] MAX-1016: section intake protocol in `scripts/section-intake.mjs` and `npm run gate:section` (token lint, type floor, one `?motion=final` shot). Checklist §4.6 items 1–7 checked; Go when stays open.
 - [cursor-grok] MAX-1013: sticky header reads Diagnostic, Method, About, workflow, and verification anchors from `sections.ts`; skip link, scroll border, mobile focus trap, and `nav_click`.
 - [cursor-grok] Closed MAX-1010 and committed the Phase 3 motion system. Phase 4 shell starts with MAX-1011, MAX-1012, MAX-1013, and MAX-1015.
 - [cursor-grok] MAX-1005 through MAX-1010 gaps: prerendered HTML for no-js, motion-lab loop proof, always-visible authoritative-state copy, web vitals, Lighthouse budget, style-guide rules aligned to v1.1.0.
