@@ -22,6 +22,7 @@ Format:
 - [cursor-grok] MAX-1014 §4.4: dashed hero→S2 drop and S3→S4 arrow scrub between shared seam anchors; S7 and S11 use a 1px border-strong band edge. Playwright checks x within 2px at 1440, 768, and 390. Live motion review stays open. Placeholders stand in for the S2 node and S4 eyebrow.
 - [cursor-grok] MAX-1011 §4.1: eleven reader questions and seam handoffs live on `src/content/sections.ts` and each section element. Owner read-through stays unsigned. §4.2–4.6 not started.
 - [cursor-grok] MAX-1012: page-long scroll spine in the left margin, scrubbed with useScrollScrub, with Playwright clearance and final/reduced coverage. Seams stay untouched.
+- [cursor-grok] MAX-1015: Evidence footnote for Appendix A rows with status OK. Build fails when an Evidence id is missing or not OK. Section placement stays with later tickets.
 - [cursor-grok] Closed MAX-1010 and committed the Phase 3 motion system. Phase 4 shell starts with MAX-1011, MAX-1012, MAX-1013, and MAX-1015.
 - [cursor-grok] MAX-1005 through MAX-1010 gaps: prerendered HTML for no-js, motion-lab loop proof, always-visible authoritative-state copy, web vitals, Lighthouse budget, style-guide rules aligned to v1.1.0.
 - [cursor-grok] MAX-1006 through MAX-1010: reveal, trace, loop, and scrub hooks; pause toggle; hover/focus rules; transform/opacity limits; guidelines v1.1.0. Lighthouse CI stays with the later performance pass.

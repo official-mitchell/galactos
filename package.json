@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/bundle-budget.mjs",
-    "prebuild": "node scripts/check-motifs.mjs",
+    "prebuild": "node scripts/check-motifs.mjs && npm run test:evidence",
+    "test:evidence": "node --experimental-strip-types scripts/check-evidence.ts && node --experimental-strip-types --test tests/evidence-gate.test.ts",
     "gen:contours": "node scripts/gen-contours.mjs",
     "test:contours": "node --test scripts/gen-contours.test.mjs",
     "preview": "vite preview",

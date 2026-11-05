@@ -1,6 +1,7 @@
 /* 2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993).
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
-   2026-11-03: MAX-999 layout fixture and MAX-1000 diagram kit samples. */
+   2026-11-03: MAX-999 layout fixture and MAX-1000 diagram kit samples.
+   2026-11-04: MAX-1015 shows one OK Evidence footnote. REFRESH and NEEDS RESEARCH stay off the page. */
 import React from 'react';
 import {
   NodeIntent, NodeSuccess, NodeExpected, NodeEvidence, NodeAnomaly, NodeMissing,
@@ -18,7 +19,8 @@ import { StatusPill, type StatusPillState } from './diagram/StatusPill';
 import { TraceStep } from './diagram/TraceStep';
 import { LayoutFixture } from './layout/LayoutFixture';
 import { caseFile } from '../content/caseFile';
-import { evidenceCitations } from '../content/evidence';
+import { evidenceById } from '../content/evidence';
+import { Evidence } from './Evidence';
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -479,9 +481,12 @@ export function StyleGuide() {
             { label: 'OBSERVER', value: caseFile.trace.observer },
           ]}
         />
-        {evidenceCitations.map((cite) => (
-          <p key={cite.id} className="text-meta">{cite.label}: {cite.note}</p>
-        ))}
+        <Evidence
+          id="E1"
+          kind={evidenceById.E1.kind}
+          label={evidenceById.E1.label}
+          href={evidenceById.E1.href}
+        />
         <StateBar />
         <Bracket label="What the workflow believes happened" side="bottom" />
         <Annotation tone="divergence">Authoritative system still shows the renewal.</Annotation>
