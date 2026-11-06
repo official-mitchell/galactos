@@ -18,7 +18,22 @@ Format:
 
 ---
 
+## 2026-11-06
+- [cursor] Widened the Approach section, centered the diagram on the copy, and joined the top rail to each stem (MAX-1026).
+- [cursor] MAX-1029 §10.1: prerender `/`, `/privacy`, and `/terms`; canonical sentence in meta, Open Graph, JSON-LD, and the footer; OG 1200×630, favicon, robots, sitemap, 404. Share preview and Search Console stay open.
+- [cursor] Enlarged the Approach diagram: wider gaps, larger icons, dashed links into the orange dots, and a longer arrow into the outcome (MAX-1026).
+- [cursor] Rebuilt the Approach diagram as a fixed chain so the bracket, faults, and outcome match the mock (MAX-1026).
+- [cursor] Rebuilt the Approach diagram on one rail so nodes, faults, and the verified outcome match the mock (MAX-1026).
+- [cursor] Matched Approach line breaks and the column rule to galactos-section-8-approach.png (MAX-1026).
+
 ## 2026-11-05
+- [cursor] Rebuilt S10 as Approach from galactos-section-8-approach.png (MAX-1026).
+- [cursor-grok] Phase 8 closed. MAX-1023, MAX-1024, and MAX-1025 marked Done. Mock compare and owner visual sign-off stay open.
+- [cursor] Enlarged the mechanism diagram, underlined both evidence labels, and aligned the orange caption under a rule.
+- [cursor-grok] Recognition meter and accordion waits run 3× slower, and the card list keeps a fixed height while a card opens.
+- [cursor] Put the mechanism diagram back beside the copy and sized the cards to that column.
+- [cursor] Gave the mechanism cards one shared size so the labels and dashed joins fit, and matched failure-state card heights.
+- [cursor] Widened the large-screen editorial frame and enlarged the failure-state and mechanism diagrams.
 - [cursor] Rebuilt section-mechanism to the local-success mock: seven OK steps, dashed gaps, unresolved business obligation.
 - [cursor-grok] Phase 8 started by owner override (MAX-1023, MAX-1024, MAX-1025): scope labels and probe on intervention, E4, output reader tags, method replay.
 - [cursor-grok] Phase 7 gate: E10 is under the recognition lede, signal_active fires once per card, and the sticky column stays above the footer at 1440 and 1280.

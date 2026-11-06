@@ -203,6 +203,13 @@ body {
   padding-left: 24px;
   padding-right: 24px;
 }
+@media (min-width: 1280px) {
+  .container-editorial {
+    max-width: 1360px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
 
 /* ── Background motifs (MAX-1002). 8% in both modes. ── */
 .motif {

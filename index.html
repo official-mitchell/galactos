@@ -1,5 +1,6 @@
 <!doctype html>
-<!-- 2026-11-03: MAX-996 applies ?mode= and ?motion= before paint. ?mode= still wins.
+<!-- 2026-11-06: MAX-1029 head and root markers let the prerender swap SEO tags and route HTML.
+     2026-11-03: MAX-996 applies ?mode= and ?motion= before paint. ?mode= still wins.
      2026-11-03: MAX-997 preloads the variable Fraunces and Inter files.
      2026-11-03: MAX-1003 sets .dark from localStorage galactos-theme, else prefers-color-scheme, before first paint. Sets window.__galactosThemeSource to stored or system.
      2026-11-04: MAX-1005 starts as no-js and swaps to js in the inline script so hidden motion states stay under .js. -->
@@ -40,7 +41,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="./assets/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href="./assets/fonts/InterVariable.woff2" />
+    <!-- galactos-head -->
     <title>Galactos</title>
+    <!-- galactos-head-end -->
     <style>
       html.no-js #root,
       html.no-js #root * { opacity: 1 !important; visibility: visible !important; }
@@ -54,6 +57,7 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- galactos-root-end -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

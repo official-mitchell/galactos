@@ -1,11 +1,12 @@
-/* 2026-11-05: MAX-1022 rebuilt to galactos-mock-recognition.png.
+/* 2026-11-05: Meter and accordion waits are 3× slower. The list reserves the tallest open card so the page below does not move.
+   2026-11-05: MAX-1022 rebuilt to galactos-mock-recognition.png.
    Accordions open and close from top to bottom. The meter draws across three checks to the outcome X.
    Both motions share one loop. Reduced motion and ?motion=final hold the first card open and the meter complete.
    2026-11-04: MAX-1011 carries the Recognition reader question and seam from sections.ts. */
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { trackSectionView, trackSignalActive } from '../../analytics/track'
 import { evidenceById } from '../../content/evidence'
 import { storySectionProps } from '../../content/sections'
@@ -165,8 +166,25 @@ function Meter({ step }: { step: number }) {
 
 export function Recognition() {
   const sectionRef = useRef<HTMLElement>(null)
+  const listRef = useRef<HTMLDivElement>(null)
   const [open, setOpen] = useState(0)
   const [step, setStep] = useState(() => (prefersReducedMotion() ? 4 : 0))
+
+  useLayoutEffect(() => {
+    const list = listRef.current
+    if (!list) return
+    const reserve = () => {
+      const cards = [...list.querySelectorAll<HTMLElement>('.recognition-card')]
+      const panels = [...list.querySelectorAll<HTMLElement>('.recognition-panel > div')]
+      const tallest = Math.max(0, ...panels.map((panel) => panel.scrollHeight))
+      const collapsed = cards.reduce((sum, card) => sum + card.querySelector('button')!.offsetHeight + 2, 0)
+      const gaps = 12 * Math.max(0, cards.length - 1)
+      list.style.minHeight = `${collapsed + tallest + gaps}px`
+    }
+    reserve()
+    window.addEventListener('resize', reserve)
+    return () => window.removeEventListener('resize', reserve)
+  }, [])
 
   useGSAP(() => {
     const root = sectionRef.current
@@ -178,9 +196,10 @@ export function Recognition() {
       return
     }
     const seen = new Set<number>()
-    const hold = 2.15
-    const gap = 0.4
+    const hold = 2.15 * 3
+    const gap = 0.4 * 3
     const cycle = hold + gap
+    const meterStep = 0.42 * 3
     const timeline = gsap.timeline({ paused: true, repeat: -1 })
     CARDS.forEach((_, index) => {
       const at = index * cycle
@@ -198,7 +217,7 @@ export function Recognition() {
       const at = round * cycle
       timeline.call(() => setStep(0), [], at)
       for (let mark = 1; mark <= 4; mark += 1) {
-        timeline.call(() => setStep(mark), [], at + mark * 0.42)
+        timeline.call(() => setStep(mark), [], at + mark * meterStep)
       }
     }
     const stops: Array<() => void> = [() => timeline.kill()]
@@ -261,7 +280,7 @@ export function Recognition() {
             </div>
           }
           right={
-            <div className="recognition-list">
+            <div className="recognition-list" ref={listRef}>
               {CARDS.map((card, index) => {
                 const isOpen = open === index
                 return (
@@ -335,7 +354,7 @@ export function Recognition() {
           height: 100%;
           background: var(--accent-success);
           transform-origin: left center;
-          transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+          transition: transform 1260ms cubic-bezier(0.22, 1, 0.36, 1);
         }
         .recognition-meter ol {
           list-style: none;

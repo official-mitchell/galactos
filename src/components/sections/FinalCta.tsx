@@ -1,8 +1,10 @@
-/* 2026-11-04: MAX-1014 S10→S11 band edge is 1px border-strong. No gradient.
+/* 2026-11-06: MAX-1029 footer microline is CANONICAL_DEFINITION. Privacy and Terms link to real routes.
+   2026-11-04: MAX-1014 S10→S11 band edge is 1px border-strong. No gradient.
    2026-11-04: MAX-1011 carries the CTA reader question and spine terminal seam from sections.ts.
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
 import React, { useState } from 'react';
+import { CANONICAL_DEFINITION } from '../../content/copy';
 import { storySectionProps } from '../../content/sections';
 
 /* ── Always-dark tokens ── */
@@ -399,8 +401,8 @@ export function SiteFooter() {
               hello@galactos.example
             </a>
             <div style={{ display: 'flex', gap: 20 }}>
-              {['Privacy', 'Terms'].map(label => (
-                <a key={label} href="#" style={{
+              {([['Privacy', '/privacy'], ['Terms', '/terms']] as const).map(([label, href]) => (
+                <a key={label} href={href} style={{
                   fontFamily: 'var(--font-body)', fontWeight: 400,
                   fontSize: 12, letterSpacing: '0.06em', color: P30,
                   textDecoration: 'none', transition: 'color 140ms ease',
@@ -434,8 +436,7 @@ export function SiteFooter() {
             fontFamily: 'var(--font-body)', fontWeight: 400, fontSize: 12,
             color: P30, lineHeight: 1.5, maxWidth: 560, fontStyle: 'italic',
           }}>
-            Galactos follows consequential AI-enabled workflows from trigger
-            to verified business completion.
+            {CANONICAL_DEFINITION}
           </div>
         </div>
       </div>

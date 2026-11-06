@@ -1,4 +1,5 @@
-/* 2026-11-04: MAX-1014 mounts scroll seams beside the spine.
+/* 2026-11-06: MAX-1029 renders /privacy and /terms from the URL.
+   2026-11-04: MAX-1014 mounts scroll seams beside the spine.
    2026-11-04: MAX-1012 mounts the scroll spine on the landing page only.
    2026-11-03: MAX-998 raised font sizes under 12px to 12px.
     2026-11-03: MAX-994 gates the Preview bar and Style Guide behind import.meta.env.DEV.
@@ -23,6 +24,7 @@ import { Method } from './components/sections/Method';
 import { Credibility } from './components/sections/Credibility';
 import { FinalCta } from './components/sections/FinalCta';
 import { SiteFooter } from './components/shell/SiteFooter';
+import { LegalPage } from './components/LegalPage';
 import { StyleGuide } from './components/StyleGuide';
 import { MotionLab } from './motion/MotionLab';
 
@@ -58,7 +60,8 @@ function getInitialPage(): Page {
   return 'landing';
 }
 
-export default function App() {
+export default function App({ initialPath = '/' }: { initialPath?: string }) {
+  const pathname = typeof window !== 'undefined' ? window.location.pathname.replace(/\/$/, '') || '/' : initialPath
   const [isDark, setIsDark] = useState<boolean>(() =>
     typeof window !== 'undefined' ? getInitialDark() : false
   );
@@ -138,6 +141,8 @@ export default function App() {
           </div>
           <StyleGuide />
         </div>
+      ) : pathname === '/privacy' || pathname === '/terms' ? (
+        <LegalPage kind={pathname === '/privacy' ? 'privacy' : 'terms'} />
       ) : (
         /* Landing page with real site header */
         <div className="page-frame">

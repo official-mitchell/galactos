@@ -1,4 +1,5 @@
-/* 2026-11-05: Rebuilt the diagram to match galactos-mock-section-3-local-success:
+/* 2026-11-05: Enlarged the local-success diagram: cards, icons, dashed joins, and the obligation circle.
+   2026-11-05: Rebuilt the diagram to match galactos-mock-section-3-local-success:
    seven local steps, all OK, dashed gaps, and an unresolved business obligation.
    2026-11-04: MAX-1014 starts the S3→S4 closing line on the shared seam x.
    2026-11-04: MAX-1011 carries the Mechanism reader question and seam from sections.ts.
@@ -30,8 +31,8 @@ const GAPS = ['context loss', '', 'handoff delay', 'retry risk', '', 'approval a
 
 function StepIcon({ name }: { name: Step['icon'] }) {
   const common = {
-    width: 22,
-    height: 22,
+    width: 26,
+    height: 26,
     viewBox: '0 0 24 24',
     fill: 'none',
     stroke: 'currentColor',
@@ -136,9 +137,8 @@ export function Mechanism() {
 
           <div className="s3-diagram" aria-label="Local component signals beside an unresolved business obligation">
             <div className="s3-bands">
-              <span>Local evidence</span>
-              <span className="s3-band-rule" />
-              <span>Terminal evidence</span>
+              <span className="s3-band">Local evidence</span>
+              <span className="s3-band">Terminal evidence</span>
             </div>
 
             <div className="s3-flow">
@@ -180,21 +180,22 @@ export function Mechanism() {
           padding: clamp(96px, 11vw, 160px) 0;
         }
         .s3-kicker {
-          margin: 0 0 28px;
+          margin: 0 0 20px;
           font-family: var(--font-body);
-          font-size: 12px;
-          font-weight: 500;
-          letter-spacing: 0.12em;
+          font-size: 13px;
+          font-weight: 600;
+          letter-spacing: 0.04em;
           text-transform: uppercase;
-          color: var(--text-muted);
+          color: var(--text-secondary);
         }
         .s3-grid {
           display: grid;
-          grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
-          gap: 40px 40px;
+          grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+          gap: 24px 32px;
           align-items: start;
         }
         .s3-copy { min-width: 0; }
+        .s3-diagram { min-width: 0; }
         .s3-copy h2 {
           margin: 0 0 28px;
           max-width: 100%;
@@ -207,7 +208,7 @@ export function Mechanism() {
         }
         .s3-copy p {
           margin: 0 0 16px;
-          max-width: 42ch;
+          max-width: none;
           font-family: var(--font-body);
           font-size: 16px;
           line-height: 1.55;
@@ -217,7 +218,7 @@ export function Mechanism() {
           margin-top: 28px !important;
           padding-top: 20px;
           border-top: 1px solid var(--border-default);
-          max-width: 18ch !important;
+          max-width: none !important;
           font-family: var(--font-display) !important;
           font-size: clamp(22px, 2vw, 28px) !important;
           font-weight: 700 !important;
@@ -227,65 +228,82 @@ export function Mechanism() {
         }
         .s3-diagram { min-width: 0; }
         .s3-bands {
-          display: grid;
-          grid-template-columns: auto 1fr auto;
-          align-items: center;
-          gap: 12px;
-          margin-bottom: 18px;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          gap: 24px;
+          margin-bottom: 14px;
+        }
+        .s3-band {
+          border-bottom: 1px solid var(--border-default);
+          padding-bottom: 6px;
           font-family: var(--font-body);
           font-size: 12px;
-          font-weight: 500;
-          letter-spacing: 0.1em;
+          font-weight: 600;
+          letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: var(--text-muted);
+          color: var(--text-secondary);
         }
-        .s3-band-rule { height: 1px; background: var(--border-default); }
         .s3-flow {
+          position: relative;
           display: flex;
-          align-items: flex-start;
+          align-items: center;
           gap: 0;
           overflow: visible;
-          padding-bottom: 4px;
+          padding-bottom: 72px;
+        }
+        .s3-flow::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 56px;
+          top: 84px;
+          border-top: 2px dashed var(--accent-divergence);
+          z-index: 0;
         }
         .s3-step {
+          position: relative;
+          z-index: 1;
           flex: 1 1 0;
-          min-width: 0;
+          min-width: 72px;
+          height: 168px;
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 10px;
-          min-height: 148px;
-          padding: 12px 8px 10px;
+          justify-content: space-between;
+          gap: 8px;
+          padding: 14px 8px 12px;
           border: 1px solid var(--border-default);
           border-radius: 4px;
           background: var(--surface-raised);
           text-align: center;
+          box-sizing: border-box;
         }
         .s3-step-label {
           min-height: 2.6em;
           font-family: var(--font-body);
           font-size: 12px;
           font-weight: 500;
-          letter-spacing: 0.06em;
+          letter-spacing: 0.04em;
           text-transform: uppercase;
           line-height: 1.25;
           color: var(--text-muted);
         }
         .s3-step-icon { color: var(--text-primary); display: flex; }
-        .s3-step[data-status="Accepted"] { flex: 1.35 1 0; }
         .s3-step-status {
           display: flex;
           align-items: center;
+          justify-content: center;
           gap: 4px;
-          white-space: nowrap;
+          max-width: 100%;
           font-family: var(--font-body);
           font-size: 12px;
           font-weight: 500;
           color: var(--text-secondary);
         }
         .s3-check {
-          width: 14px;
-          height: 14px;
+          width: 18px;
+          height: 18px;
           border-radius: 50%;
           background: var(--accent-success);
           display: inline-grid;
@@ -301,19 +319,16 @@ export function Mechanism() {
         }
         .s3-gap {
           position: relative;
-          flex: 0 0 10px;
+          z-index: 0;
+          flex: 0 0 18px;
+          height: 168px;
           display: flex;
-          flex-direction: column;
           align-items: center;
-          padding-top: 58px;
         }
-        .s3-gap-line {
-          width: 100%;
-          border-top: 1.5px dashed var(--accent-divergence);
-        }
+        .s3-gap-line { display: none; }
         .s3-gap-label {
           position: absolute;
-          top: 148px;
+          top: 176px;
           left: 50%;
           width: 76px;
           transform: translateX(-50%);
@@ -330,17 +345,21 @@ export function Mechanism() {
           transform: none;
         }
         .s3-obligation {
-          flex: 0 0 108px;
+          position: relative;
+          z-index: 1;
+          flex: 0 0 136px;
+          height: 168px;
+          justify-content: center;
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 10px;
         }
         .s3-obligation-mark {
-          width: 104px;
-          height: 104px;
+          width: 128px;
+          height: 128px;
           border-radius: 50%;
-          border: 2px solid var(--accent-divergence);
+          border: 3px solid var(--accent-divergence);
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -348,6 +367,7 @@ export function Mechanism() {
           gap: 2px;
           text-align: center;
           color: var(--accent-divergence);
+          background: var(--surface-base);
         }
         .s3-obligation-mark span {
           max-width: 9ch;
@@ -360,43 +380,50 @@ export function Mechanism() {
         }
         .s3-obligation-mark strong {
           font-family: var(--font-display);
-          font-size: 28px;
+          font-size: 32px;
           font-weight: 600;
           line-height: 1;
         }
         .s3-obligation p {
-          margin: 46px 0 0;
-          width: 15ch;
+          position: absolute;
+          top: 176px;
+          left: 50%;
+          margin: 0;
+          width: 132px;
+          transform: translateX(-50%);
           text-align: center;
           font-family: var(--font-body);
-          font-size: 12px;
+          font-size: 13px;
           line-height: 1.4;
           color: var(--text-muted);
         }
         .s3-legend {
           display: flex;
           align-items: flex-start;
-          gap: 10px;
-          margin: 56px 0 0;
+          justify-content: flex-end;
+          gap: 12px;
+          margin: 4px 0 0 auto;
           max-width: 46ch;
+          padding-top: 12px;
+          border-top: 1px solid var(--border-default);
           font-family: var(--font-body);
-          font-size: 14px;
+          font-size: 15px;
           font-weight: 600;
-          line-height: 1.4;
+          line-height: 1.35;
           color: var(--accent-divergence);
         }
         .s3-legend-dash {
-          flex: 0 0 28px;
-          margin-top: 0.55em;
-          border-top: 1.5px dashed var(--accent-divergence);
+          flex: 0 0 48px;
+          margin-top: 0.45em;
+          border-top: 2px dashed var(--accent-divergence);
         }
         @media (max-width: 980px) {
           .s3-grid { grid-template-columns: 1fr; }
           .s3-copy h2, .s3-close { max-width: 22ch; }
           .s3-flow { overflow-x: auto; padding-bottom: 12px; }
-          .s3-step { flex: 0 0 84px; }
-          .s3-step[data-status="Accepted"] { flex: 0 0 104px; }
-          .s3-obligation { flex: 0 0 140px; }
+          .s3-step { flex: 0 0 104px; width: 104px; min-width: 104px; height: 156px; }
+          .s3-obligation { flex: 0 0 180px; }
+          .s3-obligation-mark { width: 132px; height: 132px; }
         }
       `}</style>
       <SeamAnchor id="s3-s4" />

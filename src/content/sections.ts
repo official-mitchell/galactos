@@ -1,4 +1,5 @@
-/* 2026-11-03: single source of section anchors. DOM ids still match the Make export until the revamp.
+/* 2026-11-05: S10 label is Approach. DOM id stays section-credibility.
+   2026-11-03: single source of section anchors. DOM ids still match the Make export until the revamp.
    2026-11-04: MAX-1011 readerQuestion and seam on each section. Owner read-through stays unsigned.
    2026-11-04: MAX-1013 nav labels resolve through navAnchors (S7, S9, S10, S11, S4). */
 
@@ -106,7 +107,7 @@ export const sections: SectionEntry[] = [
     number: '10',
     id: 'section-credibility',
     act: 'V',
-    label: 'Credibility',
+    label: 'Approach',
     component: 'Credibility',
     readerQuestion: 'Why trust this?',
   },

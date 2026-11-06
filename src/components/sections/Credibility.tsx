@@ -1,353 +1,505 @@
-/* 2026-11-04: MAX-1011 carries the Credibility reader question from sections.ts.
-   2026-11-03: MAX-998 raised font sizes under 12px to 12px.
-    2026-11-03: decomposed from the Figma Make landing export into the root app (MAX-993). */
-import React, { useEffect, useRef, useState } from 'react';
-import { storySectionProps } from '../../content/sections';
+/* 2026-11-06: Right-side diagram is a fixed chain: bracket over six nodes, side arrow into the outcome.
+   2026-11-06: Tuned Approach to galactos-section-8-approach.png line breaks and column rule.
+   2026-11-05: Rebuilt as Approach from galactos-section-8-approach.png (MAX-1026).
+   Copy, three points, and the bounded-workflow diagram replace the photo split. */
+import React from 'react'
+import { storySectionProps } from '../../content/sections'
 
-const IMAGE_URL =
-  'https://images.unsplash.com/photo-1704972806322-3bdc80ac03f9?w=900&h=720&fit=crop&auto=format&q=80';
+const POINTS = [
+  {
+    title: 'Bounded scope',
+    body: 'One workflow. One defined business outcome.',
+    icon: 'scope',
+  },
+  {
+    title: 'Cross-boundary view',
+    body: 'Follows the path across tools, systems, and approvals.',
+    icon: 'path',
+  },
+  {
+    title: 'Useful output',
+    body: 'Clarifies where the workflow diverges and what to repair first.',
+    icon: 'bars',
+  },
+] as const
 
-/* ── Overlay path SVG (weaves across structural layers) ── */
-function OverlayPath({ drawn }: { drawn: boolean }) {
+const NODES = [
+  { label: 'Model', icon: 'spark', fault: null },
+  { label: 'Context / Retrieval', icon: 'layers', fault: 'context loss' },
+  { label: 'Tool / API', icon: 'code', fault: 'handoff delay' },
+  { label: 'Queue', icon: 'queue', fault: 'retry risk' },
+  { label: 'Human Approval', icon: 'person', fault: 'approval ambiguity' },
+  { label: 'System of Record', icon: 'record', fault: 'state mismatch' },
+] as const
+
+function PointIcon({ name }: { name: (typeof POINTS)[number]['icon'] }) {
+  const common = {
+    width: 22,
+    height: 22,
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 1.6,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+    'aria-hidden': true as const,
+  }
+  if (name === 'scope') {
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="12" r="7" />
+        <circle cx="12" cy="12" r="2" />
+        <path d="M12 3v2M12 19v2M3 12h2M19 12h2" />
+      </svg>
+    )
+  }
+  if (name === 'path') {
+    return (
+      <svg {...common}>
+        <circle cx="6" cy="7" r="2" />
+        <circle cx="18" cy="7" r="2" />
+        <circle cx="12" cy="17" r="2" />
+        <path d="M8 7h8M7.2 8.6l3.6 6.2M16.8 8.6l-3.6 6.2" />
+      </svg>
+    )
+  }
   return (
-    <svg
-      viewBox="0 0 480 600"
-      width="100%"
-      height="100%"
-      style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}
-      aria-hidden="true"
-      preserveAspectRatio="xMidYMid slice"
-    >
-      {/* Layered horizontal reference lines (very faint) */}
-      {[120, 240, 360, 480].map(y => (
-        <line key={y} x1="0" y1={y} x2="480" y2={y}
-          stroke="rgba(248,246,243,0.08)" strokeWidth="0.5" />
-      ))}
-
-      {/* Main traversal path — crosses three structural planes */}
-      <path
-        d="M -4,180
-           C 60,180 80,240 160,240
-           C 240,240 260,320 340,320
-           C 400,320 430,360 484,360"
-        stroke="rgba(248,246,243,0.70)"
-        strokeWidth="1.2"
-        fill="none"
-        strokeLinecap="round"
-        pathLength="1"
-        style={{
-          strokeDasharray: 1,
-          strokeDashoffset: drawn ? 0 : 1,
-          transition: drawn ? 'stroke-dashoffset 2400ms ease' : 'none',
-        }}
-      />
-
-      {/* Small node markers at each plane crossing */}
-      {[[160, 240], [340, 320]].map(([cx, cy], i) => (
-        <circle key={i} cx={cx} cy={cy} r="4"
-          fill="rgba(248,246,243,0.65)"
-          stroke="none"
-          style={{
-            opacity: drawn ? 1 : 0,
-            transition: drawn ? `opacity 200ms ease ${800 + i * 800}ms` : 'none',
-          }}
-        />
-      ))}
-
-      {/* Plane crossing tick marks */}
-      {[[160, 226, 254], [340, 306, 334]].map(([x, y1, y2], i) => (
-        <line key={i} x1={x} y1={y1} x2={x} y2={y2}
-          stroke="rgba(248,246,243,0.35)"
-          strokeWidth="0.7"
-          style={{
-            opacity: drawn ? 1 : 0,
-            transition: drawn ? `opacity 200ms ease ${900 + i * 800}ms` : 'none',
-          }}
-        />
-      ))}
+    <svg {...common}>
+      <path d="M5 19V11M10 19V7M15 19v-5M20 19V9" />
     </svg>
-  );
+  )
 }
 
-/* ── Image panel (shared between desktop + mobile instances) ── */
-function ImagePanel({ drawn, mobileAspect }: { drawn: boolean; mobileAspect?: boolean }) {
+function NodeIcon({ name }: { name: (typeof NODES)[number]['icon'] }) {
+  const common = {
+    width: 32,
+    height: 32,
+    viewBox: '0 0 24 24',
+    fill: 'none',
+    stroke: 'currentColor',
+    strokeWidth: 1.5,
+    strokeLinecap: 'round' as const,
+    strokeLinejoin: 'round' as const,
+    'aria-hidden': true as const,
+  }
+  if (name === 'spark') {
+    return (
+      <svg {...common}>
+        <path d="M12 3.5l1.4 5.1L18.5 10l-5.1 1.4L12 16.5l-1.4-5.1L5.5 10l5.1-1.4L12 3.5z" />
+      </svg>
+    )
+  }
+  if (name === 'layers') {
+    return (
+      <svg {...common}>
+        <path d="M4 8l8-3.5L20 8l-8 3.5L4 8z" />
+        <path d="M4 12l8 3.5L20 12" />
+        <path d="M4 16l8 3.5L20 16" />
+      </svg>
+    )
+  }
+  if (name === 'code') {
+    return (
+      <svg {...common}>
+        <path d="M9 8l-4 4 4 4M15 8l4 4-4 4" />
+      </svg>
+    )
+  }
+  if (name === 'queue') {
+    return (
+      <svg {...common}>
+        <rect x="4" y="6" width="16" height="3.2" rx="0.6" />
+        <rect x="4" y="11" width="16" height="3.2" rx="0.6" />
+        <rect x="4" y="16" width="12" height="3.2" rx="0.6" />
+      </svg>
+    )
+  }
+  if (name === 'person') {
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="8" r="2.4" />
+        <path d="M6.5 18.5c.8-2.8 2.8-4.2 5.5-4.2s4.7 1.4 5.5 4.2" />
+      </svg>
+    )
+  }
   return (
-    <div style={{
-      position: 'relative',
-      width: '100%',
-      height: mobileAspect ? undefined : '100%',
-      aspectRatio: mobileAspect ? '4/3' : undefined,
-      minHeight: mobileAspect ? undefined : 480,
-      overflow: 'hidden',
-      borderRadius: 2,
-      backgroundColor: 'var(--surface-emphasis)',
-    }}>
-      <img
-        src={IMAGE_URL}
-        alt="Intersecting concrete planes — structural geometry"
-        style={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: 'center',
-          display: 'block',
-          opacity: 0.88,
-          filter: 'grayscale(20%) contrast(1.05)',
-        }}
-      />
-      {/* Very faint dark vignette */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'linear-gradient(160deg, rgba(10,21,32,0.08) 0%, transparent 50%, rgba(10,21,32,0.18) 100%)',
-        pointerEvents: 'none',
-      }} />
-      <OverlayPath drawn={drawn} />
-    </div>
-  );
+    <svg {...common}>
+      <ellipse cx="12" cy="7" rx="6" ry="2.4" />
+      <path d="M6 7v8c0 1.3 2.7 2.4 6 2.4s6-1.1 6-2.4V7" />
+      <path d="M6 11c0 1.3 2.7 2.4 6 2.4s6-1.1 6-2.4" />
+    </svg>
+  )
 }
 
-/* ── Metadata column ── */
-const META_ITEMS = [
-  'Product Systems',
-  'Workflow Design',
-  'AI + Agents',
-  'Context + Retrieval',
-  'Evaluation',
-  'Operations',
-];
+const DASHED_LINKS = new Set([1, 2])
 
-function MetadataList() {
+function WorkflowDiagram() {
   return (
-    <div style={{ paddingTop: 20 }}>
-      {META_ITEMS.map((item, i) => (
-        <div key={item}>
-          <div style={{ height: 1, backgroundColor: 'var(--border-default)' }} />
-          <div style={{
-            padding: '10px 0',
-            fontFamily: 'var(--font-body)',
-            fontWeight: 500,
-            fontSize: 12,
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
-            color: 'var(--text-muted)',
-          }}>
-            {item}
-          </div>
-          {i === META_ITEMS.length - 1 && (
-            <div style={{ height: 1, backgroundColor: 'var(--border-default)' }} />
-          )}
+    <div className="approach-diagram" role="img" aria-label="One bounded workflow under investigation, from model through system of record to a verified business outcome.">
+      <div className="approach-banner">One bounded workflow under investigation</div>
+      <div className="approach-track">
+        <div className="approach-slots">
+          <span className="approach-rail" aria-hidden="true" />
+          {NODES.map((node, index) => (
+            <React.Fragment key={node.label}>
+              <div className="approach-node">
+                <span className="approach-stem" aria-hidden="true" />
+                <div className="approach-card">
+                  <NodeIcon name={node.icon} />
+                  <span>{node.label}</span>
+                </div>
+                {node.fault ? (
+                  <span className={node.fault === 'state mismatch' ? 'approach-fault approach-fault--return' : 'approach-fault'}>
+                    {node.fault}
+                  </span>
+                ) : (
+                  <span className="approach-fault approach-fault--spacer" />
+                )}
+              </div>
+              {index < NODES.length - 1 ? (
+                <span className={DASHED_LINKS.has(index) ? 'approach-link approach-link--dashed' : 'approach-link'} aria-hidden="true">
+                  <i />
+                  <span className="approach-dot" />
+                  <i />
+                </span>
+              ) : null}
+            </React.Fragment>
+          ))}
         </div>
-      ))}
+        <span className="approach-link approach-link--arrow" aria-hidden="true">
+          <i />
+          <span className="approach-arrow" />
+        </span>
+        <div className="approach-finish">
+          <div className="approach-verified-label">
+            Verified completion
+            <svg width="16" height="26" viewBox="0 0 16 26" aria-hidden="true">
+              <path d="M8 1v20M3 15l5 9 5-9" fill="none" stroke="currentColor" strokeWidth="1.6" />
+            </svg>
+          </div>
+          <div className="approach-outcome">
+            <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" strokeWidth="1.6" />
+              <path d="M8 12.2l2.6 2.6L16.2 9" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            </svg>
+            <span>Verified Business Outcome</span>
+          </div>
+        </div>
+      </div>
     </div>
-  );
+  )
 }
 
-/* ── Section 10 ── */
 export function Credibility() {
-  const imageRef = useRef<HTMLDivElement>(null);
-  const [pathDrawn, setPathDrawn] = useState(false);
-
-  const prefersReduced =
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  useEffect(() => {
-    if (prefersReduced) { setPathDrawn(true); return; }
-    const el = imageRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setPathDrawn(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [prefersReduced]);
-
   return (
     <section
       id="section-credibility"
+      className="approach"
       {...storySectionProps('section-credibility')}
-      style={{ backgroundColor: 'var(--surface-base)', paddingTop: 120, paddingBottom: 0 }}
     >
-      <div className="container-editorial">
-
-        {/* Section label */}
-        <div style={{ marginBottom: 56 }}>
-          <div style={{
-            fontFamily: 'var(--font-body)', fontWeight: 500, fontSize: 12,
-            letterSpacing: '0.12em', textTransform: 'uppercase',
-            color: 'var(--text-muted)', marginBottom: 12,
-          }}>
-            Approach
-          </div>
-          <div style={{ height: 1, backgroundColor: 'var(--border-default)' }} />
+      <div className="container-editorial approach-frame">
+        <div className="approach-kicker">
+          <span>Approach</span>
+          <span className="approach-kicker-rule" />
         </div>
-
-        {/* Mobile: image appears above copy */}
-        <div className="s10-mobile-img-wrap" ref={imageRef}>
-          <ImagePanel drawn={pathDrawn} mobileAspect />
-        </div>
-
-        {/* Main grid */}
-        <div className="s10-grid">
-
-          {/* ── Left: copy ── */}
-          <div className="s10-left">
-            <h2 style={{
-              fontFamily: 'var(--font-display)', fontWeight: 700,
-              fontSize: 'clamp(28px, 3.6vw, 48px)', lineHeight: 1.08,
-              letterSpacing: '-0.025em', color: 'var(--text-primary)',
-              marginBottom: 32,
-            }}>
-              One business outcome, followed across every boundary it crosses.
+        <div className="approach-split">
+          <div className="approach-copy">
+            <h2 className="text-display-lg approach-title">
+              One business outcome,<br />
+              followed across<br />
+              every boundary<br />
+              it crosses.
             </h2>
-
-            {/* Paragraph 1 */}
-            <p style={{
-              fontFamily: 'var(--font-body)', fontWeight: 400,
-              fontSize: 'clamp(14px, 1.2vw, 16px)', lineHeight: 1.65,
-              color: 'var(--text-secondary)', marginBottom: 20,
-            }}>
-              Galactos brings together product systems thinking, workflow and
-              service design, AI and agent architecture, context and retrieval
-              systems, evaluation, and operational analysis. The Diagnostic
-              follows one business outcome horizontally through the models,
-              integrations, systems, and human handoffs involved.
+            <p className="approach-lede">
+              Galactos investigates one consequential workflow horizontally across models, integrations, systems, and human handoffs so the real business outcome can be verified.
             </p>
-
-            {/* Paragraph 2: slightly emphasized */}
-            <p style={{
-              fontFamily: 'var(--font-body)', fontWeight: 500,
-              fontSize: 'clamp(14px, 1.2vw, 16px)', lineHeight: 1.65,
-              color: 'var(--text-primary)', marginBottom: 20,
-              paddingLeft: 16,
-              borderLeft: '2px solid var(--border-strong)',
-            }}>
-              The work complements the teams that build and operate those
-              components by giving the entire business obligation one bounded
-              unit of investigation.
-            </p>
-
-            {/* Paragraph 3 */}
-            <p style={{
-              fontFamily: 'var(--font-body)', fontWeight: 400,
-              fontSize: 'clamp(14px, 1.2vw, 16px)', lineHeight: 1.65,
-              color: 'var(--text-secondary)', marginBottom: 32,
-            }}>
-              Findings distinguish observed evidence from interpretation, document
-              gaps where evidence is unavailable, and prioritize the smallest set
-              of repairs and tests needed to increase confidence.
-            </p>
-
-            {/* Optional link */}
-            <div style={{ marginBottom: 0 }}>
-              <a
-                href="#"
-                aria-label="View an illustrative diagnostic (placeholder)"
-                style={{
-                  fontFamily: 'var(--font-body)', fontWeight: 400,
-                  fontSize: 13, color: 'var(--text-muted)',
-                  textDecoration: 'underline',
-                  textDecorationColor: 'var(--border-default)',
-                  textUnderlineOffset: 3,
-                  letterSpacing: '0.01em',
-                  opacity: 0.7,
-                  transition: 'opacity 140ms ease, color 140ms ease',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.opacity = '1';
-                  (e.currentTarget as HTMLElement).style.color = 'var(--text-secondary)';
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.opacity = '0.7';
-                  (e.currentTarget as HTMLElement).style.color = 'var(--text-muted)';
-                }}
-              >
-                View an illustrative diagnostic →
-              </a>
-            </div>
-
-            {/* Mobile: metadata appears after copy */}
-            <div className="s10-mobile-meta" style={{ marginTop: 40 }}>
-              <MetadataList />
-            </div>
+            <ul className="approach-points">
+              {POINTS.map((point) => (
+                <li key={point.title}>
+                  <span className="approach-point-icon">
+                    <PointIcon name={point.icon} />
+                  </span>
+                  <span>
+                    <strong>{point.title}</strong>
+                    <span>{point.body}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
           </div>
-
-          {/* ── Right: image + metadata ── */}
-          <div className="s10-right" ref={imageRef}>
-            {/* Desktop image */}
-            <div className="s10-desktop-img">
-              <ImagePanel drawn={pathDrawn} />
-            </div>
-
-            {/* Desktop metadata */}
-            <div className="s10-desktop-meta">
-              <MetadataList />
-            </div>
-          </div>
-
+          <WorkflowDiagram />
         </div>
-
-        {/* Pull quote — full width, generous spacing */}
-        <div style={{
-          paddingTop: 96,
-          paddingBottom: 104,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 20,
-        }}>
-          {/* Flanking hairlines */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 24, width: '100%', maxWidth: 560 }}>
-            <div style={{ flex: 1, height: 1, backgroundColor: 'var(--border-default)' }} />
-            <blockquote style={{
-              fontFamily: 'var(--font-display)', fontWeight: 700,
-              fontSize: 'clamp(28px, 4vw, 56px)', lineHeight: 1.05,
-              letterSpacing: '-0.03em', color: 'var(--text-primary)',
-              textAlign: 'center', margin: 0, flex: '0 1 auto',
-            }}>
-              See what's actually happening.
-            </blockquote>
-            <div style={{ flex: 1, height: 1, backgroundColor: 'var(--border-default)' }} />
-          </div>
-        </div>
-
       </div>
-
       <style>{`
-        .s10-grid {
-          display: grid;
-          grid-template-columns: 55fr 45fr;
-          gap: 0 80px;
-          align-items: start;
+        .approach {
+          background: var(--surface-base);
+          color: var(--text-primary);
+          padding: clamp(72px, 8vw, 112px) 0;
         }
-        .s10-right {
+        .approach .container-editorial {
+          max-width: 1560px;
+        }
+        .approach-frame { display: flex; flex-direction: column; gap: 40px; }
+        .approach-kicker {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          font-family: var(--font-body);
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--text-primary);
+        }
+        .approach-kicker-rule { flex: 1; height: 1px; background: var(--text-primary); }
+        .approach-split {
+          display: grid;
+          grid-template-columns: minmax(420px, 460px) minmax(0, 1fr);
+          column-gap: 40px;
+          align-items: center;
+        }
+        .approach-copy {
+          border-right: 1px solid var(--border-default);
+          padding-right: 32px;
+          min-height: 100%;
+        }
+        .approach-title {
+          font-size: clamp(36px, 3.15vw, 48px);
+          line-height: 1.02;
+          letter-spacing: -0.032em;
+          margin: 0 0 22px;
+          max-width: 11.2ch;
+        }
+        .approach-lede {
+          margin: 0 0 36px;
+          max-width: 46ch;
+          font-size: 15px;
+          line-height: 1.55;
+          color: var(--text-secondary);
+        }
+        .approach-points {
+          list-style: none;
+          margin: 28px 0 0;
+          padding: 0;
           display: flex;
           flex-direction: column;
-          gap: 0;
-          height: 100%;
+          gap: 18px;
         }
-        .s10-desktop-img {
+        .approach-points li {
+          display: grid;
+          grid-template-columns: 40px 1fr;
+          gap: 12px;
+          align-items: center;
+        }
+        .approach-point-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+          background: var(--surface-raised);
+          border: 1px solid var(--border-default);
+          display: grid;
+          place-items: center;
+          color: var(--text-primary);
+          box-shadow: 0 1px 2px color-mix(in srgb, var(--text-primary) 6%, transparent);
+        }
+        .approach-points strong {
           display: block;
-          flex: 1;
+          font-family: var(--font-body);
+          font-size: 15px;
+          font-weight: 650;
         }
-        .s10-mobile-img-wrap { display: none; }
-        .s10-desktop-meta { display: block; }
-        .s10-mobile-meta { display: none; }
-
-        @media (max-width: 860px) {
-          .s10-grid { grid-template-columns: 1fr; gap: 40px 0; }
-          .s10-mobile-img-wrap { display: block; margin-bottom: 40px; }
-          .s10-desktop-img { display: none; }
-          .s10-desktop-meta { display: none; }
-          .s10-mobile-meta { display: block; }
+        .approach-points li span span {
+          display: block;
+          margin-top: 2px;
+          font-size: 13px;
+          line-height: 1.4;
+          color: var(--text-secondary);
+        }
+        .approach-diagram {
+          min-width: 0;
+          color: var(--text-primary);
+          padding-top: 4px;
+        }
+        .approach-banner {
+          display: block;
+          width: max-content;
+          margin: 0 auto -12px;
+          background: color-mix(in srgb, var(--accent-divergence) 18%, var(--surface-raised));
+          color: var(--text-primary);
+          border-radius: 999px;
+          padding: 8px 16px;
+          font-size: 14px;
+          font-weight: 600;
+          position: relative;
+          z-index: 1;
+        }
+        .approach-track {
+          display: flex;
+          align-items: flex-start;
+          width: 100%;
+        }
+        .approach-slots {
+          position: relative;
+          flex: 1 1 auto;
+          display: flex;
+          align-items: flex-start;
+          min-width: 0;
+        }
+        .approach-rail { display: none; }
+        .approach-node {
+          position: relative;
+          flex: 1 1 0;
+          min-width: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .approach-node::before,
+        .approach-link::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 1.5px;
+          background: var(--text-primary);
+        }
+        .approach-node:first-child::before { left: 50%; }
+        .approach-node:last-child::before { right: 50%; }
+        .approach-link { position: relative; }
+        .approach-link::before { top: -18px; }
+        .approach-link--arrow::before { display: none; }
+        .approach-stem {
+          width: 1.5px;
+          height: 18px;
+          background: var(--text-primary);
+        }
+        .approach-card {
+          width: min(100%, 112px);
+          height: 116px;
+          border: 1.5px solid var(--text-primary);
+          border-radius: 14px;
+          background: var(--surface-base);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding: 10px 8px;
+          text-align: center;
+          font-size: 14px;
+          font-weight: 650;
+          line-height: 1.15;
+        }
+        .approach-link {
+          flex: 1 1 32px;
+          min-width: 28px;
+          max-width: 48px;
+          height: 116px;
+          margin-top: 18px;
+          display: flex;
+          align-items: center;
+        }
+        .approach-link i {
+          flex: 1 1 auto;
+          height: 0;
+          border-top: 1.5px solid var(--text-primary);
+        }
+        .approach-link--dashed i { border-top-style: dashed; }
+        .approach-dot {
+          width: 10px;
+          height: 10px;
+          flex: 0 0 10px;
+          border-radius: 50%;
+          background: var(--accent-divergence);
+        }
+        .approach-link--arrow { flex: 0 0 40px; width: 40px; max-width: 40px; }
+        .approach-arrow {
+          width: 0;
+          height: 0;
+          flex: 0 0 auto;
+          border-top: 7px solid transparent;
+          border-bottom: 7px solid transparent;
+          border-left: 10px solid var(--text-primary);
+        }
+        .approach-fault {
+          margin-top: 22px;
+          max-width: 11ch;
+          min-height: 34px;
+          font-size: 13px;
+          line-height: 1.25;
+          text-align: center;
+          color: var(--text-secondary);
+          font-style: italic;
+          position: relative;
+        }
+        .approach-fault::before {
+          content: "";
+          position: absolute;
+          left: 50%;
+          top: -22px;
+          height: 20px;
+          border-left: 1.5px dashed color-mix(in srgb, var(--text-primary) 45%, transparent);
+        }
+        .approach-fault--spacer::before { display: none; }
+        .approach-fault--return::after {
+          content: "";
+          position: absolute;
+          left: calc(50% - 4px);
+          top: -24px;
+          border-left: 4px solid transparent;
+          border-right: 4px solid transparent;
+          border-bottom: 6px solid color-mix(in srgb, var(--text-primary) 55%, transparent);
+        }
+        .approach-finish {
+          position: relative;
+          flex: 0 0 148px;
+          width: 148px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding-top: 11px;
+        }
+        .approach-verified-label {
+          position: absolute;
+          top: -42px;
+          left: 0;
+          right: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 2px;
+          font-size: 13px;
+          line-height: 1.15;
+          text-align: center;
+          color: color-mix(in srgb, var(--accent-success) 70%, var(--text-primary));
+        }
+        .approach-outcome {
+          width: 148px;
+          height: 132px;
+          border-radius: 16px;
+          border: 1.5px solid color-mix(in srgb, var(--accent-success) 62%, var(--text-primary));
+          background: color-mix(in srgb, var(--accent-success) 16%, var(--surface-base));
+          color: color-mix(in srgb, var(--accent-success) 68%, var(--text-primary));
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 12px;
+          text-align: center;
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 1.15;
+        }
+        @media (max-width: 980px) {
+          .approach-split { grid-template-columns: 1fr; }
+          .approach-copy { border-right: 0; padding-right: 0; }
+          .approach-banner { white-space: normal; }
+          .approach-diagram { overflow-x: auto; }
+          .approach-track { min-width: 760px; }
         }
       `}</style>
     </section>
-  );
+  )
 }

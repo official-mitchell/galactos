@@ -1,3 +1,4 @@
+<!-- 2026-11-06: MAX-1029 checked §10.1 items 1–7. Items 8–9 stay open (share preview, Search Console). Privacy and Terms routes exist; counsel copy is not invented. -->
 <!-- 2026-11-04: MAX-1011 checked §4.1 items 1–12. Item 13 owner read-through stays open. §4.2–4.6 untouched. -->
 <!-- 2026-11-03: MAX-998 checked §2.2 items 1–6 and 8. Item 7 stays open (inline fontSize remains). -->
 <!-- 2026-11-03: MAX-1003 checked §2.7 items 1–6. Hero plate item cancelled. Phase 2 go-when stays open. -->
@@ -713,13 +714,13 @@ Produces: prerendered, accessible, measured, deployed site
 Requires: Phase 9 complete
 Produces: static HTML per route, share previews
 
-- [ ] 1. Static prerender of `/`, `/privacy`, `/terms` (D1)
-- [ ] 2. `<title>`, meta description, canonical, OG/Twitter tags; OG image 1200×630
-- [ ] 3. `robots.txt`, `sitemap.xml`, 404 page, favicon set
-- [ ] 4. JSON-LD `Organization` (no invented attributes)
-- [ ] 5. Canonical definition (Appendix C, Machine Legibility): one sentence naming what Galactos does, using the owner's chosen category term, stored once as `CANONICAL_DEFINITION` in `copy.ts`. Reuse it verbatim in the hero lede or footer microline, `<meta name="description">`, `og:description`, and JSON-LD `description`. Default candidate: the footer microline (9.3 item 1). Owner approves the sentence before launch; do not invent a new category name here
-- [ ] 6. 🧪 Test: the built HTML of `/` contains the `CANONICAL_DEFINITION` string identically in meta description, `og:description`, JSON-LD, and the visible page
-- [ ] 7. 🧪 View-source of `/` contains H1 + all section copy
+- [x] 1. Static prerender of `/`, `/privacy`, `/terms` (D1)
+- [x] 2. `<title>`, meta description, canonical, OG/Twitter tags; OG image 1200×630
+- [x] 3. `robots.txt`, `sitemap.xml`, 404 page, favicon set
+- [x] 4. JSON-LD `Organization` (no invented attributes)
+- [x] 5. Canonical definition (Appendix C, Machine Legibility): one sentence naming what Galactos does, using the owner's chosen category term, stored once as `CANONICAL_DEFINITION` in `copy.ts`. Reuse it verbatim in the hero lede or footer microline, `<meta name="description">`, `og:description`, and JSON-LD `description`. Default candidate: the footer microline (9.3 item 1). Owner approves the sentence before launch; do not invent a new category name here
+- [x] 6. 🧪 Test: the built HTML of `/` contains the `CANONICAL_DEFINITION` string identically in meta description, `og:description`, JSON-LD, and the visible page
+- [x] 7. 🧪 View-source of `/` contains H1 + all section copy
 - [ ] 8. 🔍 Share-preview check for OG image
 - [ ] 9. 👁 Search Console / equivalent property verified
 

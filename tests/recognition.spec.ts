@@ -1,4 +1,5 @@
-/* 2026-11-05: MAX-1022. Final motion holds the first card open and the meter on the outcome X. */
+/* 2026-11-05: The open card does not change the section height.
+   2026-11-05: MAX-1022. Final motion holds the first card open and the meter on the outcome X. */
 import { expect, test } from '@playwright/test'
 
 test('recognition final motion matches the settled mock state', async ({ page }) => {
@@ -30,4 +31,16 @@ test('recognition sticky column stays above the footer', async ({ page }) => {
     })
     expect(overlap).toBeLessThanOrEqual(1)
   }
+})
+
+test('recognition card list keeps its height when another card opens', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 })
+  await page.goto('/?motion=reduced')
+  await page.waitForFunction(() => document.documentElement.dataset.galactosReady === 'true')
+  const section = page.locator('#section-diagnostic')
+  await section.scrollIntoViewIfNeeded()
+  const before = await section.evaluate((el) => el.getBoundingClientRect().height)
+  await section.locator('.recognition-card').nth(4).getByRole('button').click()
+  const after = await section.evaluate((el) => el.getBoundingClientRect().height)
+  expect(Math.abs(after - before)).toBeLessThanOrEqual(1)
 })

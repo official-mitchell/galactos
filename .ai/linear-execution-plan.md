@@ -6,7 +6,7 @@
 
 Source of truth for *what* to do: Linear project [Galactos](https://linear.app/maximus-automaton/project/galactos-6d8a77546ba7/overview) (`P-MAX-21`). This file is the *order* agents must follow.
 
-Project status as of 2026-11-05: **Phase 8 Act IV is in progress** by owner override (MAX-1023, MAX-1024, MAX-1025). Phase 7 Act III is implemented (MAX-1022). The recognition mock replaces the old six-state trace. Owner visual sign-off is unsigned. Phase 6 Act II is implemented. MAX-1020 and MAX-1021 are Done in Linear. Phase 4 shell is on `main`. MAX-1011 through MAX-1016 are merged. Owner read-through (§4.1 item 13) and the live seam scroll (§4.4 item 5) stay open. Evidence footnotes are not mounted on narrative sections yet. Act I waits on those reviews. Phase 3 gate was met the same day. Phase 1 gate was met on 2026-11-03. Phase 0 is Done. Do not invent a parallel track around the gates below.
+Project status as of 2026-11-05: **Phase 8 Act IV is implemented** (MAX-1023, MAX-1024, MAX-1025 are Done). Mocks are still pending, so shot-versus-mock and owner visual sign-off stay open. Phase 9 is next. Phase 7 Act III is implemented (MAX-1022). The recognition mock replaces the old six-state trace. Owner visual sign-off is unsigned. Phase 6 Act II is implemented. MAX-1020 and MAX-1021 are Done in Linear. Phase 4 shell is on `main`. MAX-1011 through MAX-1016 are merged. Owner read-through (§4.1 item 13) and the live seam scroll (§4.4 item 5) stay open. Evidence footnotes are not mounted on narrative sections yet. Act I waits on those reviews. Phase 3 gate was met the same day. Phase 1 gate was met on 2026-11-03. Phase 0 is Done. Do not invent a parallel track around the gates below.
 
 ## Labels that control worktrees
 
@@ -163,6 +163,7 @@ The first pair to start is MAX-994 and MAX-995.
 
 ## Changelog (this file)
 
+- 2026-11-05: Phase 8 closed. MAX-1023, MAX-1024, and MAX-1025 marked Done. Mock compare and owner visual sign-off stay open.
 - 2026-11-05: Phase 7 implementation closed against galactos-mock-recognition.png. Owner visual sign-off stays open.
 - 2026-11-05: Owner overrode the Phase 7 gate. Phase 8 Act IV started: MAX-1023, MAX-1024, MAX-1025.
 - 2026-11-05: Phase 7 started. MAX-1022 recognition instrument is in progress. Mock for §7.1 is still pending.

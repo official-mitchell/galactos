@@ -1,4 +1,5 @@
-/* 2026-11-05: Rebuilt #section-divergence to match galactos-mock-component-success.png.
+/* 2026-11-05: Widened the copy column and enlarged the step cards, icons, and nodes.
+   2026-11-05: Rebuilt #section-divergence to match galactos-mock-component-success.png.
    Top: headline plus five step cards ending in the unresolved authoritative state.
    Bottom: “Component success is not evidence of end-to-end completion,” with reported vs verified lanes.
    2026-11-04: MAX-1014 placeholder for S2's first node. The hero drop ends on this x.
@@ -186,7 +187,7 @@ export function FailureState() {
             {STEPS.map((step, index) => (
               <li key={step.title} className={`divergence__step${step.kind === 'anomaly' ? ' divergence__step--alert' : ''}`}>
                 <article className="divergence__card">
-                  <Icon name={step.icon} size={16} className="divergence__icon" />
+                  <Icon name={step.icon} size={26} className="divergence__icon" />
                   <h3>{step.title}</h3>
                   <p>{step.body}</p>
                 </article>
@@ -219,7 +220,7 @@ export function FailureState() {
               {REPORTED.map((step, index) => (
                 <li key={step.title} className="contrast__step">
                   <article className="contrast__card">
-                    <Icon name={step.icon} size={16} className="divergence__icon" />
+                    <Icon name={step.icon} size={26} className="divergence__icon" />
                     <h3>{step.title}</h3>
                     <p>{step.body}</p>
                   </article>
@@ -266,7 +267,7 @@ export function FailureState() {
         }
         .divergence__frame {
           display: grid;
-          grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+          grid-template-columns: minmax(280px, 460px) minmax(0, 1fr);
           gap: 40px;
           align-items: start;
         }
@@ -283,7 +284,7 @@ export function FailureState() {
           margin: 0;
           font-family: var(--font-display);
           font-weight: 700;
-          font-size: clamp(28px, 2.6vw, 40px);
+          font-size: clamp(32px, 3vw, 48px);
           line-height: 1.12;
           letter-spacing: -0.02em;
           color: var(--text-primary);
@@ -300,8 +301,9 @@ export function FailureState() {
           gap: 12px;
         }
         .divergence__card {
-          min-height: 148px;
-          padding: 14px 12px 16px;
+          height: 210px;
+          box-sizing: border-box;
+          padding: 18px 14px 18px;
           background: var(--surface-raised);
           border: 1px solid var(--border-default);
           border-radius: 8px;
@@ -317,7 +319,7 @@ export function FailureState() {
         .divergence__card h3 {
           margin: 0 0 8px;
           font-family: var(--font-body);
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 600;
           line-height: 1.3;
           color: var(--text-primary);
@@ -360,8 +362,8 @@ export function FailureState() {
           border-left: 6px solid var(--text-primary);
         }
         .divergence-node {
-          width: 28px;
-          height: 28px;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
           display: inline-flex;
           align-items: center;
@@ -419,7 +421,7 @@ export function FailureState() {
         }
         .contrast {
           display: grid;
-          grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+          grid-template-columns: minmax(280px, 460px) minmax(0, 1fr);
           gap: 36px;
           align-items: start;
           margin-top: 72px;
@@ -428,7 +430,7 @@ export function FailureState() {
         }
         .contrast__body {
           margin: 16px 0 0;
-          max-width: 36ch;
+          max-width: 46ch;
           font-family: var(--font-body);
           font-size: 15px;
           line-height: 1.55;
@@ -453,7 +455,8 @@ export function FailureState() {
           gap: 10px;
         }
         .contrast__card {
-          min-height: 112px;
+          height: 168px;
+          box-sizing: border-box;
           padding: 12px;
           background: var(--surface-raised);
           border: 1px solid var(--border-default);
@@ -463,7 +466,7 @@ export function FailureState() {
         .contrast__card h3 {
           margin: 0 0 6px;
           font-family: var(--font-body);
-          font-size: 13px;
+          font-size: 15px;
           font-weight: 600;
           color: var(--text-primary);
         }
@@ -472,7 +475,7 @@ export function FailureState() {
         .contrast__terminal p {
           margin: 0;
           font-family: var(--font-body);
-          font-size: 12px;
+          font-size: 14px;
           line-height: 1.4;
           color: var(--text-secondary);
         }
